@@ -1,8 +1,23 @@
 import React from 'react';
+import styled from 'styled-components';
 import FilterButton from '../FilterButton/FilterButton';
 
-export default function FilterPanel() {
-  return <div className='FilterPanelCont'>
+const FilterPanelCont = styled.div`
+  position: relative;
+  // right: ${props => props.right}px;
+  opacity: ${props => props.opacity};
+  z-index: ${props => props.zIndex};
+  transition: all 0.3s ease-in-out;
+`;
+
+export default function FilterPanel({
+  right=null,
+  zIndex=null,
+  opacity=null
+}) {
+  return <FilterPanelCont className='FilterPanelCont'
+      right={right} opacity={opacity} zIndex={zIndex}
+    >
     <div className='FilterSection'>
       <h5>Personality</h5>
       <div>
@@ -36,5 +51,5 @@ export default function FilterPanel() {
     </div>
     <button>Clear</button>
     <button>Apply</button>
-  </div>;
+  </FilterPanelCont>;
 }
