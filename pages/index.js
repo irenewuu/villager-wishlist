@@ -6,9 +6,6 @@ import Header from '../comps/Header'
 
 export default function Home() {
   return (
-    <div>
-      <Header text='prop is text'/>
-      <BottomNav />
-    </div>
+    <div></div>
   )
 }
