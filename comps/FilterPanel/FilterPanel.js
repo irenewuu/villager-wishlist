@@ -3,20 +3,19 @@ import styled from 'styled-components';
 import FilterButton from '../FilterButton/FilterButton';
 
 const FilterPanelCont = styled.div`
-  position: relative;
-  // right: ${props => props.right}px;
+  position: absolute;
+  top: 120px;
   opacity: ${props => props.opacity};
   z-index: ${props => props.zIndex};
-  transition: all 0.3s ease-in-out;
+  // transition: all 0.5s ease-in-out 0.2s;
 `;
 
 export default function FilterPanel({
-  right=null,
   zIndex=null,
   opacity=null
 }) {
   return <FilterPanelCont className='FilterPanelCont'
-      right={right} opacity={opacity} zIndex={zIndex}
+      opacity={opacity} zIndex={zIndex}
     >
     <div className='FilterSection'>
       <h5>Personality</h5>

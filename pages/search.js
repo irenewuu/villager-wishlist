@@ -1,11 +1,13 @@
+import React, {useState} from 'react';
 import styled from 'styled-components'
 import BottomNav from '../comps/BottomNav'
 import Header from '../comps/Header'
 import Villagers from '../comps/Villagers'
+import SearchBar from '../comps/SearchBar/SearchBar'
 
 const Cont = styled.div`
   width: 100vw; 
-  height: 100vh;
+  // height: 100vh;
   display:flex;
   align-items:center;
   flex-direction: column;
@@ -16,12 +18,32 @@ const VillCont = styled.div`
   grid-template-columns: 1fr 1fr;
   // grid-column-gap: 5%;
 `;
+const BackgroundBlur = styled.div`
+  position: absolute;
+  z-index: ${props => props.zIndex};
+  opacity: ${props => props.opacity};
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,.25);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease-in-out;
+`;
 
 export default function Search() {
+  const [opacity, setOpacity] = useState(false);
+  const [zIndex, setzIndex] = useState(false);
+
+  const HandleClick2 = () => {
+        setOpacity(!opacity)
+        setzIndex(!zIndex)
+  }
   return (
     <Cont>
       <Header text='header prop is text'/>
-      <Header text='search bar here'/>
+      <SearchBar />
+      {/* <BackgroundBlur 
+        opacity = {opacity ? 1 : 0}
+        zIndex = {zIndex ? 5 : -10}/> */}
       <VillCont>
         <Villagers 
         width='148px'
