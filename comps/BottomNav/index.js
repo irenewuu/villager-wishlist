@@ -11,6 +11,9 @@ const NavCont = styled.div`
   border-radius: 25px;
   display: flex;
   justify-content: space-evenly;
+  position: fixed;
+  bottom:20px;
+  box-shadow: -4px -4px 30px #FFFFFF;
 `;
 const IconCont = styled.a`
   display: flex;
