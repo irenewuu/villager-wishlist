@@ -9,17 +9,18 @@ height: 220px;
 background-color: ${props=>props.bgcolor};
 display:flex;
 justify-content:center;
-align-items:center;
 border-radius: 20px;
 flex-direction: column;
 margin-top: 20px;
-
-
+position: relative;
+align-items: center;
+margin-left:${props=>props.marginL};
+margin-right:${props=>props.marginR};
 `
 
 const InnerCont = styled.div`
-width: 140px;
-height: 140px;
+width: ${props=>props.innerWidth};
+height: ${props=>props.innerHeight};
 background-color: ${props=>props.innercolor};
 border-radius: 50%;
 display:flex;
@@ -37,8 +38,8 @@ margin-bottom: 15px;
 
 const StarCont = styled(StarFill)`
  color:#F7D359;
- position: relative;
- left: 140px;
+ position: absolute;
+ left: ${props=>props.left};
  top: 15px;
  width: 25px;
 `
@@ -56,14 +57,25 @@ const Villagers = ({
     bgcolor="#FCF8E4",
     innercolor="#F8EEBB",
     name="Apple",
-    src="/apple.png"
+    src="/apple.png",
+    left="300px",
+    innerWidth="140px",
+    innerHeight = "140px",
+    marginL ="0px",
+    marginR ="0px"
+
 }) => {
   return <Cont 
         width={width} 
-        bgcolor={bgcolor} 
+        bgcolor={bgcolor}
+        marginL={marginL}
+        marginR={marginR} 
         >
-      <StarCont/>
-      <InnerCont innercolor={innercolor}> 
+      <StarCont left={left}/>
+      <InnerCont 
+        innercolor={innercolor}
+        innerWidth={innerWidth}
+        innerHeight={innerHeight}> 
           <Img src={src}/>
      </InnerCont>
       <Name>{name}</Name>
