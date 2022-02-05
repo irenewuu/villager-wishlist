@@ -12,6 +12,10 @@
 // @import './components/BlankFile.scss';
 
 
+@import './components/SearchBar.scss';
+@import './components/FilterPanel.scss';
+@import './components/FilterButton.scss';
+
 // containers, removing defaults =====================================================
 * {
   margin: 0;
@@ -26,7 +30,7 @@ html, #__next, body {
 // text styleguide ====================================================================
 h1, h2, h3, h4, h5, h6,
 span, label, pre, li,
-p, a, button, input[type="button"] { 
+p, a, button, input { 
   font-family: 'Dongle', sans-serif;
   font-weight: 400;
   line-height: 0.75;
@@ -41,7 +45,7 @@ h4 { font-size: 36px; }
 h5 { font-size: 30px; }
 h6 { font-size: 26px; }
 
-p, a, label, button, input[type="button"] 
+p, a, label, button, input
 { font-size: 26px; }
 
 
