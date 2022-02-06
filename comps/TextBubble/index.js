@@ -7,6 +7,8 @@ const Container = styled.div`
     justify-content:center;
     align-items:center;
     font-family: Dongle;
+    position: relative;
+    margin:10px;
 `
 
 const Cont = styled.div`
@@ -24,8 +26,8 @@ const Name = styled.div`
     color: #FFF;
     font-style: normal;
     font-weight: normal;
-    font-size: 27px;
-    padding: 0px  10px 0px 10px;
+    font-size: 25px;
+    padding: 0px 10px 0px 10px;
     border-radius: 25px;
     position:absolute;
     top:0px;
@@ -43,8 +45,8 @@ const TopBubble = styled.div`
     flex-direction: column;
     justify-content:center;
     align-items:center;
-    width: 293px;
-    height: 61px;
+    width: 300px;
+    height: 70px;
     left: 1650px;
     top: 508px;
     background: #FFFAE4;
@@ -52,7 +54,7 @@ const TopBubble = styled.div`
 `
 const BottomBubble = styled.div`
     width: 275px;
-    height: 30px;
+    height: 40px;
     background: #FFFAE4;
     border-radius: 41.5px;
 `
@@ -68,7 +70,7 @@ const Text = styled.p`
     color: #86765C;
     max-width: 70%;
     z-index: 100;
-    padding-top:30px;
+    padding-top:50px;
 `
 
 const TextBubble = ({
