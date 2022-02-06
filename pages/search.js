@@ -1,9 +1,14 @@
 import React, {useState} from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import ax from 'axios';
+
+import { useSearchFilter } from '../utils/provider';
 import BottomNav from '../comps/BottomNav'
 import Header from '../comps/Header'
 import Villagers from '../comps/Villagers'
 import SearchBar from '../comps/SearchBar/SearchBar'
+
+var timer = null;
 
 const Cont = styled.div`
   width: 100vw; 
@@ -16,36 +21,52 @@ const Cont = styled.div`
 const VillCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  // grid-column-gap: 5%;
-`;
-const BackgroundBlur = styled.div`
-  position: absolute;
-  z-index: ${props => props.zIndex};
-  opacity: ${props => props.opacity};
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0,0,0,.25);
-  backdrop-filter: blur(4px);
-  transition: all 0.3s ease-in-out;
+  grid-column-gap: 8px;
 `;
 
 export default function Search() {
-  const [opacity, setOpacity] = useState(false);
-  const [zIndex, setzIndex] = useState(false);
+  const [data, setData] = useState([]);
+  const {searchFilter, setSearchFilter} = useSearchFilter();
+  const inputFilter = async (txt) => {
+    console.log(txt)
 
-  const HandleClick2 = () => {
-        setOpacity(!opacity)
-        setzIndex(!zIndex)
+    if(timer) {
+      clearTimeout(timer);
+      timer=null;
+    }
+
+    if(timer === null) {
+      timer = setTimeout(async()=>{
+        console.log("async call");
+        const res = await ax.get('/api/villagers', {
+          params: {
+            txt:txt,
+            
+          }
+        })
+
+        console.log(res.data);
+        setData(res.data);
+        timer = null;
+      }, 1000);
+    }
+
   }
+
   return (
     <Cont>
       <Header text='header prop is text'/>
-      <SearchBar />
-      {/* <BackgroundBlur 
-        opacity = {opacity ? 1 : 0}
-        zIndex = {zIndex ? 5 : -10}/> */}
+      <SearchBar onTextChange={(e)=>{inputFilter(e.target.value)}}/>
+
       <VillCont>
+      {data.map((o,i)=>
         <Villagers 
+          width='148px'
+          left='110px'
+          innerWidth="114px"
+          innerHeight="114px"
+          name={o.name} />)}
+        {/* <Villagers 
         width='148px'
         left='110px'
         innerWidth="114px"
@@ -112,7 +133,7 @@ export default function Search() {
           innerWidth="114px"
           innerHeight="114px"
           marginL='5px'
-          />
+          /> */}
       </VillCont>
       <BottomNav searchColor='#474747' searchTextColor='#474747'/>
     </Cont>
