@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styled from 'styled-components';
+import TextBubble from '../comps/TextBubble';
 
 const Background = styled.body`
 background-color: #DEF1EE;
@@ -20,7 +21,7 @@ export default function Welcome() {
   return <Background>
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
-    {/* insert bubble component  */}
+      <TextBubble></TextBubble>
     {/* insert button component  */}
     
 
