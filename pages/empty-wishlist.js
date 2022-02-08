@@ -24,7 +24,7 @@ margin-top: 100px,
 
 
 
-export default function emptyVillagerPage() {
+export default function emptyWishlist() {
     return <Background>
         <Cont>
         <TextBubble text="You have no villagers in your wishlist."></TextBubble>
