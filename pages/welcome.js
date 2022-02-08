@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styled from 'styled-components';
 import TextBubble from '../comps/TextBubble';
+import Button from '../comps/Button';
+import {useRouter} from 'next/router';
 
 const Background = styled.body`
 background-color: #DEF1EE;
@@ -14,15 +16,30 @@ align-items: center;
 
 const Photo = styled.img`
 padding: 15px;
-margin-top: 15px;
+margin-top: 20px;
+`
+
+const ButtonCont = styled.div`
+margin-top: 70px;
+
+`
+
+const BubbleCont = styled.div`
+margin-top: 30px;
 `
 
 export default function Welcome() {
+  const router = useRouter();
   return <Background>
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
-      <TextBubble></TextBubble>
-    {/* insert button component  */}
+      <BubbleCont>
+        <TextBubble></TextBubble>
+      </BubbleCont>
+      <ButtonCont onClick={()=>router.push("/empty-wishlist")}>
+        <Button></Button>
+      </ButtonCont>
+      
     
 
   </Background>
