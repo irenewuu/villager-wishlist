@@ -31,20 +31,20 @@ const Information = styled.div`
 max-width:100%;
 min-height:550px; 
 display:flex;
-justify-content:center;
 flex-direction:column;
-align-items:center;
+justify-content:center;
 `
 //Characteristics
 
 const Try = styled.div`
 display:flex;
-align-content:center;
-flex-direction:row;
-gap:300px;
+justify-content:space-around;
+gap:100px;
 `
 
-const Title = styled.h4`
+const Title = styled.h5`
+display:flex;
+text-align:left;
 margin-top:50px
 `
 const Charac = styled.p`
