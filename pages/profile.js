@@ -1,12 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Popup from '../comps/popup'
-import Avatar from '../comps/Profile'
+import Face from '../comps/Profile'
+
 
 export default function Profile() {
   return (
     <div>
-        <Avatar></Avatar>
+        {/* <Popup></Popup> */}
+        <Face></Face>
     </div>
   )
 }

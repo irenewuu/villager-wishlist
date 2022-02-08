@@ -5,7 +5,7 @@ import Image from 'next/image';
 const Square = styled.div`
 background-color:#FFFAE4;
 min-width:100%;
-min-height:100$;
+min-height:100%;
 display:flex;
 flex-direction:column;
 border-radius:22.7px;
@@ -46,7 +46,7 @@ export default function Popup({
             Added to wishlist!
       </HeaderTitle>
       <Description>
-          Your Villager has been {add} to you wishlist.
+          Your Villager has been {add="remove"} to you wishlist.
       </Description>
       <Picture>
         <Image
