@@ -1,0 +1,17 @@
+.FilterPanelCont {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 350px;
+    padding: 24px;
+    border-radius: 20px;
+    background-color: white;
+    filter: drop-shadow(3px 4px 9px rgba(0, 0, 0, 0.07));
+
+    h5 {
+        color: $deepgreen;
+    }
+}
+
+.FilterSection {
+    margin-bottom: 24px;
+}
