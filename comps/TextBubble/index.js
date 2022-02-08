@@ -7,6 +7,7 @@ const Container = styled.div`
     justify-content:center;
     align-items:center;
     font-family: Dongle;
+    margin-top: 12px;
 `
 
 const Cont = styled.div`
