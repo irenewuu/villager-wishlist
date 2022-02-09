@@ -22,6 +22,7 @@ const VillCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 8px;
+  margin-bottom: 100px;
 `;
 
 export default function Search() {
@@ -29,6 +30,7 @@ export default function Search() {
   const {searchFilter, setSearchFilter} = useSearchFilter();
   const inputFilter = async (txt) => {
     console.log(txt)
+    // var txt = txt.toLowerCase();
 
     if(timer) {
       clearTimeout(timer);
@@ -56,16 +58,22 @@ export default function Search() {
   return (
     <Cont>
       <Header text='header prop is text'/>
-      <SearchBar onTextChange={(e)=>{inputFilter(e.target.value)}}/>
+      <SearchBar onTextChange={(e)=>{inputFilter(e.target.value)}} />
 
       <VillCont>
-      {data.map((o,i)=>
+      {data && data.length > 0 ? (
+      data.map((o,i)=>
         <Villagers 
+          key={o.id}
+          src={o.image_url}
           width='148px'
           left='110px'
           innerWidth="114px"
           innerHeight="114px"
-          name={o.name} />)}
+          name={o.name} />)) : (
+            // place a text bubble here? + on page load put all villagers first
+            <h6>Villagers not found!</h6>
+          )}
         {/* <Villagers 
         width='148px'
         left='110px'
