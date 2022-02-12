@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Villagers from '../comps/Villagers'
 import styled from 'styled-components'
+import BottomNav from '../comps/BottomNav'
 
 const Cont = styled.div`
 width: 100vw; 
@@ -16,6 +17,10 @@ font-size: 47px;
 color: #08847C;
 margin-bottom: 20px;
 `
+
+
+
+
 export default function Wishlist() {
   return (
     <Cont>
@@ -31,6 +36,14 @@ export default function Wishlist() {
         bgcolor="#DEF1EF"
         innercolor="#A4D8D4"
         />
+
+  <BottomNav></BottomNav>
+    
+
+        
     </Cont>
+
+    
+
   )
 }

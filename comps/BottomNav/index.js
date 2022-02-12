@@ -8,14 +8,16 @@ import react, {useState} from 'react';
 
 const NavCont = styled.div`
   background-color: #98C7A4;
-  width: 327px;
-  height: 52px;
-  border-radius: 25px;
+  width: 350px;
+  height: 58px;
+  border-radius: 50px;
   display: flex;
   justify-content: space-evenly;
   position: fixed;
   bottom:20px;
   box-shadow: -4px -4px 30px #FFFFFF;
+  
+  
 `;
 const IconCont = styled.a`
   display: flex;

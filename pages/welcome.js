@@ -5,13 +5,15 @@ import TextBubble from '../comps/TextBubble';
 import Button from '../comps/Button';
 import {useRouter} from 'next/router';
 
-const Background = styled.body`
+const Background = styled.div`
 background-color: #DEF1EE;
 display: flex;
 flex-direction: column;
 justify-content: center;
 text-align: center; 
 align-items: center;
+width: 100vw;
+height: 100vh;
 `
 
 const Photo = styled.img`

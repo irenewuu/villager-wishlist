@@ -8,26 +8,30 @@ import BottomNav from '../comps/BottomNav'
 import {useRouter} from 'next/router';
 
 
-const Background = styled.body`
+const Background = styled.div`
 background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: center;
 text-align: center; 
 align-items: center;
+width: 100vw;
+height: 100vh;
+
 `
 
 const HeaderCont = styled.div`
-margin-top: 30px;
+    
 
 `
 
 const BubbleCont = styled.div`
-margin-top: 50px;
+margin-top: 80px;
+margin-bottom: 60px;
 `
 
 const ButtonCont = styled.div`
-margin-top: 30px;
+
 `
 
 const Photo = styled.img`
