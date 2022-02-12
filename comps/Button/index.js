@@ -5,7 +5,6 @@ const Cont = styled.div`
     display:flex;
     justify-content:center;
     align-items:center;
-    text-align: center;
     font-family: Dongle;
     background-color: #8CC8A2;
     border-radius: 62px;
@@ -13,9 +12,9 @@ const Cont = styled.div`
     height: 50px;
 `
 const Text = styled.p`
-    font-family: Dongle;
-    font-size: 28px;
+    font-size: 33px;
     color: white;
+    margin-top: 5px;
 
 `
 

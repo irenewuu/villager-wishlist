@@ -4,7 +4,6 @@ import ax from 'axios';
 
 import { usePersonality } from '../utils/provider';
 import BottomNav from '../comps/BottomNav'
-import Header from '../comps/Header'
 import Villagers from '../comps/Villagers'
 import SearchBar from '../comps/SearchBar/SearchBar'
 
@@ -17,7 +16,9 @@ const Cont = styled.div`
   align-items:center;
   flex-direction: column;
 `
+const Header = styled.h2`
 
+`
 const VillCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
