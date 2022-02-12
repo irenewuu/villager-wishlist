@@ -1,21 +1,22 @@
-import {useContext, createContext, useState} from 'react';
+import React, {useContext, createContext, useState} from 'react';
 
 const initialStates = {
-    searchFilter: "",
-    setSearchFilter:()=>{},
+    personalityFilter: '',
+    setPersonalityFilter:()=>{},
 }
 
 const MyContext = createContext(initialStates);
 
 export default function AppProvider({children}) {
-    const [searchFilter, setSearchFilter] = useState(initialStates.searchFilter);
 
-    return <MyContext.Provider value = {{searchFilter, setSearchFilter}}>
+    const [personalityFilter, setPersonalityFilter] = useState(initialStates.personalityFilter);
+
+    return <MyContext.Provider value = {{searchFilter, setSearchFilter, personalityFilter, setPersonalityFilter}}>
         {children}
     </MyContext.Provider>
 }
 
-export function useSearchFilter() {
-    const {searchFIlter, setSearchFilter} = useContext(MyContext);
+export function usePersonality() {
+    const {personalityFilter, setPersonalityFilter} = useContext(MyContext);
     return useContext(MyContext);
 }

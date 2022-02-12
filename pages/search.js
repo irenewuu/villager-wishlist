@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import ax from 'axios';
 
-import { useSearchFilter } from '../utils/provider';
+import { usePersonality } from '../utils/provider';
 import BottomNav from '../comps/BottomNav'
 import Header from '../comps/Header'
 import Villagers from '../comps/Villagers'
@@ -27,7 +27,7 @@ const VillCont = styled.div`
 
 export default function Search() {
   const [data, setData] = useState([]);
-  const {searchFilter, setSearchFilter} = useSearchFilter();
+  const {personalityFilter, setPersonalityFilter} = usePersonality();
   const inputFilter = async (txt) => {
     console.log(txt)
     // var txt = txt.toLowerCase();
@@ -43,10 +43,12 @@ export default function Search() {
         const res = await ax.get('/api/villagers', {
           params: {
             txt:txt,
-            
+            personality: personalityFilter,
+            // gender: gender,
+
           }
         })
-
+        console.log(personalityFilter)
         console.log(res.data);
         setData(res.data);
         timer = null;
@@ -58,7 +60,8 @@ export default function Search() {
   return (
     <Cont>
       <Header text='header prop is text'/>
-      <SearchBar onTextChange={(e)=>{inputFilter(e.target.value)}} />
+      <SearchBar onTextChange={(e)=>{inputFilter(e.target.value)}} 
+      />
 
       <VillCont>
       {data && data.length > 0 ? (

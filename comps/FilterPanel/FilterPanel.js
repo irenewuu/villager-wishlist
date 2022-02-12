@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styled from 'styled-components';
+import {usePersonality} from "../../utils/provider";
 import FilterButton from '../FilterButton/FilterButton';
+import ax from "axios";
 
 const FilterPanelCont = styled.div`
   position: absolute;
@@ -32,6 +34,11 @@ export default function FilterPanel({
   const [sbLazy, setSBLazy] = useState(false);
   const [sbJock, setSBJock] = useState(false);
   const [sbNormal, setSBNormal] = useState(false);
+  
+  //useContext
+  const {personalityFilter, setPersonalityFilter} = usePersonality("");
+  console.log(personalityFilter)
+
   //hobbies
   const [sbEducation, setSBEducation] = useState(false);
   const [sbMusic, setSBMusic] = useState(false);
@@ -40,78 +47,89 @@ export default function FilterPanel({
   const [sbFitness, setSBFitness] = useState(false);
   const [sbPlay, setSBPlay] = useState(false);
   
+  const [hobby, setHobby] = useState('');
+  
   const [sbMale, setSBMale] = useState(false);
   const [sbFemale, setSBFemale] = useState(false);
+  const [gender, setGender] = useState('');
 
 
   const personalities = [
     {personality: "Sisterly", state: sbSisterly, setStateFunction: function() {
         setSBSisterly(!sbSisterly)
-        console.log("Sisterly Personality" + !sbSisterly)
+        console.log("Sisterly Personality " + !sbSisterly)
+        setPersonalityFilter("Sister")
       }},
     {personality: "Peppy", state: sbPeppy, setStateFunction: function() {
         setSBPeppy(!sbPeppy)
-        console.log("Peppy Personality" + !sbPeppy)
+        setPersonalityFilter("Peppy")
+        console.log("Peppy Personality " + !sbPeppy)
       }},
     {personality: "Snooty", state: sbSnooty, setStateFunction: function() {
         setSBSnooty(!sbSnooty)
-        console.log("Snooty Personality" + !sbSnooty)
+        setPersonalityFilter("Snooty")
+        console.log("Snooty Personality " + !sbSnooty)
       }},
     {personality: "Smug", state: sbSmug, setStateFunction: function() {
-      setSBSmug(!sbSmug)
-      console.log("Smug Personality" + !sbSmug)
+        setSBSmug(!sbSmug)
+        setPersonalityFilter("Smug")
+        console.log("Smug Personality " + !sbSmug)
     }},
     {personality: "Cranky", state: sbCranky, setStateFunction: function() {
-      setSBCranky(!sbCranky)
-      console.log("Cranky Personality" + !sbCranky)
+        setSBCranky(!sbCranky)
+        setPersonalityFilter("Cranky")
+        console.log("Cranky Personality " + !sbCranky)
     }},
     {personality: "Lazy", state: sbLazy, setStateFunction: function() {
-      setSBLazy(!sbLazy)
-      console.log("Lazy Personality" + !sbLazy)
+        setSBLazy(!sbLazy)
+        setPersonalityFilter("Lazy")
+        console.log("Lazy Personality " + !sbLazy)
     }},
     {personality: "Jock", state: sbJock, setStateFunction: function() {
-      setSBJock(!sbJock)
-      console.log("Jock Personality" + !sbJock)
+        setSBJock(!sbJock)
+        setPersonalityFilter("Jock")
+        console.log("Jock Personality " + !sbJock)
     }},
     {personality: "Normal", state: sbNormal, setStateFunction: function() {
-      setSBNormal(!sbNormal)
-      console.log("Normal Personality" + !sbNormal)
+        setSBNormal(!sbNormal)
+        setPersonalityFilter("Normal")
+        console.log("Normal Personality " + !sbNormal)
     }},
   ]
   const hobbies = [
-    {hobby: "Education", state: sbEducation, setStateFunction: function() {
-        setSBEducation(!sbEducation)
-        console.log("Education Hobby" + !sbEducation)
+    {hobby: "Education", state: hobby, setStateFunction: function() {
+        setHobby("Education")
+        console.log("Education Hobby " + hobby)
       }},
-    {hobby: "Music", state: sbMusic, setStateFunction: function() {
-        setSBMusic(!sbMusic)
-        console.log("Music Hobby" + !sbMusic)
+    {hobby: "Music", state: hobby, setStateFunction: function() {
+        setHobby("Music")
+        console.log("Music Hobby " + hobby)
       }},
-    {hobby: "Fashion", state: sbFashion, setStateFunction: function() {
-        setSBFashion(!sbEducation)
-        console.log("Fashion Hobby" + !sbFashion)
+    {hobby: "Fashion", state: hobby, setStateFunction: function() {
+        setHobby("Fashion")
+        console.log("Fashion Hobby " + hobby)
       }},
-    {hobby: "Nature", state: sbNature, setStateFunction: function() {
-      setSBNature(!sbNature)
-      console.log("Nature Hobby" + !sbNature)
+    {hobby: "Nature", state: hobby, setStateFunction: function() {
+        setHobby("Nature")
+        console.log("Nature Hobby " + hobby)
     }},
-    {hobby: "Fitness", state: sbFitness, setStateFunction: function() {
-      setSBFitness(!sbFitness)
-      console.log("Fitness Hobby" + !sbFitness)
+    {hobby: "Fitness", state: hobby, setStateFunction: function() {
+        setHobby("Fitness")
+        console.log("Fitness Hobby " + hobby)
     }},
-    {hobby: "Play", state: sbPlay, setStateFunction: function() {
-      setSBPlay(!sbPlay)
-      console.log("Play Hobby" + !sbPlay)
+    {hobby: "Play", state: hobby, setStateFunction: function() {
+        setHobby("Play")
+        console.log("Play Hobby " + hobby)
     }},
   ]
   const genders = [
-    {gender: "Male", state: sbMale, setStateFunction: function() {
-        setSBMale(!sbMale)
-        console.log("Male Gender" + !sbMale)
+    {gender: "Male", state: gender, setStateFunction: function() {
+        setGender("Male")
+        console.log("Male Gender " + gender)
       }},
-    {gender: "Female", state: sbFemale, setStateFunction: function() {
-        setSBFemale(!sbFemale)
-        console.log("Female Gender" + !sbFemale)
+    {gender: "Female", state: gender, setStateFunction: function() {
+        setGender("Female")
+        console.log("Female Gender " + gender)
       }}
   ]
 
