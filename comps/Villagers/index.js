@@ -16,6 +16,7 @@ position: relative;
 align-items: center;
 margin-left:${props=>props.marginL};
 margin-right:${props=>props.marginR};
+
 `
 
 const InnerCont = styled.div`
@@ -25,6 +26,7 @@ background-color: ${props=>props.innercolor};
 border-radius: 50%;
 display:flex;
 justify-content:center;
+margin-top: 5px;
 
 `
 
@@ -32,7 +34,7 @@ const Name = styled.p`
 font-size: 40px;
 margin-top: 10px;
 color:#474747;
-margin-bottom: 15px;
+
 
 `
 

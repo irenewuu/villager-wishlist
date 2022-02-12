@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components'
 import BottomNav from '../comps/BottomNav'
-import Header from '../comps/Header'
 import Villagers from '../comps/Villagers'
 import SearchBar from '../comps/SearchBar/SearchBar'
 
@@ -12,7 +11,9 @@ const Cont = styled.div`
   align-items:center;
   flex-direction: column;
 `
+const Header = styled.h2`
 
+`
 const VillCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -39,7 +40,7 @@ export default function Search() {
   }
   return (
     <Cont>
-      <Header text='header prop is text'/>
+
       <SearchBar />
       {/* <BackgroundBlur 
         opacity = {opacity ? 1 : 0}
