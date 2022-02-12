@@ -64,7 +64,8 @@ const Villagers = ({
     innerWidth="140px",
     innerHeight = "140px",
     marginL ="0px",
-    marginR ="0px"
+    marginR ="0px",
+    onClick =()=>{}
 
 }) => {
   return <Cont 
@@ -72,6 +73,7 @@ const Villagers = ({
         bgcolor={bgcolor}
         marginL={marginL}
         marginR={marginR} 
+        onClick={onClick}
         >
       <StarCont left={left}/>
       <InnerCont 

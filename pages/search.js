@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import ax from 'axios';
 
@@ -29,6 +30,8 @@ const VillCont = styled.div`
 export default function Search() {
   const [data, setData] = useState([]);
   const {personalityFilter, setPersonalityFilter} = usePersonality();
+  const router = useRouter();
+
   const inputFilter = async (txt) => {
     console.log(txt)
     // var txt = txt.toLowerCase();
@@ -68,7 +71,8 @@ export default function Search() {
       {data && data.length > 0 ? (
       data.map((o,i)=>
         <Villagers 
-          key={o.id}
+          onClick={()=>{router.push(`/profile/${o.number}`)}}
+          key={o.number}
           src={o.image_url}
           width='148px'
           left='110px'

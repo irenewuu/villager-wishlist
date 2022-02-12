@@ -7,6 +7,15 @@ export default async function handler(req, res) {
     const {txt, name, personality, gender} = req.query;
     // const {personalityFilter, setPersonalityFilter} = usePersonality();
 
+    // for(var i = 0; i >= acnh.length; i++) {
+    //     acnh._id = i++
+    //     acnh.push(_id)
+    // }
+    // const acnhList = {
+    //     ...acnh    
+    // };
+    // acnhList[x.number] = acnh.x.number;
+
     var lists = [];
 
     if(txt) {
