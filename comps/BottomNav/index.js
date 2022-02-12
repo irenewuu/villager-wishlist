@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Leaf} from "@styled-icons/remix-line/Leaf";
 import {SearchOutline} from '@styled-icons/evaicons-outline/SearchOutline';
 import {Settings2Outline} from '@styled-icons/evaicons-outline/Settings2Outline';
 import {useRouter} from 'next/router';
-import react, {useState} from 'react';
 
 const NavCont = styled.div`
   background-color: #98C7A4;
