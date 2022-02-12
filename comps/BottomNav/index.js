@@ -22,6 +22,15 @@ const IconCont = styled.a`
   flex-direction: column;
   align-items: center;
   justify-content: center;  
+
+  :hover{
+    p {
+      color:#474747;
+    }
+    .icon{
+      color:#474747;
+    }
+  }
 `;
 
 const LeafIcon = styled(Leaf)`
@@ -29,30 +38,18 @@ const LeafIcon = styled(Leaf)`
   width: 20px;
   height: 20px;
   margin-bottom:3px;
-  
-  :hover{
-    color: #474747;
-  }
 `;
 const SearchIcon = styled(SearchOutline)`
   color: ${props=>props.searchColor};
   width: 20px;
   height: 20px;
   margin-bottom:3px;
-
-  :hover{
-    color: #474747;
-  }
 `;
 const SettingIcon = styled(Settings2Outline)`
   color: ${props=>props.settingColor};
   width: 20px;
   height: 20px;
   margin-bottom:3px;
-
-  :hover{
-    color: #474747;
-  }
 `;
 
 const LeafText = styled.p`
@@ -81,13 +78,12 @@ export default function BottomNav({
   routeToWishlist="/wishlist",
   routeToSearch="/search",
   routeToSetting="/settings",
-}) 
-
-{
+}) {
   const router = useRouter();
   return <NavCont className='BottomNav'>
     <IconCont>
       <LeafIcon
+        className='icon'
         onClick={()=>router.push(routeToWishlist)}
         color={leafColor}/>
       <LeafText
@@ -96,6 +92,7 @@ export default function BottomNav({
     </IconCont>
     <IconCont>
       <SearchIcon 
+        className='icon'
         onClick={()=>router.push(routeToSearch)}
         color={searchColor} />
       <SearchText
@@ -104,6 +101,7 @@ export default function BottomNav({
     </IconCont>
     <IconCont>
       <SettingIcon
+        className='icon'
         onClick={()=>router.push(routeToSetting)} 
         color={settingColor} />
       <SettingText
