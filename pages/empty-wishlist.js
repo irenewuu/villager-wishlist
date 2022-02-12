@@ -42,7 +42,6 @@ margin-top: 15px;
 
 
 export default function emptyWishlist() {
-
     const router = useRouter();
 
     return <Background>
@@ -59,4 +58,4 @@ export default function emptyWishlist() {
             <BottomNav></BottomNav>
     </Background>
 
-}
+};
