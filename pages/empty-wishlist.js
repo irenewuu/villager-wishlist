@@ -51,9 +51,8 @@ export default function emptyWishlist() {
             <BubbleCont>
                 <TextBubble text="You have no villagers in your wishlist."></TextBubble>
             </BubbleCont>
-            <ButtonCont onClick={()=>router.push("/search")}>
-                <Button text='Find Villagers'></Button>
-            </ButtonCont>
+                <Button text='Find Villagers' onClick={()=>router.push("/search")}></Button>
+
             <Photo src="/find-villagers.svg"></Photo>
             <BottomNav></BottomNav>
     </Background>
