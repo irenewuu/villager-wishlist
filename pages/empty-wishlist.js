@@ -1,33 +1,37 @@
-import Head from 'next/head'
+import React from "react";
+import { useRouter } from 'next/router';
 import Image from 'next/image'
 import styled from 'styled-components';
 import TextBubble from '../comps/TextBubble';
 import Header from '../comps/Header'
 import Button from '../comps/Button';
 import BottomNav from '../comps/BottomNav'
-import {useRouter} from 'next/router';
 
 
-const Background = styled.body`
+const Background = styled.div`
 background-color: white;
 display: flex;
 flex-direction: column;
 justify-content: center;
 text-align: center; 
 align-items: center;
+width: 100vw;
+height: 100vh;
+
 `
 
 const HeaderCont = styled.div`
-margin-top: 30px;
+    
 
 `
 
 const BubbleCont = styled.div`
-margin-top: 50px;
+margin-top: 80px;
+margin-bottom: 60px;
 `
 
 const ButtonCont = styled.div`
-margin-top: 30px;
+
 `
 
 const Photo = styled.img`
@@ -39,6 +43,7 @@ margin-top: 15px;
 
 export default function emptyWishlist() {
     const router = useRouter();
+
     return <Background>
             <HeaderCont>
                 <Header text="Your Villager Wishlist"></Header>
@@ -46,13 +51,10 @@ export default function emptyWishlist() {
             <BubbleCont>
                 <TextBubble text="You have no villagers in your wishlist."></TextBubble>
             </BubbleCont>
-            <ButtonCont onClick={()=>router.push("/search")}>
-                <Button text='Find Villagers'></Button>
-            </ButtonCont>
+                <Button text='Find Villagers' onClick={()=>router.push("/search")}></Button>
+
             <Photo src="/find-villagers.svg"></Photo>
             <BottomNav></BottomNav>
-
-
     </Background>
 
-}
+};

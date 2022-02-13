@@ -18,7 +18,9 @@ const BackgroundBlur = styled.div`
   transition: all 0.5s ease-in-out;
 `;
 
-export default function SearchBar() {
+export default function SearchBar({
+  onTextChange=()=>{}
+}) {
   
   const [filterState, setFilterState] = useState(false);
   const [opacity, setOpacity] = useState(false);
@@ -32,7 +34,10 @@ export default function SearchBar() {
 
   return <div className='SearchFilterCont'>
     <div className='SearchbarCont'>
-      <input type="text" className='Searchbar' placeholder='search'/>
+      <input type="text" 
+        className='Searchbar' 
+        placeholder='search'
+        onChange={onTextChange} />
       <img src={SearchIcon.src} alt="filter icon" />
       <img src={FilterIcon.src} alt="filter icon" onClick={()=>{
         HandleClick()
