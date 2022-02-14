@@ -42,9 +42,10 @@ export default function Profile({
           catchPhrase={villager.phrase}
           gender={villager.gender}
           personality={villager.personality}
-          hobby={villager.nh_details.hobby}
-          birthday={villager.birthday_month + " " + villager.birthday_day}
-          favSong={villager.nh_details.house_music}
+          
+          hobby={villager.nh_details === null ? "n/a" : villager.nh_details.hobby}
+          birthday={villager.birthday_month  == "" && villager.birthday_day == "" ? "n/a" : villager.birthday_month + " " + villager.birthday_day}
+          favSong={villager.house_music === null ? "n/a" : villager.house_music}
         /> 
         <BottomNav/>
         
