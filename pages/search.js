@@ -82,9 +82,7 @@ export default function Search() {
                 innerHeight="114px"
                 name={o.name}
               />
-            ))
-          // else show villagers up to 50
-          : acnhList.slice(0, 50).map((o, i) => (
+            )) : acnhList.slice(0, 50).map((o, i) => (
               <Villagers
                 onClick={() => {
                   router.push(`/profile/${o._id}`);
@@ -96,8 +94,7 @@ export default function Search() {
                 innerWidth="114px"
                 innerHeight="114px"
                 name={o.name}
-              />
-            ))}
+              />))}
       </VillagersCont>
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />

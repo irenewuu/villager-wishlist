@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Star} from '@styled-icons/bootstrap/Star'
 import {StarFill} from '@styled-icons/bootstrap/StarFill'
@@ -16,6 +16,7 @@ position: relative;
 align-items: center;
 margin-left:${props=>props.marginL};
 margin-right:${props=>props.marginR};
+user-select: none;
 
 `
 
@@ -38,12 +39,22 @@ color:#474747;
 
 `
 
-const StarCont = styled(StarFill)`
+const StarFilled = styled(StarFill)`
  color:#F7D359;
  position: absolute;
  left: ${props=>props.left};
  top: 15px;
  width: 25px;
+ z-index: 1000;
+`
+const StarOutline = styled(Star)`
+ color:#F7D359;
+ position: absolute;
+ left: ${props=>props.left};
+ background: transparent;
+ top: 15px;
+ width: 25px;
+ z-index: 1000;
 `
 
 
@@ -68,15 +79,33 @@ const Villagers = ({
     onClick =()=>{}
 
 }) => {
+
+  const [star, setStar] = useState(false)
+
+
+
   return <Cont 
         width={width} 
         bgcolor={bgcolor}
         marginL={marginL}
         marginR={marginR} 
-        onClick={onClick}
         >
-      <StarCont left={left}/>
+      {/* <StarCont left={left} onClick={()=>{
+
+      }} /> */}
+      {
+        !star ? <StarOutline left={left} onClick={()=>{
+          setStar(true)
+          console.log("filled the star")
+        }} /> : <StarFilled  left={left} onClick={()=>{
+          setStar(false)
+          console.log("unfilled the star")
+        }} />
+      }
+
+
       <InnerCont 
+        onClick={onClick}
         innercolor={innercolor}
         innerWidth={innerWidth}
         innerHeight={innerHeight}> 
