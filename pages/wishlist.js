@@ -26,6 +26,7 @@ export default function Wishlist() {
     <Cont>
 
       <Heading>Your Villager Checklist</Heading>
+      
         <Villagers/>
         <Villagers
         bgcolor="#D4ECD3"

@@ -11,6 +11,7 @@ const Cont = styled.div`
   height: 100%;
   display:flex;
   flex-direction: column;
+  box-sizing: border-box;
 `
 // TOP CONT
 
@@ -70,8 +71,10 @@ const ProfileInfo = styled.div`
 `
 
 const Details = styled.div`
+  box-sizing: border-box;
   display:flex;
-  min-width: 414px;
+  width: 100%;
+  max-width: 375px;
   padding-top: 25px;
   padding-bottom: 25px;
   justify-content:space-between;
@@ -82,17 +85,17 @@ const Details = styled.div`
 const Key = styled.p`
   color:#474747;
   font-size: 28px;
-  margin-left: 50px;
-  width: 150px;
+  margin-left: 36px;
+  width: 110px;
   text-align: left;
 
 `
-
 const Value = styled.p`
   color:#474747;
   font-weight: 300;
   font-size: 28px;
   width: 150px;
+  margin-left: 48px;
   text-align: left;
   word-wrap: wrap;
 `
@@ -136,29 +139,26 @@ return <Cont>
   <CatchPhrase>"{catchPhrase}"</CatchPhrase>
 </ProfileCont>
 
-
-
 <ProfileInfo>
+  <Details>
+    <Key>Gender</Key> <Value>{gender}</Value>
+  </Details>
 
-<Details>
-<Key>Gender</Key> <Value>{gender}</Value>
-</Details>
+  <Details>
+    <Key>Personality</Key> <Value>{personality}</Value>
+  </Details>
 
-<Details>
-<Key>Personality</Key> <Value>{personality}</Value>
-</Details>
+  <Details>
+    <Key>Hobby</Key> <Value>{hobby}</Value>
+  </Details>
 
-<Details>
-<Key>Hobby</Key> <Value>{hobby}</Value>
-</Details>
+  <Details>
+    <Key>Birthday</Key> <Value>{birthday}</Value>
+  </Details>
 
-<Details>
-<Key>Birthday</Key> <Value>{birthday}</Value>
-</Details>
-
-<Details>
-<Key>Favorite Song</Key> <Value>{favSong}</Value>
-</Details>
+  <Details>
+    <Key>Favorite Song</Key> <Value>{favSong}</Value>
+  </Details>
 
 
 
