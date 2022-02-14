@@ -82,28 +82,31 @@ export default function BottomNav({
 }) {
   const router = useRouter();
   return <NavCont className='BottomNav'>
-    <IconCont>
+    <IconCont
+      onClick={()=>router.push(routeToWishlist)}
+    >
       <LeafIcon
         className='icon'
-        onClick={()=>router.push(routeToWishlist)}
         color={leafColor}/>
       <LeafText
         leafTextColor={leafTextColor}
         >Wishlist</LeafText>
     </IconCont>
-    <IconCont>
+    <IconCont
+      onClick={()=>router.push(routeToSearch)}
+    >
       <SearchIcon 
         className='icon'
-        onClick={()=>router.push(routeToSearch)}
         color={searchColor} />
       <SearchText
         searchTextColor={searchTextColor}
         >Search</SearchText>
     </IconCont>
-    <IconCont>
+    <IconCont
+      onClick={()=>router.push(routeToSetting)} 
+    >
       <SettingIcon
         className='icon'
-        onClick={()=>router.push(routeToSetting)} 
         color={settingColor} />
       <SettingText
       settingTextColor ={settingTextColor}
