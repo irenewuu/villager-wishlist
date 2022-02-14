@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
-
-
 import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline'
+import {useRouter} from 'next/router';
+
 
 const Cont = styled.div`
 width: 100%;
@@ -113,13 +113,14 @@ font-size: 30px;
 
 
 const ProfileComp = ({
-  
+  routeToSearch="/search",
 
 }) => {
+  const router = useRouter();
 return <Cont>
 <ProfileCont>
   <NameCont>
-  <Back/>
+  <Back onClick={()=>router.push(routeToSearch)}/>
   <Name>Apple</Name>
 
   </NameCont>
