@@ -5,6 +5,7 @@ export function filtering(
     config={name:null, personality:null, gender:null}){
 
     const {name, personality, gender} = config;
+
     
     if(name || personality || gender) {
 
@@ -28,10 +29,13 @@ export function filtering(
     }
 }
 
-// const acnh = require('./ac-villagers.json')
+const acnh = require('./ac-villagers.json')
 
-// var villagers = filtering(acnh, {
+// const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
+
+
+// var villagers = filtering(acnhList, {
 //     personality: "Cranky"
 // })
 
-// console.log(villagers)
+// console.log(villagers.slice(0,2))

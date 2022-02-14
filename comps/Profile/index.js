@@ -48,7 +48,8 @@ const ProfileImg = styled.div`
   border-radius: 50%;
 `
 const Img = styled.img`
-  width: 100px;
+  width: 140px;
+  height: 140px;
   object-fit: contain;
   padding: 15px;
 `
@@ -79,6 +80,8 @@ const Key = styled.p`
   color:#474747;
   font-size: 28px;
   margin-left: 50px;
+  width: 150px;
+  text-align: left;
 
 `
 
@@ -86,7 +89,9 @@ const Value = styled.p`
   color:#474747;
   font-weight: 300;
   font-size: 28px;
-  margin-right: 80px;
+  width: 150px;
+  text-align: left;
+  word-wrap: wrap;
 `
 
 const WishButton = styled.button`
@@ -103,12 +108,12 @@ const WishButton = styled.button`
 const ProfileComp = ({
   name="Apple",
   villagerImg="/apple.png",
-  catchPhrase="Bo Beep",
-  gender="Male",
-  personality="Snooty",
-  hobby="Fashion",
-  birthday="11/26",
-  favSong="KK.Soul"
+  catchPhrase="n/a",
+  gender="n/a",
+  personality="n/a",
+  hobby="n/a",
+  birthday="n/a",
+  favSong="n/a"
 
 
 }) => {

@@ -1,25 +1,18 @@
 import { filtering } from './../../utils/func'
 import acnh from './../../utils/ac-villagers.json'
-import { usePersonality } from '../../utils/provider';
 
 export default async function handler(req, res) {
     console.log(req.query, req.body)
     const {txt, name, personality, gender} = req.query;
-    // const {personalityFilter, setPersonalityFilter} = usePersonality();
 
-    // for(var i = 0; i >= acnh.length; i++) {
-    //     acnh._id = i++
-    //     acnh.push(_id)
-    // }
-    // const acnhList = {
-    //     ...acnh    
-    // };
-    // acnhList[x.number] = acnh.x.number;
+    
+    const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
+
 
     var lists = [];
 
     if(txt) {
-        lists = filtering(acnh, {
+        lists = filtering(acnhList, {
             name: txt,
             personality: personality
 
@@ -27,6 +20,6 @@ export default async function handler(req, res) {
         })
     }
 
-    lists = lists.slice(0,50);
+    lists = lists.slice(0,5);
     res.status(200).json(lists);
 }

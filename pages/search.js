@@ -71,8 +71,8 @@ export default function Search() {
       {data && data.length > 0 ? (
       data.map((o,i)=>
         <Villagers 
-          onClick={()=>{router.push(`/profile/${o.number}`)}}
-          key={o.number}
+          onClick={()=>{router.push(`/profile/${o._id}`)}}
+          key={o._id}
           src={o.image_url}
           width='148px'
           left='110px'
