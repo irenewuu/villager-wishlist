@@ -23,8 +23,12 @@
 }
 
 html, #__next, body {
+  overflow-x: hidden;
   box-sizing: border-box;
   width: 100%;
+}
+body {
+  margin-bottom: 100px;
 }
 
 // text styleguide ====================================================================
