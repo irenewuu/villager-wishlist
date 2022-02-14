@@ -1,26 +1,24 @@
-import React, {useState} from 'react';
-import { useRouter } from 'next/router';
-import styled from 'styled-components';
-import ax from 'axios';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import styled from "styled-components";
+import ax from "axios";
 
-import { usePersonality } from '../utils/provider';
-import BottomNav from '../comps/BottomNav'
-import Villagers from '../comps/Villagers'
-import SearchBar from '../comps/SearchBar/SearchBar'
+import { usePersonality } from "../utils/provider";
+import BottomNav from "../comps/BottomNav";
+import Villagers from "../comps/Villagers";
+import SearchBar from "../comps/SearchBar/SearchBar";
+import acnh from '../utils/ac-villagers.json'
 
 var timer = null;
 
 const Cont = styled.div`
-  width: 100vw; 
-  // height: 100vh;
-  display:flex;
-  align-items:center;
+  width: 100vw;
+  display: flex;
+  align-items: center;
   flex-direction: column;
-`
-const Header = styled.h2`
+`;
 
-`
-const VillCont = styled.div`
+const VillagersCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 8px;
@@ -28,130 +26,81 @@ const VillCont = styled.div`
 `;
 
 export default function Search() {
+  const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
   const [data, setData] = useState([]);
-  const {personalityFilter, setPersonalityFilter} = usePersonality();
+  const { personalityFilter, setPersonalityFilter } = usePersonality();
   const router = useRouter();
 
   const inputFilter = async (txt) => {
-    console.log(txt)
+    console.log(txt);
     // var txt = txt.toLowerCase();
 
-    if(timer) {
+    if (timer) {
       clearTimeout(timer);
-      timer=null;
+      timer = null;
     }
 
-    if(timer === null) {
-      timer = setTimeout(async()=>{
+    if (timer === null) {
+      timer = setTimeout(async () => {
         console.log("async call");
-        const res = await ax.get('/api/villagers', {
+        const res = await ax.get("/api/villagers", {
           params: {
-            txt:txt,
+            txt: txt,
             personality: personalityFilter,
             // gender: gender,
-
-          }
-        })
-        console.log(personalityFilter)
+          },
+        });
+        console.log(personalityFilter);
         console.log(res.data);
         setData(res.data);
         timer = null;
       }, 1000);
     }
-
-  }
+  };
 
   return (
     <Cont>
-      <Header text='header prop is text'/>
-      <SearchBar onTextChange={(e)=>{inputFilter(e.target.value)}} 
+      <SearchBar
+        onTextChange={(e) => {
+          inputFilter(e.target.value);
+        }}
       />
 
-      <VillCont>
-      {data && data.length > 0 ? (
-      data.map((o,i)=>
-        <Villagers 
-          onClick={()=>{router.push(`/profile/${o._id}`)}}
-          key={o._id}
-          src={o.image_url}
-          width='148px'
-          left='110px'
-          innerWidth="114px"
-          innerHeight="114px"
-          name={o.name} />)) : (
-            // place a text bubble here? + on page load put all villagers first
-            <h6>Villagers not found!</h6>
-          )}
-        {/* <Villagers 
-        width='148px'
-        left='110px'
-        innerWidth="114px"
-        innerHeight="114px"
-        marginR='5px'
-        />
-        <Villagers
-          width='148px'
-          left='110px'
-          bgcolor="#D4ECD3"
-          innercolor="#88C9A1"
-          innerWidth="114px"
-          innerHeight="114px"
-          marginL='5px'
-          />
-        <Villagers
-          width='148px'
-          left='110px'
-          bgcolor="#DEF1EF"
-          innercolor="#A4D8D4"
-          innerWidth="114px"
-          innerHeight="114px"
-          marginR='5px'
-          />
-        <Villagers
-          width='148px'
-          left='110px'
-          bgcolor="#FFE6E8"
-          innercolor="#FEBDC3"
-          innerWidth="114px"
-          innerHeight="114px"
-          marginL='5px'
-          />
-        <Villagers 
-        width='148px'
-        left='110px'
-        innerWidth="114px"
-        innerHeight="114px"
-        marginR='5px'
-        />
-        <Villagers
-          width='148px'
-          left='110px'
-          bgcolor="#D4ECD3"
-          innercolor="#88C9A1"
-          innerWidth="114px"
-          innerHeight="114px"
-          marginL='5px'
-          />
-            <Villagers
-          width='148px'
-          left='110px'
-          bgcolor="#DEF1EF"
-          innercolor="#A4D8D4"
-          innerWidth="114px"
-          innerHeight="114px"
-          marginR='5px'
-          />
-        <Villagers
-          width='148px'
-          left='110px'
-          bgcolor="#FFE6E8"
-          innercolor="#FEBDC3"
-          innerWidth="114px"
-          innerHeight="114px"
-          marginL='5px'
-          /> */}
-      </VillCont>
-      <BottomNav searchColor='#474747' searchTextColor='#474747'/>
+      <VillagersCont>
+        {/* if data is true and data.length is greater than 0, show the list of villagers */}
+        {data && data.length > 0
+          ? data.map((o, i) => (
+              <Villagers
+                onClick={() => {
+                  router.push(`/profile/${o._id}`);
+                }}
+                key={o._id}
+                src={o.image_url}
+                width="148px"
+                left="110px"
+                innerWidth="114px"
+                innerHeight="114px"
+                name={o.name}
+              />
+            ))
+          // else show villagers up to 50
+          : acnhList.slice(0, 50).map((o, i) => (
+              <Villagers
+                onClick={() => {
+                  router.push(`/profile/${o._id}`);
+                }}
+                key={o._id}
+                src={o.image_url}
+                width="148px"
+                left="110px"
+                innerWidth="114px"
+                innerHeight="114px"
+                name={o.name}
+              />
+            ))}
+      </VillagersCont>
+
+      <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </Cont>
-  )
+  );
 }
