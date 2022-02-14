@@ -20,6 +20,6 @@ export default async function handler(req, res) {
         })
     }
 
-    lists = lists.slice(0,5);
+    lists = lists.slice(0,50);
     res.status(200).json(lists);
 }

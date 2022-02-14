@@ -20,7 +20,8 @@ const Heading =styled.h1`
 `
 const Photo = styled.img`
 padding: 15px;
-margin-top: 15px;
+margin-top:1px;
+
 `
 
 export default function Settings() {

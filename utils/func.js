@@ -29,7 +29,7 @@ export function filtering(
     }
 }
 
-const acnh = require('./ac-villagers.json')
+// const acnh = require('./ac-villagers.json')
 
 // const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
 
