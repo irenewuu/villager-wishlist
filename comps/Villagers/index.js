@@ -16,7 +16,7 @@ const Cont = styled.div`
   align-items: center;
   margin-left:${props=>props.marginL};
   margin-right:${props=>props.marginR};
-
+  
 `
 
 const InnerCont = styled.div`
