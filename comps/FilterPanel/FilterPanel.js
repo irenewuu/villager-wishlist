@@ -1,8 +1,6 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {usePersonality} from "../../utils/provider";
-import FilterButton from '../FilterButton/FilterButton';
-import ax from "axios";
 
 const FilterPanelCont = styled.div`
   position: absolute;
@@ -61,42 +59,74 @@ export default function FilterPanel({
     {personality: "Sisterly", state: sbSisterly, setStateFunction: function() {
         setSBSisterly(!sbSisterly)
         console.log("Sisterly Personality " + !sbSisterly)
-        setPersonalityFilter("sister")
+        if(sbSisterly) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("sister");
+        }
       }},
     {personality: "Peppy", state: sbPeppy, setStateFunction: function() {
         setSBPeppy(!sbPeppy)
-        setPersonalityFilter("Peppy")
         console.log("Peppy Personality " + !sbPeppy)
+        if(sbPeppy) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Peppy")
+        }
       }},
     {personality: "Snooty", state: sbSnooty, setStateFunction: function() {
         setSBSnooty(!sbSnooty)
-        setPersonalityFilter("Snooty")
         console.log("Snooty Personality " + !sbSnooty)
+        if(sbSnooty) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Snooty")
+        }
       }},
     {personality: "Smug", state: sbSmug, setStateFunction: function() {
         setSBSmug(!sbSmug)
-        setPersonalityFilter("Smug")
         console.log("Smug Personality " + !sbSmug)
+        if(sbSmug) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Smug")
+        }
     }},
     {personality: "Cranky", state: sbCranky, setStateFunction: function() {
         setSBCranky(!sbCranky)
-        setPersonalityFilter("Cranky")
         console.log("Cranky Personality " + !sbCranky)
+        if(sbCranky) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Cranky")
+        }
     }},
     {personality: "Lazy", state: sbLazy, setStateFunction: function() {
         setSBLazy(!sbLazy)
-        setPersonalityFilter("Lazy")
         console.log("Lazy Personality " + !sbLazy)
+        if(sbLazy) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Lazy")
+        }
     }},
     {personality: "Jock", state: sbJock, setStateFunction: function() {
         setSBJock(!sbJock)
-        setPersonalityFilter("Jock")
         console.log("Jock Personality " + !sbJock)
+        if(sbJock) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Jock")
+        }
     }},
     {personality: "Normal", state: sbNormal, setStateFunction: function() {
         setSBNormal(!sbNormal)
-        setPersonalityFilter("Normal")
         console.log("Normal Personality " + !sbNormal)
+        if(sbNormal) {
+          setPersonalityFilter("")
+        } else {
+          setPersonalityFilter("Normal")
+        }
     }},
   ]
 
