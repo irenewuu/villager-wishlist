@@ -71,9 +71,7 @@ export default function Search() {
   return (
     <Cont>
       <SearchBar
-        onTextChange={(e) => {
-          inputFilter(e.target.value);
-        }}
+        onTextChange={(e) => { inputFilter(e.target.value); }}
       />
       <Selection
 			initial={{opacity:0}} 
@@ -83,35 +81,31 @@ export default function Search() {
         {/* if data is true and data.length is greater than 0, show the list of villagers */}
         {data && data.length > 0
           ? data.map((o, i) => (
-            <motion.div whileHover={{scale:1.1 }}>
-            <Villagers
-                onClick={() => {
-                  router.push(`/profile/${o._id}`);
-                }}
-                key={o._id}
-                src={o.image_url}
-                width="148px"
-                left="110px"
-                innerWidth="114px"
-                innerHeight="114px"
-                name={o.name}
-              />
+              <motion.div 
+                whileHover={{scale:1.1 }}
+                key={o._id}>
+                <Villagers
+                  onClick={() => {router.push(`/profile/${o._id}`);}}
+                  src={o.image_url}
+                  width="148px"
+                  left="110px"
+                  innerWidth="114px"
+                  innerHeight="114px"
+                  name={o.name} />
               </motion.div>
+            // else show villagers up to 50
             )) : acnhList.slice(0, 50).map((o, i) => (
-          // else show villagers up to 50
-            <motion.div whileHover={{scale:1.1 }}>
-              <Villagers
-                onClick={() => {
-                  router.push(`/profile/${o._id}`);
-                }}
-                key={o._id}
-                src={o.image_url}
-                width="148px"
-                left="110px"
-                innerWidth="114px"
-                innerHeight="114px"
-                name={o.name}
-              />
+              <motion.div 
+                whileHover={{scale:1.03 }}
+                key={o._id}>
+                <Villagers
+                  onClick={() => {router.push(`/profile/${o._id}`);}}
+                  src={o.image_url}
+                  width="148px"
+                  left="110px"
+                  innerWidth="114px"
+                  innerHeight="114px"
+                  name={o.name} />
               </motion.div>
             ))}
       </VillagersCont>
