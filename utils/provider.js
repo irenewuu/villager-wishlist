@@ -1,7 +1,7 @@
 import React, {useContext, createContext, useState} from 'react';
 
 const initialStates = {
-    personalityFilter: '',
+    personalityFilter:'',
     setPersonalityFilter:()=>{},
 }
 
@@ -11,12 +11,14 @@ export default function AppProvider({children}) {
 
     const [personalityFilter, setPersonalityFilter] = useState(initialStates.personalityFilter);
 
-    return <MyContext.Provider value = {{searchFilter, setSearchFilter, personalityFilter, setPersonalityFilter}}>
+    // searchFilter, setSearchFilter,
+    return <MyContext.Provider value = {{personalityFilter, setPersonalityFilter}}>
         {children}
     </MyContext.Provider>
 }
 
 export function usePersonality() {
     const {personalityFilter, setPersonalityFilter} = useContext(MyContext);
-    return useContext(MyContext);
+    return {personalityFilter, setPersonalityFilter};
+    // return useContext(MyContext);
 }
