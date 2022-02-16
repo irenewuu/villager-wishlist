@@ -38,12 +38,15 @@ const Selection = styled(motion.div)`
 export default function Search() {
   const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
   const [data, setData] = useState([]);
-  const { personalityFilter, setPersonalityFilter } = usePersonality();
+  const { personalityFilter } = usePersonality();
   const router = useRouter();
 
   const inputFilter = async (txt) => {
     console.log(txt);
-    // var txt = txt.toLowerCase();
+    const txtInput = txt;
+    //capitalize first letter
+    const txtCapitalized = txtInput.charAt(0).toUpperCase() + txtInput.slice(1);
+    console.log(txtCapitalized);
 
     if (timer) {
       clearTimeout(timer);
@@ -55,7 +58,7 @@ export default function Search() {
         console.log("async call");
         const res = await ax.get("/api/villagers", {
           params: {
-            txt: txt,
+            txt: txtCapitalized,
             personality: personalityFilter,
             // gender: gender,
           },
@@ -79,22 +82,11 @@ export default function Search() {
 			>
         <VillagersCont>
         {/* if data is true and data.length is greater than 0, show the list of villagers */}
-        {data && data.length > 0
-          ? data.map((o, i) => (
-              <motion.div 
-                whileHover={{scale:1.1 }}
-                key={o._id}>
-                <Villagers
-                  onClick={() => {router.push(`/profile/${o._id}`);}}
-                  src={o.image_url}
-                  width="148px"
-                  left="110px"
-                  innerWidth="114px"
-                  innerHeight="114px"
-                  name={o.name} />
-              </motion.div>
-            // else show villagers up to 50
-            )) : acnhList.slice(0, 50).map((o, i) => (
+        {
+        data && data.length > 0
+          ? 
+          
+          data.map((o, i) => (
               <motion.div 
                 whileHover={{scale:1.03 }}
                 key={o._id}>
@@ -107,7 +99,25 @@ export default function Search() {
                   innerHeight="114px"
                   name={o.name} />
               </motion.div>
-            ))}
+            // else show villagers up to 50
+            )) 
+            // : !txtInput ? <p>search smth else</p>
+            
+            : acnhList.slice(0, 50).map((o, i) => (
+              <motion.div 
+                whileHover={{scale:1.03 }}
+                key={o._id}>
+                <Villagers
+                  onClick={() => {router.push(`/profile/${o._id}`);}}
+                  src={o.image_url}
+                  width="148px"
+                  left="110px"
+                  innerWidth="114px"
+                  innerHeight="114px"
+                  name={o.name} />
+              </motion.div>
+            ))
+            }
       </VillagersCont>
       </Selection>
 

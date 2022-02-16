@@ -45,7 +45,7 @@ const StarFilled = styled(StarFill)`
  left: ${props=>props.left};
  top: 15px;
  width: 25px;
- z-index: 1000;
+ z-index: 3;
 `
 const StarOutline = styled(Star)`
  color:#F7D359;
@@ -54,7 +54,7 @@ const StarOutline = styled(Star)`
  background: transparent;
  top: 15px;
  width: 25px;
- z-index: 1000;
+ z-index: 3;
 `
 
 

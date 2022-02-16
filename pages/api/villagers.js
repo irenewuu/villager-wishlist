@@ -2,7 +2,7 @@ import { filtering } from './../../utils/func'
 import acnh from './../../utils/ac-villagers.json'
 
 export default async function handler(req, res) {
-    console.log(req.query, req.body)
+    // console.log(req.query, req.body)
     const {txt, name, personality, gender} = req.query;
 
     // assign an _id to every villager
