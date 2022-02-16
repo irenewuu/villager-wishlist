@@ -4,6 +4,7 @@ import {Leaf} from "@styled-icons/remix-line/Leaf";
 import {SearchOutline} from '@styled-icons/evaicons-outline/SearchOutline';
 import {Settings2Outline} from '@styled-icons/evaicons-outline/Settings2Outline';
 import {useRouter} from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
 
 const NavCont = styled.div`
   background-color: #98C7A4;
@@ -76,7 +77,8 @@ export default function BottomNav({
   leafTextColor = "white",
   searchTextColor = "white",
   settingTextColor = "white",
-  routeToWishlist="/wishlist",
+  // routeToWishlist="/wishlist",
+  routeToWishlist=`/wishlist/${uuidv4()}`,
   routeToSearch="/search",
   routeToSetting="/settings",
 }) {
