@@ -7,7 +7,8 @@ import { usePersonality } from "../utils/provider";
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
 import SearchBar from "../comps/SearchBar/SearchBar";
-import acnh from '../utils/ac-villagers.json'
+import acnh from '../utils/ac-villagers.json';
+import { motion } from 'framer-motion';
 
 var timer = null;
 
@@ -23,6 +24,15 @@ const VillagersCont = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 8px;
   margin-bottom: 100px;
+`;
+
+//Hover motion 
+const Selection = styled(motion.div)`
+	display: flex;
+	justify-content: space-evenly;
+	flex: 1;
+	flex-wrap: wrap;
+	flex-direction: row;
 `;
 
 export default function Search() {
@@ -65,11 +75,31 @@ export default function Search() {
           inputFilter(e.target.value);
         }}
       />
-
-      <VillagersCont>
+      <Selection
+			initial={{opacity:0}} 
+			animate={{opacity:100, transition:{ease:"easeIn", duration:1, delay:0}}}
+			>
+        <VillagersCont>
         {/* if data is true and data.length is greater than 0, show the list of villagers */}
         {data && data.length > 0
           ? data.map((o, i) => (
+            <motion.div whileHover={{scale:1.1 }}>
+            <Villagers
+                onClick={() => {
+                  router.push(`/profile/${o._id}`);
+                }}
+                key={o._id}
+                src={o.image_url}
+                width="148px"
+                left="110px"
+                innerWidth="114px"
+                innerHeight="114px"
+                name={o.name}
+              />
+              </motion.div>
+            )) : acnhList.slice(0, 50).map((o, i) => (
+          // else show villagers up to 50
+            <motion.div whileHover={{scale:1.1 }}>
               <Villagers
                 onClick={() => {
                   router.push(`/profile/${o._id}`);
@@ -82,20 +112,10 @@ export default function Search() {
                 innerHeight="114px"
                 name={o.name}
               />
-            )) : acnhList.slice(0, 50).map((o, i) => (
-              <Villagers
-                onClick={() => {
-                  router.push(`/profile/${o._id}`);
-                }}
-                key={o._id}
-                src={o.image_url}
-                width="148px"
-                left="110px"
-                innerWidth="114px"
-                innerHeight="114px"
-                name={o.name}
-              />))}
+              </motion.div>
+            ))}
       </VillagersCont>
+      </Selection>
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </Cont>
