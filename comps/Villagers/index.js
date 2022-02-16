@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {Star} from '@styled-icons/bootstrap/Star'
 import {StarFill} from '@styled-icons/bootstrap/StarFill'
 
+// import { usePersonality } from '../../utils/provider';
+
 const Cont = styled.div`
   width: ${props=>props.width};
   height: 220px;
@@ -37,6 +39,9 @@ const Name = styled.p`
 
 
 `
+const StarBut = styled.button`
+
+`
 
 const StarCont = styled(StarFill)`
   color:#F7D359;
@@ -53,6 +58,20 @@ const Img = styled.img`
   padding: 15px;
 `
 
+
+// const {personalityFilter, setPersonalityFilter} = usePersonality();
+
+// const StorePersonality = (checked, obj) => {
+//   //store the favourites to be used on the wishlist page
+//   console.log(checked, obj);
+//     if(checked){
+//       const b_obj = {
+//         ...personalityFilter
+//       };
+//       b_obj[o._id] = o;
+//       setPersonalityFilter(b_obj);
+//     }
+// }
 
 const Villagers = ({
   width="350px",
@@ -78,7 +97,10 @@ const Villagers = ({
     marginR={marginR} 
     onClick={onClick}
     >
-  <StarCont left={left}/>
+  <StarBut /* onChange={(e)=>StorePersonality(e.target.checked, o)}  */ >
+    <StarCont left={left}/>
+  </StarBut>
+
   <InnerCont 
     innercolor={innerColors[Math.floor(Math.random() * innerColors.length)]}
     innerWidth={innerWidth}
