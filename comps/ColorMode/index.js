@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Circle} from '@styled-icons/bootstrap/circle';
-import {CheckCircle} from '@styled-icons/bootstrap/checkcircle';
+import {Circle} from '@styled-icons/bootstrap';
+import {CheckCircle} from '@styled-icons/bootstrap';
 
 const Container = styled.div`
     display:flex;
@@ -40,18 +40,18 @@ const Text = styled.div`
     line-height: 96.3%;
     text-align: center;
 `
-// const CircleIcon = styled(Circle)`
-//     color: #007C74;
-//     width: 20px;
-//     margin-bottom: 20px;
-// `
-// const CheckedIcon = styled(CheckCircle)`
-//     color: #007C74;
-//     background: #A4D9D4;
-//     border-radius: 50%;
-//     width: 20px;
-//     margin-bottom: 20px;
-// `
+const CircleIcon = styled(Circle)`
+    color: #007C74;
+    width: 20px;
+    margin-bottom: 20px;
+`
+const CheckedIcon = styled(CheckCircle)`
+    color: #007C74;
+    background: #A4D9D4;
+    border-radius: 50%;
+    width: 20px;
+    margin-bottom: 20px;
+`
 const LightButton = styled.div`
     display:flex;
     flex-direction: column;
