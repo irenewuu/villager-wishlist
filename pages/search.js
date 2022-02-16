@@ -60,7 +60,7 @@ export default function Search() {
             // gender: gender,
           },
         });
-        console.log(personalityFilter);
+        // console.log(personalityFilter);
         console.log(res.data);
         setData(res.data);
         timer = null;

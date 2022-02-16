@@ -3,7 +3,7 @@ import acnh from './../../utils/ac-villagers.json'
 
 export default async function handler(req, res) {
     console.log(req.query, req.body)
-    const {txt, name, personality, gender, _id} = req.query;
+    const {txt, name, personality, gender} = req.query;
 
     // assign an _id to every villager
     const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
@@ -14,9 +14,7 @@ export default async function handler(req, res) {
     if(txt) {
         lists = filtering(acnhList, {
             name: txt,
-            personality: personality,
-            id: _id
-
+            personality: personality
 
         })
     }
