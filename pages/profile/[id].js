@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import acnh from '../../utils/ac-villagers.json';
 
 import ProfileComp from '../../comps/Profile'
 import BottomNav from '../../comps/BottomNav';
@@ -17,12 +16,7 @@ const Cont = styled.div`
   box-sizing: border-box;
 `;
 
-export default function Profile() {
-
-    const router = useRouter()
-    // get id of villager from the query
-    var villager = acnh[router.query.id]
-    
+export default function Profile({villager}) {    
   return (
     <Cont>
         <ProfileComp
@@ -40,4 +34,20 @@ export default function Profile() {
         
     </Cont>
   )
+}
+
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  const villager = await fetch(`http://localhost:3000/api/villager/${id}`);
+  const data = await villager.json();
+
+  if (!data) {
+    return {
+      notFound: true
+    };
+  }
+
+  return {
+    props: { villager: data }
+  };
 }

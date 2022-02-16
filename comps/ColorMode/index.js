@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Circle} from '@styled-icons/bootstrap/circle';
-import {CheckCircle} from '@styled-icons/bootstrap/checkcircle';
+import {Circle} from '@styled-icons/bootstrap';
+import {CheckCircle} from '@styled-icons/bootstrap';
 
 const Container = styled.div`
     display:flex;

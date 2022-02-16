@@ -25,6 +25,10 @@ export default function FilterPanel({
   zIndex=null,
   opacity=null
 }) {
+  //useContext
+  const {personalityFilter, setPersonalityFilter} = usePersonality();
+  console.log(personalityFilter)
+
   //personalities
   const [sbSisterly, setSBSisterly] = useState(false);
   const [sbPeppy, setSBPeppy] = useState(false);
@@ -35,10 +39,7 @@ export default function FilterPanel({
   const [sbJock, setSBJock] = useState(false);
   const [sbNormal, setSBNormal] = useState(false);
   
-  //useContext
-  const {personalityFilter, setPersonalityFilter} = usePersonality("");
-  console.log(personalityFilter)
-
+  // figure out personalities first then work on these :(
   //hobbies
   const [sbEducation, setSBEducation] = useState(false);
   const [sbMusic, setSBMusic] = useState(false);
@@ -49,8 +50,10 @@ export default function FilterPanel({
   
   const [hobby, setHobby] = useState('');
   
+  //genders
   const [sbMale, setSBMale] = useState(false);
   const [sbFemale, setSBFemale] = useState(false);
+
   const [gender, setGender] = useState('');
 
 
@@ -58,7 +61,7 @@ export default function FilterPanel({
     {personality: "Sisterly", state: sbSisterly, setStateFunction: function() {
         setSBSisterly(!sbSisterly)
         console.log("Sisterly Personality " + !sbSisterly)
-        setPersonalityFilter("Sister")
+        setPersonalityFilter("sister")
       }},
     {personality: "Peppy", state: sbPeppy, setStateFunction: function() {
         setSBPeppy(!sbPeppy)
@@ -96,6 +99,7 @@ export default function FilterPanel({
         console.log("Normal Personality " + !sbNormal)
     }},
   ]
+
   const hobbies = [
     {hobby: "Education", state: hobby, setStateFunction: function() {
         setHobby("Education")
@@ -122,6 +126,7 @@ export default function FilterPanel({
         console.log("Play Hobby " + hobby)
     }},
   ]
+
   const genders = [
     {gender: "Male", state: gender, setStateFunction: function() {
         setGender("Male")
