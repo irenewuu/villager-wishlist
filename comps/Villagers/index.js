@@ -68,6 +68,21 @@ const Img = styled.img`
   object-fit: contain;
   padding: 15px;
 `
+// -------------------------WISHLIST IN PROGRESS --------------------
+// const {personalityFilter, setPersonalityFilter} = usePersonality();
+ 
+// const StorePersonality = (checked, obj) => {
+//   //store the favourites to be used on the wishlist page
+//   console.log(checked, obj);
+//     if(checked){
+//       const b_obj = {
+//         ...personalityFilter
+//       };
+//       b_obj[o._id] = o;
+//       setPersonalityFilter(b_obj);
+//     }
+// }
+
 
 
 export default function Villagers({
@@ -94,6 +109,9 @@ export default function Villagers({
     marginL={marginL}
     marginR={marginR} 
     >
+
+      {/* onChange={(e)=>StorePersonality(e.target.checked, o)}   */}
+
     {
       !star ? <StarOutline left={left} onClick={()=>{
         setStar(true)
