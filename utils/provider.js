@@ -18,5 +18,6 @@ export default function AppProvider({children}) {
 
 export function usePersonality() {
     const {personalityFilter, setPersonalityFilter} = useContext(MyContext);
-    return useContext(MyContext);
+    return {personalityFilter, setPersonalityFilter};
+    // return useContext(MyContext);
 }

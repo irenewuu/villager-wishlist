@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {Star} from '@styled-icons/bootstrap/Star'
 import {StarFill} from '@styled-icons/bootstrap/StarFill'
 
+// import { usePersonality } from '../../utils/provider';
+
 const Cont = styled.div`
 width: ${props=>props.width};
 height: 220px;
@@ -36,6 +38,9 @@ const Name = styled.p`
   margin-top: 10px;
   color:#474747;
 
+
+`
+const StarBut = styled.button`
 
 `
 
@@ -111,18 +116,3 @@ export default function Villagers({
   </Cont>;
 }
 
-// export async function getServerSideProps(context) {
-//   const { id } = context.params;
-//   const villager = await fetch(`http://localhost:3000/api/villager/${id}`);
-//   const data = await villager.json();
-
-//   if (!data) {
-//     return {
-//       notFound: true
-//     };
-//   }
-
-//   return {
-//     props: { villager: data }
-//   };
-// }
