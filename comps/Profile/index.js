@@ -20,7 +20,7 @@ const ProfileCont = styled.div`
   align-items:center;
   padding: 24px;
   box-sizing: border-box;
-  background: #D4ECD3;
+  background: ${props=>props.bg};
   row-gap: 24px;
 `
 const NameCont = styled.div`
@@ -44,7 +44,7 @@ const Back = styled(ArrowIosBackOutline)`
 const ProfileImg = styled.div`
   width: 180px;
   height: 180px;
-  background:#98C7A4;
+  background:${props=>props.innerCircleBg};
   border-radius: 50%;
 `
 const Img = styled.img`
@@ -111,19 +111,21 @@ const ProfileComp = ({
   hobby="n/a",
   birthday="n/a",
   favSong="n/a",
+  bg = "",
+  innerCircleBg = "",
 
   routeToSearch="/search",
 
 }) => {
   const router = useRouter();
 return <Cont>
-  <ProfileCont>
+  <ProfileCont bg={bg}>
     <NameCont>
       <Back onClick={()=>router.push(routeToSearch)}/>
       <Name>{name}</Name>
     </NameCont>
 
-    <ProfileImg>
+    <ProfileImg innerCircleBg={innerCircleBg}>
       <Img src={villagerImg} alt={name} />
     </ProfileImg>
     <CatchPhrase>"{catchPhrase}"</CatchPhrase>
