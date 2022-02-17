@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {Circle} from '@styled-icons/bootstrap/circle';
 import {CheckCircle} from '@styled-icons/bootstrap/checkcircle';
+import { useTheme } from '../../utils/provider';
+import { useRouter } from 'next/router'
 
 const Container = styled.div`
     display:flex;
@@ -150,7 +152,12 @@ opacity: 0;
 const ColorMode = ({
     text1="Light Mode",
     text2="Dark Mode",
+    onButtonClick1=()=>{},
+    onButtonClick2=()=>{},
 }) => {
+
+    const {theme} = useTheme();
+    const router = useRouter();
 
         return (
     <Container>
@@ -164,6 +171,7 @@ const ColorMode = ({
                     <Button
                     type="radio"
                     name="radio"
+                    onClick={()=>{onButtonClick1()}}
                     />
                     <RadioButtonLabel />
                 </Item>
@@ -179,6 +187,7 @@ const ColorMode = ({
                     <Button
                     type="radio"
                     name="radio"
+                    onClick={()=>{onButtonClick2()}}
                     />
                     <RadioButtonLabel />
                 </Item>
