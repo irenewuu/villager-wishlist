@@ -21,6 +21,16 @@ export default function Profile({villager}) {
     <Cont>
         <ProfileComp
           name={villager.name}
+          bg = { villager.personality == "Jock" || villager.personality == "Normal" ? "#DEF1EF"     // blue
+          : villager.personality == "Peppy" || villager.personality == "Lazy" ? "#FFF8D4"           // yellow
+          : villager.personality == "Snooty" || villager.personality == "Smug" ? "#D4ECD3"          // green
+          : villager.personality == "Big sister" || villager.personality == "Cranky" ? "#FFE6E8"    // pink
+          : none}
+          innerCircleBg = {villager.personality == "Jock" || villager.personality == "Normal" ? "#A4D8D4"  // blue
+          : villager.personality == "Peppy" || villager.personality == "Lazy" ? "#FFF2AF"                 // yellow
+          : villager.personality == "Snooty" || villager.personality == "Smug" ? "#98C7A4"                // green
+          : villager.personality == "Big sister" || villager.personality == "Cranky" ? "#FEBDC3"          // pink
+          : none}
           villagerImg={villager.image_url}
           catchPhrase={villager.phrase}
           gender={villager.gender}
