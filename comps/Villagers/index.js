@@ -65,7 +65,8 @@ const Img = styled.img`
 `
 
 
-const Villagers = ({
+export default function Villagers({
+  // villager,
   width="350px",
   bgcolor="#FCF8E4",
   innercolor="#F8EEBB",
@@ -77,8 +78,7 @@ const Villagers = ({
   marginL ="0px",
   marginR ="0px",
   onClick =()=>{}
-
-}) => {
+}) {
   var colors = ['#DEF1EF', '#FFF8D4', '#D4ECD3', '#FFE6E8'];
   var innerColors = ['#A4D8D4', '#FFF2AF', '#98C7A4', '#FEBDC3'];
   const [star, setStar] = useState(false)
@@ -109,7 +109,20 @@ const Villagers = ({
       
 
   </Cont>;
-
 }
 
-export default Villagers;
+// export async function getServerSideProps(context) {
+//   const { id } = context.params;
+//   const villager = await fetch(`http://localhost:3000/api/villager/${id}`);
+//   const data = await villager.json();
+
+//   if (!data) {
+//     return {
+//       notFound: true
+//     };
+//   }
+
+//   return {
+//     props: { villager: data }
+//   };
+// }
