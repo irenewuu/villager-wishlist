@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Villagers from '../comps/Villagers'
+import Villagers from '../../comps/Villagers'
 import styled from 'styled-components'
-import BottomNav from '../comps/BottomNav'
+import BottomNav from '../../comps/BottomNav'
+
+import { useRouter } from "next/router";
 
 const Cont = styled.div`
 width: 100vw; 
@@ -22,6 +24,8 @@ margin-bottom: 20px;
 
 
 export default function Wishlist() {
+    const r = useRouter();
+    const {uuid} = r.query;
   return (
     <Cont>
 
@@ -44,7 +48,6 @@ export default function Wishlist() {
         
     </Cont>
 
-    
 
   )
 }

@@ -4,6 +4,7 @@ import {Leaf} from "@styled-icons/remix-line/Leaf";
 import {SearchOutline} from '@styled-icons/evaicons-outline/SearchOutline';
 import {Settings2Outline} from '@styled-icons/evaicons-outline/Settings2Outline';
 import {useRouter} from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
 
 const NavCont = styled.div`
   background-color: #98C7A4;
@@ -76,34 +77,38 @@ export default function BottomNav({
   leafTextColor = "white",
   searchTextColor = "white",
   settingTextColor = "white",
-  routeToWishlist="/wishlist",
+  // routeToWishlist="/wishlist",
+  routeToWishlist=`/wishlist/${uuidv4()}`,
   routeToSearch="/search",
   routeToSetting="/settings",
 }) {
   const router = useRouter();
   return <NavCont className='BottomNav'>
-    <IconCont>
+    <IconCont
+      onClick={()=>router.push(routeToWishlist)}
+    >
       <LeafIcon
         className='icon'
-        onClick={()=>router.push(routeToWishlist)}
         color={leafColor}/>
       <LeafText
         leafTextColor={leafTextColor}
         >Wishlist</LeafText>
     </IconCont>
-    <IconCont>
+    <IconCont
+      onClick={()=>router.push(routeToSearch)}
+    >
       <SearchIcon 
         className='icon'
-        onClick={()=>router.push(routeToSearch)}
         color={searchColor} />
       <SearchText
         searchTextColor={searchTextColor}
         >Search</SearchText>
     </IconCont>
-    <IconCont>
+    <IconCont
+      onClick={()=>router.push(routeToSetting)} 
+    >
       <SettingIcon
         className='icon'
-        onClick={()=>router.push(routeToSetting)} 
         color={settingColor} />
       <SettingText
       settingTextColor ={settingTextColor}

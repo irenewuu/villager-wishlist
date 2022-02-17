@@ -2,7 +2,7 @@ import React, {useContext, createContext, useState} from 'react';
 import {themes} from './variables'
 
 const initialStates = {
-    personalityFilter: '',
+    personalityFilter: "",
     setPersonalityFilter:()=>{},
     theme:"default",
     setTheme:()=>{},
@@ -29,6 +29,7 @@ export default function AppProvider({children}) {
 
             `}
         </style>        
+    return <MyContext.Provider value = {{personalityFilter, setPersonalityFilter}}>
         {children}
     </MyContext.Provider>
 }
@@ -42,3 +43,4 @@ export function useTheme() {
     const {theme, setTheme} = useContext(MyContext);
     return {theme, setTheme};
 }
+
