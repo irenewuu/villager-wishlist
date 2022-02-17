@@ -46,7 +46,8 @@ export default function SearchBar({
     </div>
     <FilterPanel 
     opacity = {opacity ? 1 : 0}
-    zIndex = {zIndex ? 5 : -10}/>
+    zIndex = {zIndex ? 5 : -10}
+    />
     <BackgroundBlur 
     opacity = {opacity ? 1 : 0}
     zIndex = {zIndex ? 4 : -10}/>
