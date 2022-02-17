@@ -30,8 +30,6 @@ export default function Wishlist() {
     <Cont>
 
       <Heading>Your Villager Checklist</Heading>
-      {/* just testing  */}
-      <h3>{uuid} - just testing! </h3>
       
         <Villagers/>
         <Villagers
