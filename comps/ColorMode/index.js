@@ -4,8 +4,6 @@ import {Circle} from '@styled-icons/bootstrap/circle';
 import {CheckCircle} from '@styled-icons/bootstrap/checkcircle';
 import { useTheme } from '../../utils/provider';
 import { useRouter } from 'next/router'
-import {Circle} from '@styled-icons/bootstrap';
-import {CheckCircle} from '@styled-icons/bootstrap';
 
 const Container = styled.div`
     display:flex;
