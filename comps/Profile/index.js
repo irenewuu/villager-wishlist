@@ -103,7 +103,7 @@ const WishButton = styled.button`
   font-size: 30px;
 `
 
-
+// -------------------------WISHLIST IN PROGRESS --------------------
 // const {personalityFilter, setPersonalityFilter} = usePersonality();
 
 // const StorePersonality = (checked, obj) => {
