@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import {Star} from '@styled-icons/bootstrap/Star'
 import {StarFill} from '@styled-icons/bootstrap/StarFill'
@@ -6,19 +6,20 @@ import {StarFill} from '@styled-icons/bootstrap/StarFill'
 // import { usePersonality } from '../../utils/provider';
 
 const Cont = styled.div`
-  width: ${props=>props.width};
-  height: 220px;
-  background-color: ${props=>props.bgcolor};
-  display:flex;
-  justify-content:center;
-  border-radius: 20px;
-  flex-direction: column;
-  margin-top: 20px;
-  position: relative;
-  align-items: center;
-  margin-left:${props=>props.marginL};
-  margin-right:${props=>props.marginR};
-  
+width: ${props=>props.width};
+height: 220px;
+background-color: ${props=>props.bgcolor};
+display:flex;
+justify-content:center;
+border-radius: 20px;
+flex-direction: column;
+margin-top: 20px;
+position: relative;
+align-items: center;
+margin-left:${props=>props.marginL};
+margin-right:${props=>props.marginR};
+user-select: none;
+
 `
 
 const InnerCont = styled.div`
@@ -43,12 +44,22 @@ const StarBut = styled.button`
 
 `
 
-const StarCont = styled(StarFill)`
-  color:#F7D359;
-  position: absolute;
-  left: ${props=>props.left};
-  top: 15px;
-  width: 25px;
+const StarFilled = styled(StarFill)`
+ color:#F7D359;
+ position: absolute;
+ left: ${props=>props.left};
+ top: 15px;
+ width: 25px;
+ z-index: 1000;
+`
+const StarOutline = styled(Star)`
+ color:#F7D359;
+ position: absolute;
+ left: ${props=>props.left};
+ background: transparent;
+ top: 15px;
+ width: 25px;
+ z-index: 1000;
 `
 
 
@@ -59,21 +70,8 @@ const Img = styled.img`
 `
 
 
-// const {personalityFilter, setPersonalityFilter} = usePersonality();
-
-// const StorePersonality = (checked, obj) => {
-//   //store the favourites to be used on the wishlist page
-//   console.log(checked, obj);
-//     if(checked){
-//       const b_obj = {
-//         ...personalityFilter
-//       };
-//       b_obj[o._id] = o;
-//       setPersonalityFilter(b_obj);
-//     }
-// }
-
-const Villagers = ({
+export default function Villagers({
+  // villager,
   width="350px",
   bgcolor="#FCF8E4",
   innercolor="#F8EEBB",
@@ -85,23 +83,28 @@ const Villagers = ({
   marginL ="0px",
   marginR ="0px",
   onClick =()=>{}
-
-}) => {
+}) {
   var colors = ['#DEF1EF', '#FFF8D4', '#D4ECD3', '#FFE6E8'];
-  var innerColors = ['#A4D8D4', '#FFF2AF', '#98C7A4', '#FEBDC3']
+  var innerColors = ['#A4D8D4', '#FFF2AF', '#98C7A4', '#FEBDC3'];
+  const [star, setStar] = useState(false)
 
   return <Cont 
     width={width} 
     bgcolor={colors[Math.floor(Math.random() * colors.length)]}
     marginL={marginL}
     marginR={marginR} 
-    onClick={onClick}
     >
-  <StarBut /* onChange={(e)=>StorePersonality(e.target.checked, o)}  */ >
-    <StarCont left={left}/>
-  </StarBut>
-
+    {
+      !star ? <StarOutline left={left} onClick={()=>{
+        setStar(true)
+        console.log("filled the star")
+      }} /> : <StarFilled  left={left} onClick={()=>{
+        setStar(false)
+        console.log("unfilled the star")
+      }} />
+    }
   <InnerCont 
+    onClick={onClick}
     innercolor={innerColors[Math.floor(Math.random() * innerColors.length)]}
     innerWidth={innerWidth}
     innerHeight={innerHeight}> 
@@ -111,7 +114,5 @@ const Villagers = ({
       
 
   </Cont>;
-
 }
 
-export default Villagers;
