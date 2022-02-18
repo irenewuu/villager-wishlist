@@ -1,4 +1,4 @@
-import { filtering } from './../../utils/func'
+import { filtering, GoToPage } from './../../utils/func'
 import acnh from './../../utils/ac-villagers.json'
 
 export default async function handler(req, res) {
@@ -17,11 +17,16 @@ export default async function handler(req, res) {
         })
     }
 
+    if(req.query.page) {
+        const numresults = req.query.num || 10;
+        lists = GoToPage(req.query.page, acnhList, numresults);
+    }
+
     if(req.query.id) {
         lists = acnhList.filter(o=>o._id === Number(req.query.id))
     }
 
     
-    lists = lists.slice(0,50);
+    lists = lists.slice(0,10);
     res.status(200).json(lists);
 }
