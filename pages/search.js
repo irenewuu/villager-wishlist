@@ -19,6 +19,7 @@ const Cont = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 80px;
 `;
 
 const VillagersCont = styled.div`
@@ -56,12 +57,12 @@ margin-right:10px;
 
 `
 export default function Search() {
+  const router = useRouter();
   const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }));
   const [data, setData] = useState([]);
   const { personalityFilter, setPersonalityFilter } = usePersonality();
   const [cur_page, setCurPage]=useState(0);
   const [bs, setBS] = useState([]);
-  const router = useRouter();
 
   const PageClick = async(p)=>{
     const res = await ax.get("/api/villagers", {
@@ -160,7 +161,7 @@ export default function Search() {
               ))
             : // : !txtInput ? <p>search smth else</p>
 
-              acnhList.slice(0, 50).map((o, i) => (
+              acnhList.slice(0, 10).map((o, i) => (
                 <motion.div whileHover={{ scale: 1.03 }} key={o._id}>
                   <Villagers
                     onClick={() => {
