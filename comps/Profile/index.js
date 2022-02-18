@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import Image from 'next/image';
 import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
+import { useTheme } from '../../utils/provider';
+import { profile_themes } from '../../utils/variables';
 
 // import { usePersonality } from '../../utils/provider';
 
@@ -64,7 +66,6 @@ const ProfileInfo = styled.div`
   display:flex;
   flex-direction: column;
   align-items:center;
-  background:white;
   flex: 3;
 `
 const Details = styled.div`
@@ -78,14 +79,14 @@ const Details = styled.div`
   border-bottom: 1px solid #EBEBEB;
 `
 const Key = styled.p`
-  color:#474747;
+  color:${props=>props.color};
   font-size: 28px;
   margin-left: 36px;
   width: 110px;
   text-align: left;
 `
 const Value = styled.p`
-  color:#474747;
+  color:${props=>props.color};
   font-weight: 300;
   font-size: 28px;
   width: 150px;
@@ -136,6 +137,7 @@ const ProfileComp = ({
 
 }) => {
   const router = useRouter();
+  const {theme} = useTheme();
 return <Cont>
   <ProfileCont bg={bg}>
     <NameCont>
@@ -151,23 +153,23 @@ return <Cont>
 
   <ProfileInfo>
     <Details>
-      <Key>Gender</Key> <Value>{gender}</Value>
+      <Key color={profile_themes[theme].color}>Gender</Key> <Value color={profile_themes[theme].color}>{gender}</Value>
     </Details>
 
     <Details>
-      <Key>Personality</Key> <Value>{personality}</Value>
+      <Key color={profile_themes[theme].color}>Personality</Key> <Value color={profile_themes[theme].color}>{personality}</Value>
     </Details>
 
     <Details>
-      <Key>Hobby</Key> <Value>{hobby}</Value>
+      <Key color={profile_themes[theme].color}>Hobby</Key> <Value color={profile_themes[theme].color}>{hobby}</Value>
     </Details>
 
     <Details>
-      <Key>Birthday</Key> <Value>{birthday}</Value>
+      <Key color={profile_themes[theme].color}>Birthday</Key> <Value color={profile_themes[theme].color}>{birthday}</Value>
     </Details>
 
     <Details>
-      <Key>Favorite Song</Key> <Value>{favSong}</Value>
+      <Key color={profile_themes[theme].color}>Favorite Song</Key> <Value color={profile_themes[theme].color}>{favSong}</Value>
     </Details>
 
   <WishButton >Add to Wishlist</WishButton>

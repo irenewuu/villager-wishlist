@@ -33,3 +33,12 @@ export const nav_themes = {
         color:"#22282C"
     }
 }
+
+export const profile_themes = {
+    default:{
+        color:"#474747"
+    },
+    dark:{
+        color:"#FFF"
+    }
+}
