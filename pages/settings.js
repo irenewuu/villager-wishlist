@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import TextBubble from '../comps/TextBubble';
 import ColorMode from '../comps/ColorMode';
 import BottomNav from '../comps/BottomNav';
+import Header from '../comps/Header';
 import { useTheme } from '../utils/provider';
 import { useRouter } from 'next/router';
 
@@ -14,12 +15,6 @@ const Container = styled.div`
     
 `
 
-const Heading =styled.h1`
-    font-size: 47px;
-    color: #08847C;
-    margin-bottom: 20px;
-    margin-top: 30px;
-`
 const Photo = styled.img`
 padding: 15px;
 margin-top:1px;
@@ -30,7 +25,7 @@ export default function Settings() {
   const {theme, setTheme} = useTheme();
   return (
     <Container>
-        <Heading>Settings</Heading>
+        <Header text="Settings"></Header>
         <ColorMode
           onButtonClick1={()=>setTheme(
             theme==='dark'?'default':"dark"
