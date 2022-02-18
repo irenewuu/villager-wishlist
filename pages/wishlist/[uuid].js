@@ -1,25 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Villagers from '../../comps/Villagers'
-import styled from 'styled-components'
-import BottomNav from '../../comps/BottomNav'
-
 import { useRouter } from "next/router";
+import styled from 'styled-components';
+
+import Villagers from '../../comps/Villagers';
+import BottomNav from '../../comps/BottomNav';
+import Header from '../../comps/Header';
+
 
 const Cont = styled.div`
-width: 100vw; 
-height: 100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction: column;
-`
-const Heading =styled.h1`
-font-size: 47px;
-color: #08847C;
-margin-bottom: 20px;
-`
-
+  width: 100%; 
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+`;
 
 
 
@@ -28,8 +21,7 @@ export default function Wishlist() {
     const {uuid} = r.query;
   return (
     <Cont>
-
-      <Heading>Your Villager Checklist</Heading>
+      <Header text="Your Villager Wishlist"/>
       
         <Villagers/>
         <Villagers

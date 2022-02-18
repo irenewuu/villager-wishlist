@@ -16,6 +16,8 @@ const BtnCont = styled.button`
     border: ${props=>props.border};
     border-radius: 62px;
     padding-top: 5px;
+
+    cursor: pointer;
 `
 
 

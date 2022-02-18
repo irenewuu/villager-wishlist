@@ -9,11 +9,11 @@ const Background = styled.div`
 background-color: #DEF1EE;
 display: flex;
 flex-direction: column;
-justify-content: center;
+// justify-content: center;
 text-align: center; 
 align-items: center;
-width: 100vw;
-height: 100vh;
+width: 100%;
+height: 100%;
 `
 
 const Photo = styled.img`
@@ -22,7 +22,7 @@ margin-top: 20px;
 `
 
 const ButtonCont = styled.div`
-margin-top: 70px;
+margin: 70px 0;
 
 `
 
@@ -39,7 +39,7 @@ export default function Welcome() {
         <TextBubble></TextBubble>
       </BubbleCont>
       <ButtonCont onClick={()=>router.push("/empty-wishlist")}>
-        <Button></Button>
+        <Button />
       </ButtonCont>
       
     
