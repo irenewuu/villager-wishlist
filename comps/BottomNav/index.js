@@ -4,6 +4,9 @@ import {Leaf} from "@styled-icons/remix-line/Leaf";
 import {SearchOutline} from '@styled-icons/evaicons-outline/SearchOutline';
 import {Settings2Outline} from '@styled-icons/evaicons-outline/Settings2Outline';
 import {useRouter} from 'next/router';
+import { v4 as uuidv4 } from 'uuid';
+import { useTheme } from '../../utils/provider';
+import { nav_themes } from '../../utils/variables';
 
 const NavCont = styled.div`
   background-color: #98C7A4;
@@ -14,7 +17,7 @@ const NavCont = styled.div`
   justify-content: space-evenly;
   position: fixed;
   bottom:20px;
-  box-shadow: -4px -4px 30px #FFFFFF;
+  box-shadow: -4px -4px 30px ${props=>props.color};
   
   
 `;
@@ -76,12 +79,15 @@ export default function BottomNav({
   leafTextColor = "white",
   searchTextColor = "white",
   settingTextColor = "white",
-  routeToWishlist="/wishlist",
+  // routeToWishlist="/wishlist",
+  routeToWishlist=`/wishlist/${uuidv4()}`,
   routeToSearch="/search",
   routeToSetting="/settings",
 }) {
+  
+  const {theme} = useTheme();
   const router = useRouter();
-  return <NavCont className='BottomNav'>
+  return <NavCont className='BottomNav' color={nav_themes[theme].color}>
     <IconCont
       onClick={()=>router.push(routeToWishlist)}
     >

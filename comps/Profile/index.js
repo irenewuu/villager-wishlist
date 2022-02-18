@@ -3,7 +3,9 @@ import {useRouter} from 'next/router';
 import styled from 'styled-components';
 
 import Image from 'next/image';
-import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline'
+import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
+
+// import { usePersonality } from '../../utils/provider';
 
 const Cont = styled.div`
   width: 100%;
@@ -101,6 +103,22 @@ const WishButton = styled.button`
   font-size: 30px;
 `
 
+// -------------------------WISHLIST IN PROGRESS --------------------
+// const {personalityFilter, setPersonalityFilter} = usePersonality();
+
+// const StorePersonality = (checked, obj) => {
+//   //store the favourites to be used on the wishlist page
+//   console.log(checked, obj);
+//     if(checked){
+//       const b_obj = {
+//         ...personalityFilter
+//       };
+//       b_obj[o._id] = o;
+//       setPersonalityFilter(b_obj);
+//     }
+// }
+
+
 
 const ProfileComp = ({
   name="Apple",
@@ -152,8 +170,8 @@ return <Cont>
       <Key>Favorite Song</Key> <Value>{favSong}</Value>
     </Details>
 
-  <WishButton>Add to Wishlist</WishButton>
-
+  <WishButton >Add to Wishlist</WishButton>
+  {/* /* onChange={(e)=>StorePersonality(e.target.checked, o)}  */ }
   </ProfileInfo>
 </Cont>
 }

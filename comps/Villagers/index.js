@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import {Star} from '@styled-icons/bootstrap/Star'
 import {StarFill} from '@styled-icons/bootstrap/StarFill'
 
+// import { usePersonality } from '../../utils/provider';
+
 const Cont = styled.div`
 width: ${props=>props.width};
 height: 220px;
@@ -38,6 +40,9 @@ const Name = styled.p`
 
 
 `
+const StarBut = styled.button`
+
+`
 
 const StarFilled = styled(StarFill)`
  color:#F7D359;
@@ -63,6 +68,21 @@ const Img = styled.img`
   object-fit: contain;
   padding: 15px;
 `
+// -------------------------WISHLIST IN PROGRESS --------------------
+// const {personalityFilter, setPersonalityFilter} = usePersonality();
+ 
+// const StorePersonality = (checked, obj) => {
+//   //store the favourites to be used on the wishlist page
+//   console.log(checked, obj);
+//     if(checked){
+//       const b_obj = {
+//         ...personalityFilter
+//       };
+//       b_obj[o._id] = o;
+//       setPersonalityFilter(b_obj);
+//     }
+// }
+
 
 
 export default function Villagers({
@@ -89,6 +109,9 @@ export default function Villagers({
     marginL={marginL}
     marginR={marginR} 
     >
+
+      {/* onChange={(e)=>StorePersonality(e.target.checked, o)}   */}
+
     {
       !star ? <StarOutline left={left} onClick={()=>{
         setStar(true)
@@ -111,18 +134,3 @@ export default function Villagers({
   </Cont>;
 }
 
-// export async function getServerSideProps(context) {
-//   const { id } = context.params;
-//   const villager = await fetch(`http://localhost:3000/api/villager/${id}`);
-//   const data = await villager.json();
-
-//   if (!data) {
-//     return {
-//       notFound: true
-//     };
-//   }
-
-//   return {
-//     props: { villager: data }
-//   };
-// }
