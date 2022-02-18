@@ -9,11 +9,12 @@ import BottomNav from '../../comps/BottomNav';
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center; 
+  // justify-content: center;
   align-items: center;
-  height: 100vh;
+  text-align: center; 
+  // height: 100%;
   box-sizing: border-box;
+  margin-bottom: 80px;
 `;
 
 export default function Profile({villager}) {    

@@ -20,6 +20,7 @@ const Cont = styled.div`
   margin-right: ${(props) => props.marginR};
   border-radius: 20px;
   user-select: none;
+  cursor: pointer;
 `;
 
 const InnerCont = styled.div`
