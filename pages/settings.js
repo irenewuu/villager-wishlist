@@ -8,10 +8,10 @@ import { useTheme } from '../utils/provider';
 import { useRouter } from 'next/router';
 
 const Container = styled.div`
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction: column;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction: column;
     
 `
 
