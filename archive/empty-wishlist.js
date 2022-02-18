@@ -1,5 +1,4 @@
 import React from "react";
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import TextBubble from '../comps/TextBubble';
 import Header from '../comps/Header'
@@ -30,7 +29,6 @@ margin-top: 15px;
 
 
 export default function emptyWishlist() {
-    const router = useRouter();
 
     return <Background>
             <HeaderCont>
@@ -39,7 +37,7 @@ export default function emptyWishlist() {
             <BubbleCont>
                 <TextBubble text="You have no villagers in your wishlist."></TextBubble>
             </BubbleCont>
-            <Button text='Find Villagers' onClick={()=>{router.push("/search")}}></Button>
+            {/* <Button text='Find Villagers' onClick={()=>{router.push("/search")}}></Button> */}
 
             <Photo src="/find-villagers.svg"></Photo>
             <BottomNav></BottomNav>
