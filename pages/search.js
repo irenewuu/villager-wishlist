@@ -11,6 +11,7 @@ import acnh from '../utils/ac-villagers.json';
 import { motion } from 'framer-motion';
 
 var timer = null;
+const numBooks = 100;
 
 const Cont = styled.div`
   width: 100vw;
@@ -23,7 +24,7 @@ const VillagersCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 8px;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 `;
 
 //Hover motion 
@@ -35,11 +36,64 @@ const Selection = styled(motion.div)`
 	flex-direction: row;
 `;
 
+//Pagination
+const PagiCont = styled.div`
+display:flex;
+justify-content: space-evenly;
+max-width: 600px;
+margin-bottom: 50px;
+
+`
+const PagiButt = styled.button`
+border: 2px solid #8CC8A2;
+padding: 10px 15px 10px 15px;
+background: white;
+color:#8CC8A2;
+border-radius: 8px;
+margin-right:10px;
+
+
+`
 export default function Search() {
   const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
   const [data, setData] = useState([]);
   const { personalityFilter, setPersonalityFilter } = usePersonality();
+  const [cur_page, setCurPage]=useState(0);
+  const [bs, setBS] = useState([]);
   const router = useRouter();
+
+  const PageClick = async(p)=>{
+    const res = await ax.get("/api/villagers", {
+      params:{
+        page:p,
+        num:15
+      }
+    });
+    console.log(res.data);
+    setBS(res.data);
+    setCurPage(p);
+  }
+
+  var butt_arr = [];
+  var ind = 1;
+  for(var i = 0; i<numBooks; i+=15){
+    butt_arr.push(
+      <button
+      onClick={PageClick.bind(this, ind)}
+    style=
+    {{backgroundColor:cur_page===ind?"#8CC8A2":"white",
+    color:cur_page ===ind? "white":"#8CC8A2",
+    border:" 2px solid #8CC8A2",
+    padding: "10px 15px 10px 15px",
+    background: "white",
+    marginRight: "10px",
+    borderRadius: "8px"}}
+    >{ind}</button>
+    );
+    ind++;
+  }
+
+  butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 :cur_page -4, cur_page+4);
 
   const inputFilter = async (txt) => {
     console.log(txt);
@@ -108,8 +162,17 @@ export default function Search() {
                   name={o.name} />
               </motion.div>
             ))}
+
+            
       </VillagersCont>
+      
       </Selection>
+
+      <PagiCont>
+              {butt_arr}
+              {/* <PagiButt onClick={()=>PageClick(2)}>2</PagiButt>
+              <PagiButt onClick={()=>PageClick(3)}>3</PagiButt> */}
+            </PagiCont>
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </Cont>
