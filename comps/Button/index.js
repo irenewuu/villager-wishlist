@@ -6,15 +6,18 @@ const BtnCont = styled.button`
     justify-content:center;
     align-items:center;
     font-family: Dongle;
-    background-color: #8CC8A2;
-    border-radius: 62px;
-    border: none;
-    width: 236px;
-    height: 50px;
+    font-size: ${props=>props.fontSize}px;
 
-    font-size: 33px;
-    color: white;
+    color: ${props=>props.txtColor};
+    background-color: ${props=>props.bgColor};
+    width: ${props=>props.width}px;
+    height: ${props=>props.height}px;
+
+    border: ${props=>props.border};
+    border-radius: 62px;
     padding-top: 5px;
+
+    cursor: pointer;
 `
 
 
@@ -22,11 +25,25 @@ const BtnCont = styled.button`
 
 const Button = ({
     text="Start Now!",
-    onClick = () => {}
+    onClick = () => {},
+    width = "236",
+    height = "50",
+    bgColor = "#8CC8A2",
+    txtColor = "white",
+    fontSize = "33",
+    border = "none"
 }) => {
 
         return (
-        <BtnCont onClick={onClick}>
+        <BtnCont 
+            onClick={onClick} 
+            width={width}
+            height={height}
+            bgColor={bgColor}
+            txtColor={txtColor}
+            fontSize={fontSize}
+            border={border}
+            >
             {text}
         </BtnCont>
 

@@ -10,22 +10,23 @@ import { profile_themes } from '../../utils/variables';
 // import { usePersonality } from '../../utils/provider';
 
 const Cont = styled.div`
-  width: 100%;
-  height: 100%;
+  box-sizing: border-box; 
   display:flex;
   flex-direction: column;
-  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 120px;
 `
 // TOP CONT
 const ProfileCont = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content:center;
   align-items:center;
-  padding: 24px;
-  box-sizing: border-box;
-  background: ${props=>props.bg};
   row-gap: 24px;
+  padding: 24px;
+  background: ${props=>props.bg};
 `
 const NameCont = styled.div`
   position: relative;
@@ -71,11 +72,11 @@ const ProfileInfo = styled.div`
 const Details = styled.div`
   box-sizing: border-box;
   display:flex;
+  justify-content:space-between;
   width: 100%;
   max-width: 375px;
   padding-top: 25px;
   padding-bottom: 25px;
-  justify-content:space-between;
   border-bottom: 1px solid #EBEBEB;
 `
 const Key = styled.p`
@@ -87,10 +88,10 @@ const Key = styled.p`
 `
 const Value = styled.p`
   color:${props=>props.color};
-  font-weight: 300;
-  font-size: 28px;
   width: 150px;
   margin-left: 48px;
+  font-weight: 300;
+  font-size: 28px;
   text-align: left;
   word-wrap: wrap;
 `
@@ -98,7 +99,7 @@ const WishButton = styled.button`
   border:none;
   padding: 18px 50px 15px 50px;
   border-radius: 100px;
-  margin-top: 20px;
+  margin-top: 24px;
   background: #F7D359;
   color: white;
   font-size: 30px;

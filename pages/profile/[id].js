@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useRouter } from 'next/router';
+import ax from 'axios';
 import styled from 'styled-components';
 
 import ProfileComp from '../../comps/Profile'
@@ -9,18 +10,50 @@ import BottomNav from '../../comps/BottomNav';
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  text-align: center; 
+  // justify-content: center;
   align-items: center;
-  height: 100vh;
+  text-align: center; 
+  // height: 100%;
   box-sizing: border-box;
+  margin-bottom: 80px;
 `;
 
-export default function Profile({villager}) {    
+export default function Profile() {    
+  const [villager, setVillager] = useState(null);
+
+  const router = useRouter();
+  const {id} = router.query;
+
+  useEffect(()=>{
+    if(id) {
+      const GetVillager = async()=> {
+        const res = await ax.get("/api/villagers", {
+          params: {
+            id:id
+          }
+        });
+        console.log(res.data);
+
+        if(res.data[0]) {
+          setVillager(res.data[0])
+        }
+      }
+      GetVillager();
+    }
+  }, [id])
+
+    if(villager === null ) {
+      return <div></div>
+      // <div>no results for this villager id: {id}</div>
+    }
+
+
   return (
     <Cont>
         <ProfileComp
           name={villager.name}
+
+          // color association
           bg = { villager.personality == "Jock" || villager.personality == "Normal" ? "#DEF1EF"     // blue
           : villager.personality == "Peppy" || villager.personality == "Lazy" ? "#FFF8D4"           // yellow
           : villager.personality == "Snooty" || villager.personality == "Smug" ? "#D4ECD3"          // green
@@ -31,6 +64,8 @@ export default function Profile({villager}) {
           : villager.personality == "Snooty" || villager.personality == "Smug" ? "#98C7A4"                // green
           : villager.personality == "Big sister" || villager.personality == "Cranky" ? "#FEBDC3"          // pink
           : none}
+
+          // villager information
           villagerImg={villager.image_url}
           catchPhrase={villager.phrase}
           gender={villager.gender}
@@ -44,20 +79,4 @@ export default function Profile({villager}) {
         
     </Cont>
   )
-}
-
-export async function getServerSideProps(context) {
-  const { id } = context.params;
-  const villager = await fetch(`http://localhost:3000/api/villager/${id}`);
-  const data = await villager.json();
-
-  if (!data) {
-    return {
-      notFound: true
-    };
-  }
-
-  return {
-    props: { villager: data }
-  };
 }

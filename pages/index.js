@@ -12,8 +12,8 @@ flex-direction: column;
 justify-content: center;
 text-align: center; 
 align-items: center;
-width: 100vw;
-height: 100vh;
+width: 100%;
+height: 100%;
 `
 
 const Photo = styled.img`
@@ -22,8 +22,7 @@ margin-top: 20px;
 `
 
 const ButtonCont = styled.div`
-margin-top: 70px;
-
+margin: 70px 0;
 `
 
 const BubbleCont = styled.div`
@@ -35,11 +34,11 @@ export default function Welcome() {
   return <Background>
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
-      <BubbleCont>
+      {/* <BubbleCont>
         <TextBubble></TextBubble>
-      </BubbleCont>
-      <ButtonCont onClick={()=>router.push("/empty-wishlist")}>
-        <Button></Button>
+      </BubbleCont> */}
+      <ButtonCont onClick={()=>router.push("/wishlist/${uuidv4()}")}>
+        <Button />
       </ButtonCont>
       
     
