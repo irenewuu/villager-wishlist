@@ -9,7 +9,7 @@ const Background = styled.div`
 background-color: #DEF1EE;
 display: flex;
 flex-direction: column;
-// justify-content: center;
+ justify-content: center;
 text-align: center; 
 align-items: center;
 width: 100%;
@@ -36,7 +36,7 @@ export default function Welcome() {
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
       <BubbleCont>
-        <TextBubble></TextBubble>
+        {/* <TextBubble></TextBubble> */}
       </BubbleCont>
       <ButtonCont onClick={()=>router.push("/wishlist/${uuidv4()}")}>
         <Button />
