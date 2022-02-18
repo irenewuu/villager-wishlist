@@ -1,32 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTheme } from '../../utils/provider';
+import { useRouter } from 'next/router';
+import {header_themes} from '../../utils/variables';
 
+const Heading =styled.h1`
+    font-size: 47px;
+    color:${props=>props.color};
+    margin-bottom: 20px;
+    margin-top: 30px;
+`
 
-// styled-component
-// const HeaderCont = styled.div`
+const Header = ({
+  text="Header",
+}) => {
 
-// `;
-// const HeaderText = styled.p`
-//   font-size: 48px;
-//   color: #08847C
-// `;
+  const {theme} = useTheme();
 
+      return (
+      <Heading color={header_themes[theme].color} >
+          {text}
+      </Heading>
 
-// export default function Header({
-//   text="this is a header"
-
-// }
-// ) {
-//   return <HeaderCont>
-//         <HeaderText>{text}</HeaderText>
-//       </HeaderCont>
-// }
-
-// sass
-export default function Header({
-  text="this is a header"
-}) {
-  return <div className='SassHeader'>
-    <h2>{text}</h2>
-  </div>;
+  )
 }
+
+export default Header;
+
+//    color: #08847C #8ECFC9
