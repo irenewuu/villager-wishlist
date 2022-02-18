@@ -9,7 +9,7 @@ const Background = styled.div`
 background-color: #DEF1EE;
 display: flex;
 flex-direction: column;
-// justify-content: center;
+justify-content: center;
 text-align: center; 
 align-items: center;
 width: 100%;
@@ -23,7 +23,6 @@ margin-top: 20px;
 
 const ButtonCont = styled.div`
 margin: 70px 0;
-
 `
 
 const BubbleCont = styled.div`
@@ -35,9 +34,9 @@ export default function Welcome() {
   return <Background>
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
-      <BubbleCont>
+      {/* <BubbleCont>
         <TextBubble></TextBubble>
-      </BubbleCont>
+      </BubbleCont> */}
       <ButtonCont onClick={()=>router.push("/wishlist/${uuidv4()}")}>
         <Button />
       </ButtonCont>
