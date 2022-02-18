@@ -1,8 +1,19 @@
 import React, {useContext, createContext, useState} from 'react';
+import {themes} from './variables'
 
 const initialStates = {
-    personalityFilter: "",
+    personalityFilter: '',
     setPersonalityFilter:()=>{},
+
+    hobbyFilter:"",
+    setHobbyFilter:()=>{},
+
+    genderFilter:"",
+    setGenderFilter:()=>{},
+    
+    theme:"default",
+    setTheme:()=>{},
+
 }
 
 const MyContext = createContext(initialStates);
@@ -10,8 +21,28 @@ const MyContext = createContext(initialStates);
 export default function AppProvider({children}) {
 
     const [personalityFilter, setPersonalityFilter] = useState(initialStates.personalityFilter);
+    const [hobbyFilter, setHobbyFilter] = useState(initialStates.hobbyFilter);
+    const [genderFilter, setGenderFilter] = useState(initialStates.genderFilter);
+    const [theme, setTheme] = useState(initialStates.theme);
 
-    return <MyContext.Provider value = {{personalityFilter, setPersonalityFilter}}>
+    return <MyContext.Provider value = {{
+        theme, setTheme, 
+        personalityFilter, setPersonalityFilter, 
+        hobbyFilter, setHobbyFilter, 
+        genderFilter, setGenderFilter
+    }}>
+    
+        <style jsx global>
+            {`
+                body{
+                    background-color:${themes[theme].body};
+                }
+                color{
+                    background-color:${themes[theme].color};
+                }
+
+            `}
+        </style>        
         {children}
     </MyContext.Provider>
 }
@@ -19,4 +50,18 @@ export default function AppProvider({children}) {
 export function usePersonality() {
     const {personalityFilter, setPersonalityFilter} = useContext(MyContext);
     return useContext(MyContext);
+}
+
+export function useHobby() {
+    const {hobbyFilter, setHobbyFilter} = useContext(MyContext);
+    return useContext(MyContext);
+}
+
+export function useGender() {
+    const {genderFilter, setGenderFilter} = useContext(MyContext);
+    return useContext(MyContext);
+}
+export function useTheme() {
+    const {theme, setTheme} = useContext(MyContext);
+    return {theme, setTheme};
 }

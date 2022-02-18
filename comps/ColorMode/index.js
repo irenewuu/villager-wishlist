@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import {Circle} from '@styled-icons/bootstrap';
 import {CheckCircle} from '@styled-icons/bootstrap';
+import { useTheme } from '../../utils/provider';
+import { useRouter } from 'next/router';
+import { switch_themes } from '../../utils/variables';
 
 const Container = styled.div`
     display:flex;
@@ -39,6 +42,7 @@ const Text = styled.div`
     font-size: 25px;
     line-height: 96.3%;
     text-align: center;
+    color:${props=>props.color};
 `
 const CircleIcon = styled(Circle)`
     color: #007C74;
@@ -150,7 +154,12 @@ opacity: 0;
 const ColorMode = ({
     text1="Light Mode",
     text2="Dark Mode",
+    onButtonClick1=()=>{},
+    onButtonClick2=()=>{},
 }) => {
+
+    const {theme} = useTheme();
+    const router = useRouter();
 
         return (
     <Container>
@@ -164,11 +173,12 @@ const ColorMode = ({
                     <Button
                     type="radio"
                     name="radio"
+                    onClick={()=>{onButtonClick1()}}
                     />
                     <RadioButtonLabel />
                 </Item>
                 </ButtonCont>
-                <Text>{text1}</Text>
+                <Text color={switch_themes[theme].color}>{text1}</Text>
             </Light>
             <Dark>
                 <DarkButton>
@@ -179,11 +189,12 @@ const ColorMode = ({
                     <Button
                     type="radio"
                     name="radio"
+                    onClick={()=>{onButtonClick2()}}
                     />
                     <RadioButtonLabel />
                 </Item>
                 </ButtonCont>
-                <Text>{text2}</Text>
+                <Text color={switch_themes[theme].color}>{text2}</Text>
             </Dark>
         </Cont>
     </Container>
