@@ -11,6 +11,7 @@ const FilterPanelCont = styled.div`
   z-index: ${props => props.zIndex};
   // transition: all 0.5s ease-in-out 0.2s;
 `;
+
 const FilterBtn = styled.button`
   width: 80px;
   margin: 8px 8px;
