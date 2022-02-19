@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {usePersonality, useHobby, useGender} from "../../utils/provider";
 
@@ -40,7 +40,7 @@ export default function FilterPanel({
   const {personalityFilter, setPersonalityFilter} = usePersonality();
   const {hobbyFilter, setHobbyFilter} = useHobby();
   const {genderFilter, setGenderFilter} = useGender();
-  console.log("personality: " + personalityFilter.toString() + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)
+  // console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)
 
   //personality states
   const [sbSisterly, setSBSisterly] = useState(false);
@@ -64,48 +64,66 @@ export default function FilterPanel({
   const [sbMale, setSBMale] = useState(false);
   const [sbFemale, setSBFemale] = useState(false);
 
+  //template making..?
+    // const personalityFilterFunc = (name, state, setState) => {
+    //   // useEffect(()=>{
+    //     setState(!state)
+    //     if(!state) {
+    //       setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf(name), 1))
+    //     } else {
+    //       setPersonalityFilter([...personalityFilter, name])
+    //       console.log(personalityFilter)
+    //       // console.log(name + " personality: " + state)
+    //     }
+    // // }, [name])
+    //   // console.log(personalityFilterFunc)
+    //   console.log(name, state, setState)
+    // }
+
+
+
+    console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+    console.log(personalityFilter)
 
   const personalities = [
-    {personality: "Sisterly", state: sbSisterly, setStateFunction: function() {
-        setSBSisterly(!sbSisterly)
-        {sbSisterly ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("sister"), 1)) : setPersonalityFilter([...personalityFilter, "sister"])}
-        console.log(personalityFilter)
-        console.log("Sisterly Personality " + !sbSisterly)
-      }},
-    {personality: "Peppy", state: sbPeppy, setStateFunction: function() {
-        setSBPeppy(!sbPeppy)
-        {sbPeppy ? setPersonalityFilter("") : setPersonalityFilter([...personalityFilter, "Peppy"])}
-        console.log("Peppy Personality " + !sbPeppy)
-      }},
+    {personality: "Sisterly", state: sbSisterly, setStateFunction: 
+    // personalityFilterFunc("sister", sbSisterly, setSBSisterly)
+    function() {
+      setSBSisterly(!sbSisterly)
+      {sbSisterly ? 
+        // setPersonalityFilter(personalityFilter.splice(personalityFilter.splice("sister"),1)) 
+        setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("sister"),1)) 
+      : setPersonalityFilter([...personalityFilter, "sister"])}
+    }},
+    {personality: "Peppy", state: sbPeppy, setStateFunction: 
+    // personalityFilterFunc("Peppy", sbPeppy, setSBPeppy)
+    function() {
+      setSBPeppy(!sbPeppy)
+      {sbPeppy ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Peppy"),1)) : setPersonalityFilter([...personalityFilter, "Peppy"])}
+    }},
     {personality: "Snooty", state: sbSnooty, setStateFunction: function() {
         setSBSnooty(!sbSnooty)
-        {sbSnooty ? setPersonalityFilter("") : setPersonalityFilter([...personalityFilter, "Snooty"])}
-        console.log("Snooty Personality " + !sbSnooty)
+        {sbSnooty ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Snooty"-1),1)) : setPersonalityFilter([...personalityFilter, "Snooty"])}
       }},
     {personality: "Smug", state: sbSmug, setStateFunction: function() {
         setSBSmug(!sbSmug)
-        {sbSmug ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Smug")}
-        console.log("Smug Personality " + !sbSmug)
+        {sbSmug ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Smug"), 1)) : setPersonalityFilter([...personalityFilter, "Smug"])}
     }},
     {personality: "Cranky", state: sbCranky, setStateFunction: function() {
         setSBCranky(!sbCranky)
-        {sbCranky ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Cranky")}
-        console.log("Cranky Personality " + !sbCranky)
+        {sbCranky ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Cranky"), 1)) : setPersonalityFilter([...personalityFilter, "Cranky"])}
     }},
     {personality: "Lazy", state: sbLazy, setStateFunction: function() {
         setSBLazy(!sbLazy)
-        {sbLazy ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Lazy")}
-        console.log("Lazy Personality " + !sbLazy)
+        {sbLazy ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Lazy"), 1)) : setPersonalityFilter([...personalityFilter, "Lazy"])}
     }},
     {personality: "Jock", state: sbJock, setStateFunction: function() {
         setSBJock(!sbJock)
-        {sbJock ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Jock")}
-        console.log("Jock Personality " + !sbJock)
+        {sbJock ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Jock"), 0)) : setPersonalityFilter([...personalityFilter, "Jock"])}
     }},
     {personality: "Normal", state: sbNormal, setStateFunction: function() {
         setSBNormal(!sbNormal)
-        {sbNormal ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Normal")}
-        console.log("Normal Personality " + !sbNormal)
+        {sbNormal ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Normal"), 0)) : setPersonalityFilter([...personalityFilter, "Normal"])}
     }},
   ]
 
@@ -164,7 +182,7 @@ export default function FilterPanel({
       <div>
         {personalities.map((o,i)=>
           <FilterBtn 
-          style={{backgroundColor:o.state?"#007C74":"white", color:o.state?"white":"#007C74"}}
+          style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.personality}
           </FilterBtn>
@@ -177,7 +195,7 @@ export default function FilterPanel({
       <div>
         {hobbies.map((o,i)=>
           <FilterBtn
-          style={{backgroundColor:o.state?"#007C74":"white", color:o.state?"white":"#007C74"}}
+          style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.hobby}
           </FilterBtn>

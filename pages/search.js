@@ -132,11 +132,12 @@ export default function Search() {
         const res = await ax.get("/api/villagers", {
           params: {
             txt: txt,
-            personality: personalityFilter,
+            personality: personalityFilter.toString(),
             // gender: gender,
           },
         });
         console.log(res.data);
+        // console.log(personalityFilter.toString().replaceAll(',', ' '))
         setData(res.data);
         timer = null;
       }, 1000);
@@ -171,8 +172,7 @@ export default function Search() {
                   />
                 </motion.div>
               ))
-            : // : !txtInput ? <p>search smth else</p>
-
+            :  // <div>:(</div>
             data.map((o, i) => (
                 <motion.div whileHover={{ scale: 1.03 }} key={o._id}>
                   <Villagers
@@ -187,7 +187,8 @@ export default function Search() {
                     innercolor={o.personality ? innerCircle[o.personality] : none}
                   />
                 </motion.div>
-              ))}
+              ))
+              }
         </VillagersCont>
       </Selection>
 

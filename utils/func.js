@@ -2,7 +2,7 @@
 
 export function filtering(
     arr=[],
-    config={name:null, personality:null, gender:null}){
+    config={name:null, personality:[], gender:null}){
 
     const {name, personality, gender} = config;
 

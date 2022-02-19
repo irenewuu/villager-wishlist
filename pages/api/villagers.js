@@ -15,7 +15,7 @@ export default async function handler(req, res) {
             name: txt,
             personality: personality
         })
-    }
+    } 
 
     if(req.query.page) {
         const numresults = req.query.num || 10;
