@@ -42,3 +42,25 @@ export const profile_themes = {
         color:"#FFF"
     }
 }
+
+export const bg={
+    Jock: "#DEF1EF",
+    Normal:"#DEF1EF",
+    Peppy: "#FFF8D4",
+    Lazy: "#FFF8D4",
+    Snooty: "#D4ECD3",
+    Smug: "#D4ECD3",
+    "Big sister": "#FFE6E8",
+    Cranky: "#FFE6E8"
+}
+
+export const innerCircle = {
+    Jock: "#A4D8D4",
+    Normal:"#A4D8D4",
+    Peppy: "#FFF2AF",
+    Lazy: "#FFF2AF",
+    Snooty: "#98C7A4",
+    Smug: "#98C7A4",
+    "Big sister" : "#FEBDC3",
+    Cranky: "#FEBDC3"
+}
