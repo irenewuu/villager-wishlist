@@ -18,7 +18,7 @@ const Cont = styled.div`
     display:flex;
     flex-direction: row;
     justify-content:center;
-    background: rgba(222, 241, 239, 0.75);
+    background: ${props=>props.background};
     border-radius: 20px;
     width: 325px;
     height: 280px;
@@ -163,7 +163,7 @@ const ColorMode = ({
 
         return (
     <Container>
-        <Cont>
+        <Cont background={switch_themes[theme].background}>
             <Light>
                 <LightButton>
                     <LightInnerButton></LightInnerButton>
