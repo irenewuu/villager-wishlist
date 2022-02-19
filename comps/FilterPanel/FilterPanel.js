@@ -40,7 +40,7 @@ export default function FilterPanel({
   const {personalityFilter, setPersonalityFilter} = usePersonality();
   const {hobbyFilter, setHobbyFilter} = useHobby();
   const {genderFilter, setGenderFilter} = useGender();
-  console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)
+  console.log("personality: " + personalityFilter.toString() + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)
 
   //personality states
   const [sbSisterly, setSBSisterly] = useState(false);
@@ -68,42 +68,43 @@ export default function FilterPanel({
   const personalities = [
     {personality: "Sisterly", state: sbSisterly, setStateFunction: function() {
         setSBSisterly(!sbSisterly)
-        {sbSisterly ? setPersonalityFilter("") : setPersonalityFilter("sister")}
+        {sbSisterly ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("sister"), 1)) : setPersonalityFilter([...personalityFilter, "sister"])}
+        console.log(personalityFilter)
         console.log("Sisterly Personality " + !sbSisterly)
       }},
     {personality: "Peppy", state: sbPeppy, setStateFunction: function() {
         setSBPeppy(!sbPeppy)
-        {sbPeppy ? setPersonalityFilter("") : setPersonalityFilter("Peppy")}
+        {sbPeppy ? setPersonalityFilter("") : setPersonalityFilter([...personalityFilter, "Peppy"])}
         console.log("Peppy Personality " + !sbPeppy)
       }},
     {personality: "Snooty", state: sbSnooty, setStateFunction: function() {
         setSBSnooty(!sbSnooty)
-        {sbSnooty ? setPersonalityFilter("") : setPersonalityFilter("Snooty")}
+        {sbSnooty ? setPersonalityFilter("") : setPersonalityFilter([...personalityFilter, "Snooty"])}
         console.log("Snooty Personality " + !sbSnooty)
       }},
     {personality: "Smug", state: sbSmug, setStateFunction: function() {
         setSBSmug(!sbSmug)
-        {sbSmug ? setPersonalityFilter("") : setPersonalityFilter("Smug")}
+        {sbSmug ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Smug")}
         console.log("Smug Personality " + !sbSmug)
     }},
     {personality: "Cranky", state: sbCranky, setStateFunction: function() {
         setSBCranky(!sbCranky)
-        {sbCranky ? setPersonalityFilter("") : setPersonalityFilter("Cranky")}
+        {sbCranky ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Cranky")}
         console.log("Cranky Personality " + !sbCranky)
     }},
     {personality: "Lazy", state: sbLazy, setStateFunction: function() {
         setSBLazy(!sbLazy)
-        {sbLazy ? setPersonalityFilter("") : setPersonalityFilter("Lazy")}
+        {sbLazy ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Lazy")}
         console.log("Lazy Personality " + !sbLazy)
     }},
     {personality: "Jock", state: sbJock, setStateFunction: function() {
         setSBJock(!sbJock)
-        {sbJock ? setPersonalityFilter("") : setPersonalityFilter("Jock")}
+        {sbJock ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Jock")}
         console.log("Jock Personality " + !sbJock)
     }},
     {personality: "Normal", state: sbNormal, setStateFunction: function() {
         setSBNormal(!sbNormal)
-        {sbNormal ? setPersonalityFilter("") : setPersonalityFilter("Normal")}
+        {sbNormal ? setPersonalityFilter("") : setPersonalityFilter(...personalityFilter, "Normal")}
         console.log("Normal Personality " + !sbNormal)
     }},
   ]
