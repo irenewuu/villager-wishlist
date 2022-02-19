@@ -11,6 +11,10 @@ import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
 import SearchBar from "../comps/SearchBar/SearchBar";
 
+import {bg} from '../utils/variables'
+import {innerCircle} from '../utils/variables'
+
+
 var timer = null;
 
 const Cont = styled.div`
@@ -100,6 +104,9 @@ export default function Search() {
                     innerWidth="114px"
                     innerHeight="114px"
                     name={o.name}
+                    bgcolor={o.personality ? bg[o.personality] : none}
+                    innercolor={o.personality ? innerCircle[o.personality] : none}
+
                   />
                 </motion.div>
                 // else show villagers up to 50
@@ -118,6 +125,8 @@ export default function Search() {
                     innerWidth="114px"
                     innerHeight="114px"
                     name={o.name}
+                    bgcolor={o.personality ? bg[o.personality] : none}
+                    innercolor={o.personality ? innerCircle[o.personality] : none}
                   />
                 </motion.div>
               ))}
