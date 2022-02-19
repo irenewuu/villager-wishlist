@@ -40,7 +40,6 @@ export default function FilterPanel({
   const {personalityFilter, setPersonalityFilter} = usePersonality();
   const {hobbyFilter, setHobbyFilter} = useHobby();
   const {genderFilter, setGenderFilter} = useGender();
-  // console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)
 
   //personality states
   const [sbSisterly, setSBSisterly] = useState(false);
@@ -64,118 +63,56 @@ export default function FilterPanel({
   const [sbMale, setSBMale] = useState(false);
   const [sbFemale, setSBFemale] = useState(false);
 
-  //template making..?
-    // const personalityFilterFunc = (name, state, setState) => {
-    //   // useEffect(()=>{
-    //     setState(!state)
-    //     if(!state) {
-    //       setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf(name), 1))
-    //     } else {
-    //       setPersonalityFilter([...personalityFilter, name])
-    //       console.log(personalityFilter)
-    //       // console.log(name + " personality: " + state)
-    //     }
-    // // }, [name])
-    //   // console.log(personalityFilterFunc)
-    //   console.log(name, state, setState)
-    // }
+  //reusable functions ========================================================================================================================
+  const personalityFilterFunc = (name, state, setState) => {
+    setState(!state)
+    {state ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf(name), 1)) 
+      : setPersonalityFilter([...personalityFilter, name]) }
+  }
 
+  const hobbyFilterFunc = (name, state, setState) => {
+      setState(!state)
+      {state ? setHobbyFilter(hobbyFilter.splice(hobbyFilter.indexOf(name), 1)) 
+        : setHobbyFilter([...hobbyFilter, name]) }
+  }
 
+  const genderFilterFunc = (name, state, setState) => {
+      setState(!state)
+      {state ? setGenderFilter(genderFilter.splice(genderFilter.indexOf(name), 1)) 
+        : setGenderFilter([...genderFilter, name]) }
+  }
 
-    console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-    console.log(personalityFilter)
+  console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+    // console.log(personalityFilter)
 
+  // filtering arrays ==========================================================================================================================
   const personalities = [
-    {personality: "Sisterly", state: sbSisterly, setStateFunction: 
-    // personalityFilterFunc("sister", sbSisterly, setSBSisterly)
-    function() {
-      setSBSisterly(!sbSisterly)
-      {sbSisterly ? 
-        // setPersonalityFilter(personalityFilter.splice(personalityFilter.splice("sister"),1)) 
-        setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("sister"),1)) 
-      : setPersonalityFilter([...personalityFilter, "sister"])}
-    }},
-    {personality: "Peppy", state: sbPeppy, setStateFunction: 
-    // personalityFilterFunc("Peppy", sbPeppy, setSBPeppy)
-    function() {
-      setSBPeppy(!sbPeppy)
-      {sbPeppy ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Peppy"),1)) : setPersonalityFilter([...personalityFilter, "Peppy"])}
-    }},
-    {personality: "Snooty", state: sbSnooty, setStateFunction: function() {
-        setSBSnooty(!sbSnooty)
-        {sbSnooty ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Snooty"-1),1)) : setPersonalityFilter([...personalityFilter, "Snooty"])}
-      }},
-    {personality: "Smug", state: sbSmug, setStateFunction: function() {
-        setSBSmug(!sbSmug)
-        {sbSmug ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Smug"), 1)) : setPersonalityFilter([...personalityFilter, "Smug"])}
-    }},
-    {personality: "Cranky", state: sbCranky, setStateFunction: function() {
-        setSBCranky(!sbCranky)
-        {sbCranky ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Cranky"), 1)) : setPersonalityFilter([...personalityFilter, "Cranky"])}
-    }},
-    {personality: "Lazy", state: sbLazy, setStateFunction: function() {
-        setSBLazy(!sbLazy)
-        {sbLazy ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Lazy"), 1)) : setPersonalityFilter([...personalityFilter, "Lazy"])}
-    }},
-    {personality: "Jock", state: sbJock, setStateFunction: function() {
-        setSBJock(!sbJock)
-        {sbJock ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Jock"), 0)) : setPersonalityFilter([...personalityFilter, "Jock"])}
-    }},
-    {personality: "Normal", state: sbNormal, setStateFunction: function() {
-        setSBNormal(!sbNormal)
-        {sbNormal ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf("Normal"), 0)) : setPersonalityFilter([...personalityFilter, "Normal"])}
-    }},
+    {personality: "Sisterly", state: sbSisterly, setStateFunction: ()=> personalityFilterFunc("sister", sbSisterly, setSBSisterly)},
+    {personality: "Peppy", state: sbPeppy, setStateFunction: ()=> personalityFilterFunc("Peppy", sbPeppy, setSBPeppy)},
+    {personality: "Snooty", state: sbSnooty, setStateFunction: ()=> personalityFilterFunc("Snooty", sbSnooty, setSBSnooty)},
+    {personality: "Smug", state: sbSmug, setStateFunction: ()=> personalityFilterFunc("Smug", sbSmug, setSBSmug)},
+    {personality: "Cranky", state: sbCranky, setStateFunction: ()=> personalityFilterFunc("Cranky", sbCranky, setSBCranky)},
+    {personality: "Lazy", state: sbLazy, setStateFunction: ()=> personalityFilterFunc("Lazy", sbLazy, setSBLazy)},
+    {personality: "Jock", state: sbJock, setStateFunction: ()=> personalityFilterFunc("Jock", sbJock, setSBJock)},
+    {personality: "Normal", state: sbNormal, setStateFunction: ()=> personalityFilterFunc("Normal", sbNormal, setSBNormal)},
   ]
 
   const hobbies = [
-    {hobby: "Education", state: sbEducation, setStateFunction: function() {
-        setSBEducation(!sbEducation)
-        {sbEducation ? setHobbyFilter("") : setHobbyFilter("Education")}
-        console.log("Education Hobby " + !sbEducation)
-      }},
-    {hobby: "Music", state: sbMusic, setStateFunction: function() {
-        setSBMusic(!sbMusic)
-        {sbMusic ? setHobbyFilter("") : setHobbyFilter("Music")}
-        console.log("Music Hobby " + !sbMusic)
-      }},
-    {hobby: "Fashion", state: sbFashion, setStateFunction: function() {
-        setSBFashion(!sbFashion)
-        {sbFashion ? setHobbyFilter("") : setHobbyFilter("Fashion")}
-        console.log("Fashion Hobby " + !sbFashion)
-      }},
-    {hobby: "Nature", state: sbNature, setStateFunction: function() {
-        setSBNature(!sbNature)
-        {sbNature ? setHobbyFilter("") : setHobbyFilter("Nature")}
-        console.log("Nature Hobby " + !sbNature)
-      }},
-    {hobby: "Fitness", state: sbFitness, setStateFunction: function() {
-        setSBFitness(!sbFitness)
-        {sbFitness ? setHobbyFilter("") : setHobbyFilter("Fitness")}
-        console.log("Fitness Hobby " + !sbFitness)
-      }},
-    {hobby: "Play", state: sbPlay, setStateFunction: function() {
-        setSBPlay(!sbPlay)
-        {sbPlay ? setHobbyFilter("") : setHobbyFilter("Play")}
-        console.log("Play Hobby " + !sbPlay)
-      }},
+    {hobby: "Education", state: sbEducation, setStateFunction: ()=> hobbyFilterFunc("Education", sbEducation, setSBEducation)},
+    {hobby: "Music", state: sbMusic, setStateFunction: ()=> hobbyFilterFunc("Music", sbMusic, setSBMusic)},
+    {hobby: "Fashion", state: sbFashion, setStateFunction: ()=> hobbyFilterFunc("Fashion", sbFashion, setSBFashion)},
+    {hobby: "Nature", state: sbNature, setStateFunction: ()=> hobbyFilterFunc("Nature", sbNature, setSBNature)},
+    {hobby: "Fitness", state: sbFitness, setStateFunction: ()=> hobbyFilterFunc("Fitness", sbFitness, setSBFitness)},
+    {hobby: "Play", state: sbPlay, setStateFunction: ()=> hobbyFilterFunc("Play", sbPlay, setSBPlay)},
   ]
 
   const genders = [
-    {gender: "Male", state: sbMale, setStateFunction: function() {
-        setSBMale(!sbMale)
-        {sbMale ? setGenderFilter("") : setGenderFilter("Male")}
-        console.log("Male Gender " + !sbMale)
-      }},
-    {gender: "Female", state: sbFemale, setStateFunction: function() {
-        setSBFemale(!sbFemale)
-        {sbFemale ? setGenderFilter("") : setGenderFilter("Female")}
-        console.log("Female Gender " + !sbFemale)
-      }}
+    {gender: "Male", state: sbMale, setStateFunction: ()=> genderFilterFunc("Male", sbMale, setSBMale)},
+    {gender: "Female", state: sbFemale, setStateFunction: ()=> genderFilterFunc("Female", sbFemale, setSBFemale)},
   ]
 
 
-  return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer"
-      opacity={opacity} zIndex={zIndex}>
+  return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
     <div className='FilterSection'>
       <h5>Personality</h5>
 
@@ -185,8 +122,7 @@ export default function FilterPanel({
           style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.personality}
-          </FilterBtn>
-        )}
+          </FilterBtn> )}
       </div>
 
     </div>
@@ -198,8 +134,7 @@ export default function FilterPanel({
           style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.hobby}
-          </FilterBtn>
-        )}
+          </FilterBtn> )}
       </div>
     </div>
     <div className='FilterSection'>
@@ -210,8 +145,7 @@ export default function FilterPanel({
           style={{backgroundColor:o.state?"#007C74":"white", color:o.state?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.gender}
-          </FilterBtn>
-        )}
+          </FilterBtn> )}
       </div>
     </div>
     <BtnsCont>
@@ -221,7 +155,10 @@ export default function FilterPanel({
         border="1.5px solid #007C74"
         onClick={()=>{
           //usecontexts
-          setPersonalityFilter(""), setHobbyFilter(""), setGenderFilter("")
+          personalityFilter.length = 0
+          hobbyFilter.length = 0
+          genderFilter.length = 0
+
           //personalities
           setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
           setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)
