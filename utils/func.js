@@ -2,7 +2,7 @@
 
 export function filtering(
     arr=[],
-    config={name:null, personality:[], gender:null}){
+    config={name:null, personality:[], hobby:[], gender:[]}){
 
     const {name, personality, gender} = config;
 
@@ -17,6 +17,9 @@ export function filtering(
                 if(personality) {
                     cond = cond && o.personality.includes(personality);
                 }
+                // if(hobby) {
+                //     cond = cond && o.hobby.includes(hobby);
+                // }
                 if(gender) {
                     cond = cond && o.gender.includes(gender);
                 }

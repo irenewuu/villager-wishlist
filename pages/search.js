@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
 
-import { usePersonality } from "../utils/provider";
+import { usePersonality, useHobby, useGender } from "../utils/provider";
 import acnh from "../utils/ac-villagers.json";
 
 import BottomNav from "../comps/BottomNav";
@@ -26,6 +26,12 @@ const Cont = styled.div`
   padding-bottom: 80px;
 `;
 
+const ResultsCont = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+// const VillagersCont = styled(motion.div)`
 const VillagersCont = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -34,13 +40,13 @@ const VillagersCont = styled.div`
 `;
 
 //Hover motion
-const Selection = styled(motion.div)`
-  display: flex;
-  justify-content: space-evenly;
-  flex: 1;
-  flex-wrap: wrap;
-  flex-direction: row;
-`;
+// const Selection = styled(motion.div)`
+//   display: flex;
+//   justify-content: space-evenly;
+//   flex: 1;
+//   flex-wrap: wrap;
+//   flex-direction: row;
+// `;
 
 //Pagination
 const PagiCont = styled.div`
@@ -63,6 +69,8 @@ export default function Search() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const { personalityFilter } = usePersonality();
+  const { hobbyFilter } = useHobby();
+  const { genderFilter } = useGender();
   const [cur_page, setCurPage ]=useState(0);
 
   // pagination function ===================================================
@@ -84,21 +92,22 @@ export default function Search() {
     butt_arr.push(
       <button onClick={PageClick.bind(this, ind)}
         style={{
-          backgroundColor:cur_page===ind?"#8CC8A2":"white",
-          color:cur_page ===ind? "white":"#8CC8A2",
-          border:" 2px solid #8CC8A2",
+          backgroundColor: cur_page === ind?"#8CC8A2":"white",
+          color: cur_page === ind? "white":"#8CC8A2",
+          border: "2px solid #8CC8A2",
           padding: "10px 15px 10px 15px",
-          background: "white",
           marginRight: "10px",
-          borderRadius: "8px"}}>
+          borderRadius: "8px",
+          cursor: "pointer"}}>
         {ind}
     </button>
     );
     ind++;
   }
 
-
-  if(cur_page === 1) {
+  if(!cur_page) {
+    setCurPage(cur_page + 1)
+  } else if(cur_page === 1) {
     butt_arr = butt_arr.slice(cur_page-1, cur_page+4);
   } else if(cur_page === 3) {
     butt_arr = butt_arr.slice(cur_page-2, cur_page+3);
@@ -133,11 +142,11 @@ export default function Search() {
           params: {
             txt: txt,
             personality: personalityFilter.toString(),
-            // gender: gender,
+            hobby: hobbyFilter.toString(),
+            gender: genderFilter.toString(),
           },
         });
         console.log(res.data);
-        // console.log(personalityFilter.toString().replaceAll(',', ' '))
         setData(res.data);
         timer = null;
       }, 1000);
@@ -146,55 +155,54 @@ export default function Search() {
 
   return (
     <Cont>
+      {/* initial={{ opacity: 1 }} animate={{ opacity: 100, transition: { ease: "easeIn", duration: 1, delay: 0 },}} */}
       <SearchBar onTextChange={(e) => {inputFilter(e.target.value);}} />
-      <Selection
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: 100,
-          transition: { ease: "easeIn", duration: 1, delay: 0 },
-        }}>
-        <VillagersCont>
-          {/* if data is true and data.length is greater than 0, show the list of villagers */}
-          {data && data.length > 0
-            ? data.map((o, i) => (
-                <motion.div whileHover={{ scale: 1.03 }} key={o._id}>
-                  <Villagers
+      {/* if data is true and data.length is greater than 0, show the list of villagers */}
+      {data && data.length > 0 ? 
+        <ResultsCont>
+
+          <VillagersCont> 
+            {data.map((o, i) => (
+              <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
+                  <Villagers key={o._id}
+                    name={o.name}
                     onClick={() => {router.push(`/profile/${o._id}`);}}
                     src={o.image_url}
                     width="148px"
                     left="110px"
                     innerWidth="114px"
                     innerHeight="114px"
-                    name={o.name}
-                    bgcolor={o.personality ? bg[o.personality] : none}
-                    innercolor={o.personality ? innerCircle[o.personality] : none}
-
-                  />
-                </motion.div>
-              ))
-            :  // <div>:(</div>
-            data.map((o, i) => (
-                <motion.div whileHover={{ scale: 1.03 }} key={o._id}>
-                  <Villagers
-                    onClick={() => {router.push(`/profile/${o._id}`);}}
-                    src={o.image_url}
-                    width="148px"
-                    left="110px"
-                    innerWidth="114px"
-                    innerHeight="114px"
-                    name={o.name}
                     bgcolor={o.personality ? bg[o.personality] : none}
                     innercolor={o.personality ? innerCircle[o.personality] : none}
                   />
                 </motion.div>
-              ))
-              }
-        </VillagersCont>
-      </Selection>
+              ))}
+          </VillagersCont>
+          <PagiCont> {butt_arr} </PagiCont>
 
-      <PagiCont> {butt_arr} </PagiCont>
+        </ResultsCont>
+          :  <p>Type to search something!</p>
+          }
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </Cont>
   );
 }
+
+
+// misc =================================================================================
+// data.map((o, i) => (
+//     <motion.div whileHover={{ scale: 1.03 }} key={o._id}>
+//       <Villagers
+//         onClick={() => {router.push(`/profile/${o._id}`);}}
+//         src={o.image_url}
+//         width="148px"
+//         left="110px"
+//         innerWidth="114px"
+//         innerHeight="114px"
+//         name={o.name}
+//         bgcolor={o.personality ? bg[o.personality] : none}
+//         innercolor={o.personality ? innerCircle[o.personality] : none}
+//       />
+//     </motion.div>
+//   ))

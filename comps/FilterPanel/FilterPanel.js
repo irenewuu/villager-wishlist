@@ -83,7 +83,6 @@ export default function FilterPanel({
   }
 
   console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-    // console.log(personalityFilter)
 
   // filtering arrays ==========================================================================================================================
   const personalities = [
@@ -119,6 +118,7 @@ export default function FilterPanel({
       <div>
         {personalities.map((o,i)=>
           <FilterBtn 
+          key={i}
           style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.personality}
@@ -131,6 +131,7 @@ export default function FilterPanel({
       <div>
         {hobbies.map((o,i)=>
           <FilterBtn
+          key={i}
           style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.hobby}
@@ -142,6 +143,7 @@ export default function FilterPanel({
       <div>
         {genders.map((o,i)=>
           <FilterBtn
+          key={i}
           style={{backgroundColor:o.state?"#007C74":"white", color:o.state?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.gender}
@@ -155,10 +157,12 @@ export default function FilterPanel({
         border="1.5px solid #007C74"
         onClick={()=>{
           //usecontexts
-          personalityFilter.length = 0
-          hobbyFilter.length = 0
-          genderFilter.length = 0
-
+          
+          {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
+          {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
+          {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
+          console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+          
           //personalities
           setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
           setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)

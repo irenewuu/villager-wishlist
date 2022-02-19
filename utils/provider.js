@@ -5,10 +5,10 @@ const initialStates = {
     personalityFilter: [],
     setPersonalityFilter:()=>{},
 
-    hobbyFilter:"",
+    hobbyFilter:[],
     setHobbyFilter:()=>{},
 
-    genderFilter:"",
+    genderFilter:[],
     setGenderFilter:()=>{},
     
     theme:"default",
@@ -21,8 +21,8 @@ const MyContext = createContext(initialStates);
 export default function AppProvider({children}) {
 
     const [personalityFilter, setPersonalityFilter] = useState([]);
-    const [hobbyFilter, setHobbyFilter] = useState(initialStates.hobbyFilter);
-    const [genderFilter, setGenderFilter] = useState(initialStates.genderFilter);
+    const [hobbyFilter, setHobbyFilter] = useState([]);
+    const [genderFilter, setGenderFilter] = useState([]);
     const [theme, setTheme] = useState(initialStates.theme);
 
     return <MyContext.Provider value = {{
