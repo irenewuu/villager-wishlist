@@ -9,10 +9,12 @@ export const themes = {
 
 export const switch_themes = {
     default:{
-        color:"#000000"
+        color:"#000000",
+        background:"rgba(222, 241, 239, 0.75)"
     },
     dark:{
-        color:"#FFFF"
+        color:"#FFFF",
+        background:"#474747"
     }
 }
 
