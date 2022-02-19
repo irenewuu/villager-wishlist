@@ -11,6 +11,10 @@ import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
 import SearchBar from "../comps/SearchBar/SearchBar";
 
+import {bg} from '../utils/variables'
+import {innerCircle} from '../utils/variables'
+
+
 var timer = null;
 const numBooks = 480;
 
@@ -114,8 +118,8 @@ export default function Search() {
     console.log(txt);
     const txtInput = txt;
     //capitalize first letter
-    const txtCapitalized = txtInput.charAt(0).toUpperCase() + txtInput.slice(1);
-    console.log(txtCapitalized);
+    // const txtCapitalized = txtInput.charAt(0).toUpperCase() + txtInput.slice(1);
+    // console.log(txtCapitalized);
 
     if (timer) {
       clearTimeout(timer);
@@ -127,7 +131,7 @@ export default function Search() {
         console.log("async call");
         const res = await ax.get("/api/villagers", {
           params: {
-            txt: txtCapitalized,
+            txt: txt,
             personality: personalityFilter,
             // gender: gender,
           },
@@ -160,7 +164,11 @@ export default function Search() {
                     left="110px"
                     innerWidth="114px"
                     innerHeight="114px"
-                    name={o.name} />
+                    name={o.name}
+                    bgcolor={o.personality ? bg[o.personality] : none}
+                    innercolor={o.personality ? innerCircle[o.personality] : none}
+
+                  />
                 </motion.div>
               ))
             : // : !txtInput ? <p>search smth else</p>
@@ -174,7 +182,10 @@ export default function Search() {
                     left="110px"
                     innerWidth="114px"
                     innerHeight="114px"
-                    name={o.name} />
+                    name={o.name}
+                    bgcolor={o.personality ? bg[o.personality] : none}
+                    innercolor={o.personality ? innerCircle[o.personality] : none}
+                  />
                 </motion.div>
               ))}
         </VillagersCont>

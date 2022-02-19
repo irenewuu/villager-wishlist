@@ -81,8 +81,8 @@ const Img = styled.img`
 export default function Villagers({
   // villager,
   width = "350px",
-  bgcolor = "#FCF8E4",
-  innercolor = "#F8EEBB",
+  bgcolor = "",
+  innercolor = "",
   name = "Apple",
   src = "/apple.png",
   left = "300px",
@@ -100,7 +100,7 @@ export default function Villagers({
   return (
     <Cont
       width={width}
-      bgcolor={colors[Math.floor(Math.random() * colors.length)]}
+      bgcolor={bgcolor}
       marginL={marginL}
       marginR={marginR}
     >
@@ -125,7 +125,7 @@ export default function Villagers({
       )}
       <InnerCont
         onClick={onClick}
-        innercolor={innerColors[Math.floor(Math.random() * innerColors.length)]}
+        innercolor={innercolor}
         innerWidth={innerWidth}
         innerHeight={innerHeight}
       >
