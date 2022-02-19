@@ -47,7 +47,7 @@ export default function SearchBar({ onTextChange = () => {} }) {
           }}
         />
       </div>
-      <FilterPanel opacity={opacity ? 1 : 0} zIndex={zIndex ? 5 : -10} />
+      <FilterPanel opacity={opacity ? 1 : 0} zIndex={zIndex ? 5 : -10} onApplyClick={()=>HandleClick()} />
       <BackgroundBlur opacity={opacity ? 1 : 0} zIndex={zIndex ? 4 : -10} />
     </div>
   );

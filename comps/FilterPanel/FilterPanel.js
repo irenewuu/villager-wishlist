@@ -34,7 +34,7 @@ const BtnsCont = styled.div`
 export default function FilterPanel({
   zIndex=null,
   opacity=null,
-  display="block"
+  onApplyClick=()=>{}
 }) {
   //useContext for personality, hobby, and gender
   const {personalityFilter, setPersonalityFilter} = usePersonality();
@@ -175,7 +175,7 @@ export default function FilterPanel({
 
 
   return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer"
-      opacity={opacity} zIndex={zIndex} display={display}>
+      opacity={opacity} zIndex={zIndex}>
     <div className='FilterSection'>
       <h5>Personality</h5>
 
@@ -235,10 +235,7 @@ export default function FilterPanel({
       <Button text="Apply" fontSize="26"
         width="120"  height="32"
         bgColor="#007C74"
-        onClick={()=>{ 
-          display === "block" ? "none" : "block"
-          console.log("close")
-        }}
+        onClick={onApplyClick}
         />
     </BtnsCont>
   </FilterPanelCont>;
