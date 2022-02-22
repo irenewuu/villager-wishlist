@@ -66,23 +66,24 @@ export default function FilterPanel({
   //reusable functions ========================================================================================================================
   const personalityFilterFunc = (name, state, setState) => {
     setState(!state)
-    {state ? setPersonalityFilter(personalityFilter.splice(personalityFilter.indexOf(name), 1)) 
+    {state ? setPersonalityFilter(personalityFilter.filter(i=>i !== name)) 
       : setPersonalityFilter([...personalityFilter, name]) }
   }
 
-  const hobbyFilterFunc = (name, state, setState) => {
-      setState(!state)
-      {state ? setHobbyFilter(hobbyFilter.splice(hobbyFilter.indexOf(name), 1)) 
-        : setHobbyFilter([...hobbyFilter, name]) }
-  }
+  // const hobbyFilterFunc = (name, state, setState) => {
+  //     setState(!state)
+  //     {state ? setHobbyFilter(hobbyFilter.filter(i=>i !== name)) 
+  //       : setHobbyFilter([...hobbyFilter, name]) }
+  // }
 
   const genderFilterFunc = (name, state, setState) => {
       setState(!state)
-      {state ? setGenderFilter(genderFilter.splice(genderFilter.indexOf(name), 1)) 
+      {state ? setGenderFilter(genderFilter.filter(i=>i !== name)) 
         : setGenderFilter([...genderFilter, name]) }
   }
 
-  console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+  // console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+  console.log(personalityFilter)
 
   // filtering arrays ==========================================================================================================================
   const personalities = [
@@ -96,14 +97,14 @@ export default function FilterPanel({
     {personality: "Normal", state: sbNormal, setStateFunction: ()=> personalityFilterFunc("Normal", sbNormal, setSBNormal)},
   ]
 
-  const hobbies = [
-    {hobby: "Education", state: sbEducation, setStateFunction: ()=> hobbyFilterFunc("Education", sbEducation, setSBEducation)},
-    {hobby: "Music", state: sbMusic, setStateFunction: ()=> hobbyFilterFunc("Music", sbMusic, setSBMusic)},
-    {hobby: "Fashion", state: sbFashion, setStateFunction: ()=> hobbyFilterFunc("Fashion", sbFashion, setSBFashion)},
-    {hobby: "Nature", state: sbNature, setStateFunction: ()=> hobbyFilterFunc("Nature", sbNature, setSBNature)},
-    {hobby: "Fitness", state: sbFitness, setStateFunction: ()=> hobbyFilterFunc("Fitness", sbFitness, setSBFitness)},
-    {hobby: "Play", state: sbPlay, setStateFunction: ()=> hobbyFilterFunc("Play", sbPlay, setSBPlay)},
-  ]
+  // const hobbies = [
+  //   {hobby: "Education", state: sbEducation, setStateFunction: ()=> hobbyFilterFunc("Education", sbEducation, setSBEducation)},
+  //   {hobby: "Music", state: sbMusic, setStateFunction: ()=> hobbyFilterFunc("Music", sbMusic, setSBMusic)},
+  //   {hobby: "Fashion", state: sbFashion, setStateFunction: ()=> hobbyFilterFunc("Fashion", sbFashion, setSBFashion)},
+  //   {hobby: "Nature", state: sbNature, setStateFunction: ()=> hobbyFilterFunc("Nature", sbNature, setSBNature)},
+  //   {hobby: "Fitness", state: sbFitness, setStateFunction: ()=> hobbyFilterFunc("Fitness", sbFitness, setSBFitness)},
+  //   {hobby: "Play", state: sbPlay, setStateFunction: ()=> hobbyFilterFunc("Play", sbPlay, setSBPlay)},
+  // ]
 
   const genders = [
     {gender: "Male", state: sbMale, setStateFunction: ()=> genderFilterFunc("Male", sbMale, setSBMale)},
@@ -126,7 +127,7 @@ export default function FilterPanel({
       </div>
 
     </div>
-    <div className='FilterSection'>
+    {/* <div className='FilterSection'>
       <h5>Hobby</h5>
       <div>
         {hobbies.map((o,i)=>
@@ -137,7 +138,7 @@ export default function FilterPanel({
             {o.hobby}
           </FilterBtn> )}
       </div>
-    </div>
+    </div> */}
     <div className='FilterSection'>
       <h5>Gender</h5>
       <div>

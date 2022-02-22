@@ -4,6 +4,8 @@ export function filtering(
     arr=[],
     config={name:null, personality:[], hobby:[], gender:[]}){
 
+        console.log('called???')
+
     const {name, personality, gender} = config;
 
     
@@ -15,14 +17,14 @@ export function filtering(
                     cond = cond && o.name.includes(name);
                 }
                 if(personality) {
-                    cond = cond && o.personality.includes(personality);
+                    cond = cond && personality.includes(o.personality);
                 }
                 // if(hobby) {
-                //     cond = cond && o.hobby.includes(hobby);
+                //     cond = cond && hobby.includes(o.hobby);
                 // }
-                if(gender) {
-                    cond = cond && o.gender.includes(gender);
-                }
+                // if(gender) {
+                //     cond = cond && gender.includes(o.gender);
+                // }
             return cond;
 
         }) 

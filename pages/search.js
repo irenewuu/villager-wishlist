@@ -141,9 +141,10 @@ export default function Search() {
         const res = await ax.get("/api/villagers", {
           params: {
             txt: txt,
-            personality: personalityFilter.toString(),
-            hobby: hobbyFilter.toString(),
-            gender: genderFilter.toString(),
+            // is this personality included 
+            personality: JSON.stringify(personalityFilter),
+            // hobby: JSON.stringify(hobbyFilter),
+            gender: JSON.stringify(genderFilter),
           },
         });
         console.log(res.data);
