@@ -22,9 +22,9 @@ export function filtering(
                 // if(hobby) {
                 //     cond = cond && hobby.includes(o.hobby);
                 // }
-                // if(gender) {
-                //     cond = cond && gender.includes(o.gender);
-                // }
+                if(gender) {
+                    cond = cond && gender.includes(o.gender);
+                }
             return cond;
 
         }) 
@@ -45,10 +45,10 @@ export function filtering(
 
 // console.log(villagers.slice(0,2))
 
-export function GoToPage(p=1, acnhList=[], num=10) {
+export function GoToPage(p=1, arr=[], num=10) {
 
     // p will be 1 so we do -1 to get books 0-5
-    const lists = acnhList.slice((p-1)*num, p*num);
+    const lists = arr.slice((p-1)*num, p*num);
 
     console.log(lists);
     return lists;

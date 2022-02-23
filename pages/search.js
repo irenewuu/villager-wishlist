@@ -142,9 +142,9 @@ export default function Search() {
           params: {
             txt: txt,
             // is this personality included 
-            personality: JSON.stringify(personalityFilter),
+            personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             // hobby: JSON.stringify(hobbyFilter),
-            gender: JSON.stringify(genderFilter),
+            gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
           },
         });
         console.log(res.data);

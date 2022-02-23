@@ -82,8 +82,8 @@ export default function FilterPanel({
         : setGenderFilter([...genderFilter, name]) }
   }
 
-  // console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-  console.log(personalityFilter)
+  console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+  // console.log(personalityFilter)
 
   // filtering arrays ==========================================================================================================================
   const personalities = [
