@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     const {txt, name, personality, hobby, gender} = req.query;
 
     // console.log(personality + "api")
-    console.log(req.query)
+    console.log(req.query, 'api/villagers')
     // assign an _id to every villager
     const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
 
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         lists = filtering(acnhList, {
             name: txt,
             personality: personality,
-            // hobby: hobby,
+            hobby: hobby,
             gender: gender
         })
     } 

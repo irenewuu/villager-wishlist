@@ -6,10 +6,10 @@ export function filtering(
 
         console.log('called???')
 
-    const {name, personality, gender} = config;
+    const {name, personality, hobby, gender} = config;
 
     
-    if(name || personality || gender) {
+    if(name || personality || hobby || gender) {
 
         const filtered_arr = arr.filter((o)=> {
             var cond = true;
@@ -19,9 +19,10 @@ export function filtering(
                 if(personality) {
                     cond = cond && personality.includes(o.personality);
                 }
-                // if(hobby) {
-                //     cond = cond && hobby.includes(o.hobby);
-                // }
+                if(hobby) {
+                    cond = cond && hobby.includes(o.nh_details.hobby);
+                    console.log(o.nh_details.hobby)
+                }
                 if(gender) {
                     cond = cond && gender.includes(o.gender);
                 }
