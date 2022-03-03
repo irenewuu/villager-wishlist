@@ -39,3 +39,19 @@ export function filtering(
 // })
 
 // console.log(villagers.slice(0,2))
+
+export function GoToPage(p=1, acnhList=[], num=10) {
+
+    // p will be 1 so we do -1 to get books 0-5
+    const lists = acnhList.slice((p-1)*num, p*num);
+
+    console.log(lists);
+    return lists;
+
+}
+// cd into utils folder and type "node func, it will show the functions results"
+
+//GoToPage(1) will get me books 0-5
+//GoToPage(2) will get me books 5-10
+// GoToPage(2);
+
