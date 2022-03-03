@@ -11,6 +11,10 @@ import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
 import SearchBar from "../comps/SearchBar/SearchBar";
 
+import {bg} from '../utils/variables'
+import {innerCircle} from '../utils/variables'
+
+
 var timer = null;
 const numBooks = 480;
 

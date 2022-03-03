@@ -6,6 +6,9 @@ import styled from 'styled-components';
 import ProfileComp from '../../comps/Profile'
 import BottomNav from '../../comps/BottomNav';
 
+import {bg} from '../../utils/variables'
+import {innerCircle} from '../../utils/variables'
+
 
 const Cont = styled.div`
   display: flex;
@@ -54,16 +57,8 @@ export default function Profile() {
           name={villager.name}
 
           // color association
-          bg = { villager.personality == "Jock" || villager.personality == "Normal" ? "#DEF1EF"     // blue
-          : villager.personality == "Peppy" || villager.personality == "Lazy" ? "#FFF8D4"           // yellow
-          : villager.personality == "Snooty" || villager.personality == "Smug" ? "#D4ECD3"          // green
-          : villager.personality == "Big sister" || villager.personality == "Cranky" ? "#FFE6E8"    // pink
-          : none}
-          innerCircleBg = {villager.personality == "Jock" || villager.personality == "Normal" ? "#A4D8D4"  // blue
-          : villager.personality == "Peppy" || villager.personality == "Lazy" ? "#FFF2AF"                 // yellow
-          : villager.personality == "Snooty" || villager.personality == "Smug" ? "#98C7A4"                // green
-          : villager.personality == "Big sister" || villager.personality == "Cranky" ? "#FEBDC3"          // pink
-          : none}
+          bg = { villager.personality ? bg[villager.personality] : none}
+          innerCircleBg = {villager.personality ? innerCircle[villager.personality] : none}
 
           // villager information
           villagerImg={villager.image_url}
