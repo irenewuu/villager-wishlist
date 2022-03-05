@@ -71,6 +71,7 @@ const Text = styled.p`
     max-width: 70%;
     z-index: 100;
     padding-top:50px;
+    user-select: none;
 `
 
 const TextBubble = ({
