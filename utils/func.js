@@ -2,12 +2,14 @@
 
 export function filtering(
     arr=[],
-    config={name:null, personality:null, gender:null}){
+    config={name:null, personality:[], hobby:[], gender:[]}){
 
-    const {name, personality, gender} = config;
+        console.log('called???')
+
+    const {name, personality, hobby, gender} = config;
 
     
-    if(name || personality || gender) {
+    if(name || personality || hobby || gender) {
 
         const filtered_arr = arr.filter((o)=> {
             var cond = true;
@@ -15,10 +17,14 @@ export function filtering(
                     cond = cond && o.name.includes(name);
                 }
                 if(personality) {
-                    cond = cond && o.personality.includes(personality);
+                    cond = cond && personality.includes(o.personality);
+                }
+                if(hobby) {
+                    cond = cond && hobby.includes(o.nh_details.hobby);
+                    console.log(o.nh_details.hobby)
                 }
                 if(gender) {
-                    cond = cond && o.gender.includes(gender);
+                    cond = cond && gender.includes(o.gender);
                 }
             return cond;
 
@@ -40,10 +46,10 @@ export function filtering(
 
 // console.log(villagers.slice(0,2))
 
-export function GoToPage(p=1, acnhList=[], num=10) {
+export function GoToPage(p=1, arr=[], num=10) {
 
     // p will be 1 so we do -1 to get books 0-5
-    const lists = acnhList.slice((p-1)*num, p*num);
+    const lists = arr.slice((p-1)*num, p*num);
 
     console.log(lists);
     return lists;
