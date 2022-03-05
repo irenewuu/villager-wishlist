@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Button from '../comps/Button';
-import Google from '@styled-icons/boxicons-logos/Google';
+import Header from '../comps/Header';
 
 const Background = styled.div`
 background-color: #DEF1EE;
@@ -27,17 +27,17 @@ const Gap = styled.div`
 margin-top:30px;
 `
 
-const Create = styled.p`
-margin-top:20px;
-`
-
-export default function SignIn() {
+export default function SignUp() {
     
     return <Background>
-        <Photo src="/villager-wishlist.svg"></Photo>
+         <Header text="Create Account"></Header>
 
         <User>
             <input type="text" name="Username" placeholder="Username" size="30"></input>
+        </User>
+
+        <User>
+            <input type="text" name="Username" placeholder="Email" size="30"></input>
         </User>
 
         <User>
@@ -45,14 +45,8 @@ export default function SignIn() {
         </User>
 
         <Gap>
-       <Button width="275" text="Login"> </Button>
+       <Button width="275" text="Signup"> </Button>
        </Gap>
-
-       <Gap>
-       <Button  width="275" text="Continue with Google"> </Button>
-       </Gap>
-
-       <Create>Don't have an account? Create a new account</Create>
 
     </Background>
     
