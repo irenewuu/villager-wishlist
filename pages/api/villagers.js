@@ -12,6 +12,7 @@ export default async function handler(req, res) {
 
     var lists = [];
 
+    // search filtering =========================
     if(txt) {
         lists = filtering(acnhList, {
             name: txt,
@@ -20,16 +21,21 @@ export default async function handler(req, res) {
             gender: gender
         })
     } 
+    // end of search filtering ==================
 
+    // pagination ===============================
     if(req.query.page) {
         const numresults = req.query.num || 10;
         lists = GoToPage(req.query.page, acnhList, numresults);
     }
+    // end of pagination =========================
 
-    if(req.query.id) {
-        lists = acnhList.filter(o=>o._id === Number(req.query.id))
-    }
 
+    // individual villager page ==================
+    // if(req.query.id) {
+    //     lists = acnhList.filter(o=>o._id === Number(req.query.id))
+    // }
+    // end of individual villager page ===========
     
     lists = lists.slice(0,10);
     res.status(200).json(lists);
