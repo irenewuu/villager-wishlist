@@ -52,7 +52,7 @@ export default function SignIn() {
        <Button  width="275" text="Continue with Google"> </Button>
        </Gap>
 
-       <Create>Don't have an account? Create a new account</Create>
+       <Create>Don&#39;t have an account? Create a new account</Create>
 
     </Background>
     
