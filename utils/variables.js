@@ -50,7 +50,7 @@ export const bg={
     Normal:"#DEF1EF",
     Peppy: "#FFF8D4",
     Lazy: "#E9ECF9",
-    Snooty: "#D4ECD3",
+    Snooty: "#FEEFFC",
     Smug: "#D4ECD3",
     "Big sister": "#FEECEC",
     Cranky: "#FBE7D9"
