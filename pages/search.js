@@ -147,11 +147,11 @@ export default function Search() {
       timer = setTimeout(async () => {
         console.log("async call");
 
-        const res = await ax.get("https://villager-wishlist.herokuapp.com/search", {
+        const res = await ax.get("api/villagers", {
           params: {
             txt: txt,
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
-            // hobby: JSON.stringify(hobbyFilter),
+            hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
           },
         });
