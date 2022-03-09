@@ -16,7 +16,7 @@ import {innerCircle} from '../utils/variables'
 
 
 var timer = null;
-const numBooks = 480;
+const numvillagers = 480;
 
 const Cont = styled.div`
   width: 100%;
@@ -88,7 +88,7 @@ export default function Search() {
 
   var butt_arr = [];
   var ind = 1;
-  for(var i = 0; i<numBooks; i+=10){
+  for(var i = 0; i<numvillagers; i+=10){
     butt_arr.push(
       <button onClick={PageClick.bind(this, ind)}
         style={{
