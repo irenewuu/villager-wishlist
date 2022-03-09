@@ -11,23 +11,26 @@ export default async function handler(req, res) {
     // assign an _id to every villager
     // const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
 
-    let offset = 10
-    const acnhList = await ax.get(`http://localhost:3000/search?name=${txt}&offset=${offset}`)
+    // let offset = 0
+    const acnhList = await ax.get(`http://localhost:3000/search`)
 
-    var lists = acnhList.data;
+    // var lists = acnhList.data;
+    var lists = [];
 
-    // if(txt) {
-    //     lists = filtering(acnhList.data, {
-    //         name: txt,
-    //         personality: personality,
-    //         hobby: hobby,
-    //         gender: gender
-    //     })
-    // } 
+    if(txt) {
+        lists = filtering(acnhList.data, {
+            name: txt,
+            personality: personality,
+            hobby: hobby,
+            gender: gender
+        })
+    } 
+
+    const numvillagers = lists.length;
 
     if(req.query.page) {
-        const numresults = req.query.num || 10;
-        lists = GoToPage(req.query.page, acnhList.data, numresults);
+        const numresults = req.query.num;
+        lists = GoToPage(req.query.page, lists, numresults);
     }
 
     // if(req.query.id) {
@@ -36,5 +39,5 @@ export default async function handler(req, res) {
 
     
     // lists = lists.slice(0,10);
-    res.status(200).json(lists);
+    res.status(200).json({lists, numvillagers});
 }

@@ -16,7 +16,7 @@ import {innerCircle} from '../utils/variables'
 
 
 var timer = null;
-const numvillagers = 480;
+const numvillagers = 397;
 
 const Cont = styled.div`
   width: 100%;
@@ -71,19 +71,31 @@ export default function Search() {
   const { personalityFilter } = usePersonality();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
-  const [cur_page, setCurPage ]=useState(0);
+  const [cur_page, setCurPage ]=useState([]);
+  const [villager_num, setVillager_num] = useState();
 
   // pagination function ===================================================
   const PageClick = async(p)=>{
+    var obj = {};
+    if(txt) {
+      lists = filtering(acnhList.data, {
+          name: txt,
+          personality: personality,
+          hobby: hobby,
+          gender: gender
+      })
+  } 
     const res = await ax.get("/api/villagers", {
       params:{
         page:p,
-        num:10
+        num:10,
+        ...obj
       }
     });
     console.log(res.data);
-    setData(res.data);
+    setData(res.data.lists);
     setCurPage(p);
+    setVillager_num(res.data.numvillagers);
   }
 
   var butt_arr = [];
@@ -105,25 +117,32 @@ export default function Search() {
     ind++;
   }
 
-  if(!cur_page) {
-    setCurPage(cur_page + 1)
-  } else if(cur_page === 1) {
-    butt_arr = butt_arr.slice(cur_page-1, cur_page+4);
-  } else if(cur_page === 2) {
-    butt_arr = butt_arr.slice(cur_page-2, cur_page+3);
-  } else if(cur_page === 3) {
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 4) {
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 38){
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 39) {
-    butt_arr = butt_arr.slice(cur_page-4, cur_page+1);
-  } else if(cur_page === 40) {
-    butt_arr = butt_arr.slice(cur_page-5, cur_page+2);
-  } else {
-    butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
+  var numpages = Math.ceil(villager_num/10);
+  var lastpage = cur_page+2;
+  if(lastpage > numpages){
+    lastpage= numpages
   }
+
+  butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page-3, lastpage);
+  // if(!cur_page) {
+  //   setCurPage(cur_page + 1)
+  // } else if(cur_page === 1) {
+  //   butt_arr = butt_arr.slice(cur_page-1, cur_page+4);
+  // } else if(cur_page === 2) {
+  //   butt_arr = butt_arr.slice(cur_page-2, cur_page+3);
+  // } else if(cur_page === 3) {
+  //   butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
+  // } else if(cur_page === 4) {
+  //   butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
+  // } else if(cur_page === 38){
+  //   butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
+  // } else if(cur_page === 39) {
+  //   butt_arr = butt_arr.slice(cur_page-4, cur_page+1);
+  // } else if(cur_page === 40) {
+  //   butt_arr = butt_arr.slice(cur_page-5, cur_page+2);
+  // } else {
+  //   butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
+  // }
 
 
   // search function ==========================================
