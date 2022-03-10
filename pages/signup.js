@@ -67,7 +67,7 @@ export default function SignUp() {
 
         <RowGap>
             <Button width="275" text="Signup" />
-            <Signin>Have an account? <a>Sign in</a></Signin>
+            <Signin>Have an account? <a>Log in</a></Signin>
         </RowGap>
         
     </MainCont>
