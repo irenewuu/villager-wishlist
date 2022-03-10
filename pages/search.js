@@ -16,7 +16,7 @@ import {innerCircle} from '../utils/variables'
 
 
 var timer = null;
-const numBooks = 480;
+const numvillagers = 480;
 
 const Cont = styled.div`
   width: 100%;
@@ -88,7 +88,7 @@ export default function Search() {
 
   var butt_arr = [];
   var ind = 1;
-  for(var i = 0; i<numBooks; i+=10){
+  for(var i = 0; i<numvillagers; i+=10){
     butt_arr.push(
       <button onClick={PageClick.bind(this, ind)}
         style={{
@@ -109,16 +109,20 @@ export default function Search() {
     setCurPage(cur_page + 1)
   } else if(cur_page === 1) {
     butt_arr = butt_arr.slice(cur_page-1, cur_page+4);
-  } else if(cur_page === 3) {
+  } else if(cur_page === 2) {
     butt_arr = butt_arr.slice(cur_page-2, cur_page+3);
-  } else if(cur_page === 46){
+  } else if(cur_page === 3) {
     butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 47) {
+  } else if(cur_page === 4) {
+    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
+  } else if(cur_page === 38){
+    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
+  } else if(cur_page === 39) {
     butt_arr = butt_arr.slice(cur_page-4, cur_page+1);
-  } else if(cur_page === 48) {
+  } else if(cur_page === 40) {
     butt_arr = butt_arr.slice(cur_page-5, cur_page+2);
   } else {
-    butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -2, cur_page+3);
+    butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
   }
 
   // useEffect(()=> {
