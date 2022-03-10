@@ -87,7 +87,7 @@ export default function FilterPanel({
 
   // filtering arrays ==========================================================================================================================
   const personalities = [
-    {personality: "Sisterly", state: sbSisterly, setStateFunction: ()=> personalityFilterFunc("sister", sbSisterly, setSBSisterly)},
+    {personality: "Sisterly", state: sbSisterly, setStateFunction: ()=> personalityFilterFunc("Big sister", sbSisterly, setSBSisterly)},
     {personality: "Peppy", state: sbPeppy, setStateFunction: ()=> personalityFilterFunc("Peppy", sbPeppy, setSBPeppy)},
     {personality: "Snooty", state: sbSnooty, setStateFunction: ()=> personalityFilterFunc("Snooty", sbSnooty, setSBSnooty)},
     {personality: "Smug", state: sbSmug, setStateFunction: ()=> personalityFilterFunc("Smug", sbSmug, setSBSmug)},

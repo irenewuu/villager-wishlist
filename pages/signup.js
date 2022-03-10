@@ -4,49 +4,73 @@ import Button from '../comps/Button';
 import Header from '../comps/Header';
 
 const Background = styled.div`
-background-color: #DEF1EE;
-display: flex;
-flex-direction: column;
-justify-content: center;
-text-align: center; 
-align-items: center;
-width: 100%;
-height: 100%;
+    background-color: #DEF1EE;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center; 
+    align-items: center;
+    width: 100%;
+    height: 100%;
 `
 const Photo = styled.img`
-padding: 15px;
-margin-top: 20px;
+    width: 250px;
 `
+const TextInput = styled.input`
+    box-sizing: border-box;
+    color: #8D8D8D;
+    width: 275px;
+    height: 50px;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    border: none;
+    padding-left: 16px;
 
-const User = styled.div`
-display:flex,
-justify-content:center;
-margin-top:20px;
+    ::placeholder {
+        color: #8D8D8D;
+    }
+    :focus {
+        outline: none;
+    }
+`;
+
+const RowGap = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    row-gap: 24px;
 `
-const Gap = styled.div`
-margin-top:30px;
+const MainCont = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    row-gap: 56px;
+`
+const Signin = styled.p`
+    color: #8D8D8D;
 `
 
 export default function SignUp() {
     
     return <Background>
-         <Header text="Create Account"></Header>
+        <Photo src="/mountains.svg" />
+        <Header text="Create Account" />
 
-        <User>
-            <input type="text" name="Username" placeholder="Username" size="30"></input>
-        </User>
+    <MainCont>
+        <RowGap>
+            <TextInput type="text" name="username" placeholder="Username" />
+            <TextInput type="text" name="email" placeholder="Email" />
+            <TextInput type="text" name="password" placeholder="Password" />
+        </RowGap>
 
-        <User>
-            <input type="text" name="Username" placeholder="Email" size="30"></input>
-        </User>
-
-        <User>
-            <input type="text" name="Username" placeholder="Password" size="30"></input>
-        </User>
-
-        <Gap>
-       <Button width="275" text="Signup"> </Button>
-       </Gap>
+        <RowGap>
+            <Button width="275" text="Signup" />
+            <Signin>Have an account? <a>Sign in</a></Signin>
+        </RowGap>
+        
+    </MainCont>
 
     </Background>
     
