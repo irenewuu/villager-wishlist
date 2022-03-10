@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Button from '../comps/Button';
-import Google from '@styled-icons/boxicons-logos/Google';
+import Link from 'next/link'
+
+
 
 const Background = styled.div`
     background-color: #DEF1EE;
@@ -61,8 +63,7 @@ const Signup = styled.p`
     color: #8D8D8D;
 `
 
-
-export default function SignIn() {
+export default function LogIn() {
     
     return <Background>
         <Photo src="/villager-wishlist.svg" />
@@ -74,8 +75,8 @@ export default function SignIn() {
             </RowGap>
             <RowGap2>
                 <Button width="275" text="Login" fontSize="26" />
-                <Button width="275" text="Continue with Google" fontSize="26" />
-                <Signup>Don&#39;t have an account? <a>Sign up</a></Signup>
+                <Button display="block" width="275" text="Continue with Google" fontSize="26" />
+                <Signup>Don&#39;t have an account? <Link href='signUp'>Sign up</Link></Signup>
             </RowGap2>
        </MainCont>
 

@@ -1,5 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Google } from '@styled-icons/boxicons-logos/Google'
+
+
+const GoogleIcon = styled(Google)`
+    color:${(props) =>  props.googleColor};
+    width:20px;
+    height:20px;
+    display:${props=>props.display};
+    margin-bottom: 5px;
+    margin-right: 5px;
+`;
 
 const BtnCont = styled.button`
     display:flex;
@@ -31,7 +42,8 @@ const Button = ({
     bgColor = "#8CC8A2",
     txtColor = "white",
     fontSize = "33",
-    border = "none"
+    border = "none",
+    display = "none"
 }) => {
 
         return (
@@ -44,6 +56,7 @@ const Button = ({
             fontSize={fontSize}
             border={border}
             >
+                <GoogleIcon display={display}/>
             {text}
         </BtnCont>
 
