@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import ax from "axios";
@@ -15,8 +15,6 @@ import {bg} from '../utils/variables'
 import {innerCircle} from '../utils/variables'
 
 
-var timer = null;
-const numvillagers = 397;
 
 const Cont = styled.div`
   width: 100%;
@@ -54,17 +52,10 @@ display:flex;
 justify-content: space-evenly;
 max-width: 600px;
 margin-bottom: 50px;
-
-`
-const PagiButt = styled.button`
-  border: 2px solid #8CC8A2;
-  padding: 10px 15px 10px 15px;
-  background: white;
-  color:#8CC8A2;
-  border-radius: 8px;
-  margin-right:10px;
 `
 
+var timer = null;
+// const numvillagers = 397;
 export default function Search() {
   const router = useRouter();
   const [data, setData] = useState([]);
@@ -73,36 +64,60 @@ export default function Search() {
   const { genderFilter } = useGender();
   const [cur_page, setCurPage ]=useState([]);
   const [villager_num, setVillager_num] = useState();
+  const [text, setText] = useState('');
 
   // pagination function ===================================================
-  const PageClick = async(p)=>{
+  const TextInput = async(txt, p)=>{
+    console.log(txt);
     var obj = {};
     if(txt) {
-      lists = filtering(acnhList.data, {
-          name: txt,
-          personality: personality,
-          hobby: hobby,
-          gender: gender
-      })
-  } 
-    const res = await ax.get("/api/villagers", {
-      params:{
-        page:p,
-        num:10,
-        ...obj
-      }
-    });
-    console.log(res.data);
-    setData(res.data.lists);
-    setCurPage(p);
-    setVillager_num(res.data.numvillagers);
+      obj.txt = txt;
+    }
+
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    
+    if (timer === null) {
+      timer = setTimeout(async () => {
+        console.log("async call");
+
+        const res = await ax.get("api/villagers", {
+          params: {
+            txt: txt,
+            page:p,
+            num:10,
+            ...obj,
+            personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
+            hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
+            gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
+            
+          },
+        });
+        console.log(res.data, "data");
+        // console.log(res.data.lists, "data.lists")
+        
+        setData(res.data.lists);
+        setText(txt);
+        setCurPage(p);
+        setVillager_num(res.data.numvillagers)
+
+        timer = null;
+      }, 1000);
+    }
+    
   }
+
+  useEffect(()=>{
+    TextInput('', 1);
+  }, [])
 
   var butt_arr = [];
   var ind = 1;
-  for(var i = 0; i<numvillagers; i+=10){
+  for(var i = 0; i<villager_num; i+=10){
     butt_arr.push(
-      <button onClick={PageClick.bind(this, ind)}
+      <button onClick={TextInput.bind(this, text, ind)}
         style={{
           backgroundColor: cur_page === ind?"#8CC8A2":"white",
           color: cur_page === ind? "white":"#8CC8A2",
@@ -119,11 +134,17 @@ export default function Search() {
 
   var numpages = Math.ceil(villager_num/10);
   var lastpage = cur_page+2;
+  // var lastpage = numpages;
+  console.log(numpages, "numpages")
   if(lastpage > numpages){
-    lastpage= numpages
+    lastpage = numpages
   }
-
-  butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page-3, lastpage);
+  
+  console.log(butt_arr, "butt_arr") 
+  // butt_arr = butt_arr.slice(cur_page-3 < 0 ? 0 : cur_page-3, lastpage);
+  butt_arr = butt_arr.slice(cur_page-3 < 0 ? 0 : cur_page-3, lastpage);
+  // butt_arr = butt_arr.slice(cur_page-3, lastpage);
+  console.log(butt_arr, "butt_arr")
   // if(!cur_page) {
   //   setCurPage(cur_page + 1)
   // } else if(cur_page === 1) {
@@ -144,48 +165,16 @@ export default function Search() {
   //   butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
   // }
 
-
-  // search function ==========================================
-  const inputFilter = async (txt) => {
-    console.log(txt);
-    const txtInput = txt;
-    //capitalize first letter
-    // const txtCapitalized = txtInput.charAt(0).toUpperCase() + txtInput.slice(1);
-    // console.log(txtCapitalized);
-
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-
-    if (timer === null) {
-      timer = setTimeout(async () => {
-        console.log("async call");
-        const res = await ax.get("/api/villagers", {
-          params: {
-            txt: txt,
-            personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
-            // hobby: JSON.stringify(hobbyFilter),
-            gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        timer = null;
-      }, 1000);
-    }
-  };
-
   return (
     <Cont>
-      {/* initial={{ opacity: 1 }} animate={{ opacity: 100, transition: { ease: "easeIn", duration: 1, delay: 0 },}} */}
-      <SearchBar onTextChange={(e) => {inputFilter(e.target.value);}} />
+      <SearchBar onTextChange={(e) => {TextInput(e.target.value);}} />
       {/* if data is true and data.length is greater than 0, show the list of villagers */}
       {data && data.length > 0 ? 
         <ResultsCont>
 
           <VillagersCont> 
-            {data.map((o, i) => (
+            {data.slice(0, 10).map((o,i) => (
+            // data.map((o, i) => (
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
                   <Villagers key={o._id}
                     name={o.name}
@@ -201,12 +190,12 @@ export default function Search() {
                 </motion.div>
               ))}
           </VillagersCont>
-          <PagiCont> {butt_arr} </PagiCont>
 
         </ResultsCont>
           :  <p>Type to search something!</p>
-          }
+        }
 
+        <PagiCont> {butt_arr} </PagiCont>
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </Cont>
   );

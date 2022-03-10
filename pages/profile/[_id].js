@@ -25,29 +25,27 @@ export default function Profile() {
   const [villager, setVillager] = useState(null);
 
   const router = useRouter();
-  const {id} = router.query;
+  const {id, _id} = router.query;
 
   useEffect(()=>{
-    if(id) {
+    if(_id) {
       const GetVillager = async()=> {
         const res = await ax.get("/api/villagers", {
           params: {
-            id:id
+            id:_id
           }
         });
-        console.log(res.data);
 
-        if(res.data[0]) {
-          setVillager(res.data[0])
+        if(res.data) {
+          setVillager(res.data.lists[0])
         }
       }
       GetVillager();
     }
-  }, [id])
+  }, [_id])
 
-    if(villager === null ) {
+    if(villager === null || villager === undefined) {
       return <div></div>
-      // <div>no results for this villager id: {id}</div>
     }
 
 
@@ -57,8 +55,8 @@ export default function Profile() {
           name={villager.name}
 
           // color association
-          bg = { villager.personality ? bg[villager.personality] : none}
-          innerCircleBg = {villager.personality ? innerCircle[villager.personality] : none}
+          bg = { villager.personality ? bg[villager.personality] : null}
+          innerCircleBg = {villager.personality ? innerCircle[villager.personality] : null}
 
           // villager information
           villagerImg={villager.image_url}
