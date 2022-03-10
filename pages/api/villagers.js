@@ -9,8 +9,8 @@ export default async function handler(req, res) {
     // console.log(personality + "api")
     console.log(req.query, 'api/villagers')
     // assign an _id to every villager
-    // const acnhList = await ax.get("https://villager-wishlist.herokuapp.com/search");
-    const acnhList = await ax.get("http://localhost:3000/search");
+    const acnhList = await ax.get("https://villager-wishlist.herokuapp.com/search");
+    // const acnhList = await ax.get("http://localhost:3000/search");
     // const acnhList = acnh.map((o, _id) => Object.assign(o, { _id }))
 
     var lists = [];
