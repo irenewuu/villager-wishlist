@@ -44,6 +44,7 @@ const Button = ({
     fontSize = "33",
     border = "none",
     display = "none"
+    
 }) => {
 
         return (
@@ -55,6 +56,7 @@ const Button = ({
             txtColor={txtColor}
             fontSize={fontSize}
             border={border}
+           
             >
                 <GoogleIcon display={display}/>
             {text}
