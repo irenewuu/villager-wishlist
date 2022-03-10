@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import ax from "axios";
@@ -125,6 +125,14 @@ export default function Search() {
     butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
   }
 
+  // useEffect(()=> {
+  //   fetch("/search").then(res => {
+  //     if(res) {
+  //       return res.json()
+  //     }
+  //   })
+  //   .then(jsonRes => setData(jsonRes))
+  // })
 
   // search function ==========================================
   const inputFilter = async (txt) => {
@@ -138,11 +146,12 @@ export default function Search() {
       clearTimeout(timer);
       timer = null;
     }
-
+    
     if (timer === null) {
       timer = setTimeout(async () => {
         console.log("async call");
-        const res = await ax.get("/api/villagers", {
+
+        const res = await ax.get("https://villager-wishlist.herokuapp.com/search", {
           params: {
             txt: txt,
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
@@ -159,12 +168,10 @@ export default function Search() {
 
   return (
     <Cont>
-      {/* initial={{ opacity: 1 }} animate={{ opacity: 100, transition: { ease: "easeIn", duration: 1, delay: 0 },}} */}
       <SearchBar onTextChange={(e) => {inputFilter(e.target.value);}} />
       {/* if data is true and data.length is greater than 0, show the list of villagers */}
       {data && data.length > 0 ? 
         <ResultsCont>
-
           <VillagersCont> 
             {data.map((o, i) => (
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
@@ -185,28 +192,11 @@ export default function Search() {
           <PagiCont> {butt_arr} </PagiCont>
 
         </ResultsCont>
-          :  <p>Type to search something!</p>
-          }
+        // else show this
+           :  <p>Type to search something!</p>
+          } 
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </Cont>
   );
 }
-
-
-// misc =================================================================================
-// data.map((o, i) => (
-//     <motion.div whileHover={{ scale: 1.03 }} key={o._id}>
-//       <Villagers
-//         onClick={() => {router.push(`/profile/${o._id}`);}}
-//         src={o.image_url}
-//         width="148px"
-//         left="110px"
-//         innerWidth="114px"
-//         innerHeight="114px"
-//         name={o.name}
-//         bgcolor={o.personality ? bg[o.personality] : none}
-//         innercolor={o.personality ? innerCircle[o.personality] : none}
-//       />
-//     </motion.div>
-//   ))

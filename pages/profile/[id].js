@@ -30,15 +30,15 @@ export default function Profile() {
   useEffect(()=>{
     if(id) {
       const GetVillager = async()=> {
-        const res = await ax.get("/api/villagers", {
+        const res = await ax.get(`https://villager-wishlist.herokuapp.com/profile/${id}`, {
           params: {
-            id:id
+            _id:id
           }
         });
         console.log(res.data);
 
-        if(res.data[0]) {
-          setVillager(res.data[0])
+        if(res.data) {
+          setVillager(res.data)
         }
       }
       GetVillager();
