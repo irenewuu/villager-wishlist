@@ -31,7 +31,8 @@ const Button = ({
     bgColor = "#8CC8A2",
     txtColor = "white",
     fontSize = "33",
-    border = "none"
+    border = "none",
+    
 }) => {
 
         return (
@@ -43,6 +44,7 @@ const Button = ({
             txtColor={txtColor}
             fontSize={fontSize}
             border={border}
+           
             >
             {text}
         </BtnCont>
