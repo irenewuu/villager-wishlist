@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Button from '../comps/Button';
 import Header from '../comps/Header';
+import Link from 'next/link'
 
 const Background = styled.div`
     background-color: #DEF1EE;
@@ -67,7 +68,7 @@ export default function SignUp() {
 
         <RowGap>
             <Button width="275" text="Signup" />
-            <Signin>Have an account? <a>Log in</a></Signin>
+            <Signin>Have an account? <Link href="/logIn">Log in</Link></Signin>
         </RowGap>
         
     </MainCont>
