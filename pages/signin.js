@@ -40,14 +40,21 @@ const RowGap = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content:center;
-    row-gap: 24px;
+    row-gap: 20px;
+`
+const RowGap2 = styled.div`
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    row-gap: 27px;
 `
 const MainCont = styled.div`
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content:center;
-    row-gap: 56px;
+    row-gap: 40px;
 `
 
 const Signup = styled.p`
@@ -65,11 +72,11 @@ export default function SignIn() {
                 <TextInput type="text" name="username" placeholder="Username" />
                 <TextInput type="text" name="password" placeholder="Password" />
             </RowGap>
-            <RowGap>
+            <RowGap2>
                 <Button width="275" text="Login" fontSize="26" />
                 <Button width="275" text="Continue with Google" fontSize="26" />
                 <Signup>Don&#39;t have an account? <a>Sign up</a></Signup>
-            </RowGap>
+            </RowGap2>
        </MainCont>
 
 
