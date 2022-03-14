@@ -3,11 +3,11 @@ import styled from "styled-components";
 import { Leaf } from "@styled-icons/remix-line/Leaf";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { Settings2Outline } from "@styled-icons/evaicons-outline/Settings2Outline";
+import { ChatDots } from "@styled-icons/bootstrap/ChatDots";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import { useTheme } from "../../utils/provider";
 import { nav_themes } from "../../utils/variables";
-import {Chat3} from "@styled-icons/remix-line/Chat3";
 
 
 const NavCont = styled.div`
@@ -52,13 +52,13 @@ const SearchIcon = styled(SearchOutline)`
   height: 20px;
   margin-bottom: 5px;
 `;
-const ChatIcon = styled(Chat3)`
-color: ${(props) => props.searchColor};
-width: 20px;
-height: 20px;
-margin-bottom: 5px;
+const ChatIcon = styled(ChatDots)`
+  color: ${(props) => props.chatColor};
+  width: 20px;
+  height: 20px;
+  margin-bottom: 5px;
+`;
 
-`
 const SettingIcon = styled(Settings2Outline)`
   color: ${(props) => props.settingColor};
   width: 20px;
@@ -77,9 +77,10 @@ const SearchText = styled.p`
   font-weight: 300;
 `;
 const ChatText = styled.p`
-color: ${(props) => props.searchTextColor};
-font-weight: 300;
-`
+  color: ${(props) => props.chatTextColor};
+  font-weight: 300;
+`;
+
 const SettingText = styled.p`
   color: ${(props) => props.settingTextColor};
   font-weight: 300;
@@ -89,9 +90,13 @@ export default function BottomNav({
   leafColor = "white",
   searchColor = "white",
   settingColor = "white",
+  chatColor = "white",
+
   leafTextColor = "white",
   searchTextColor = "white",
   settingTextColor = "white",
+  chatTextColor = "white",
+
   // routeToWishlist="/wishlist",
   routeToWishlist = `/wishlist/${uuidv4()}`,
   routeToSearch = "/search",
@@ -115,8 +120,8 @@ export default function BottomNav({
       </IconCont>
 
       <IconCont onClick={() => router.push(routeToChat)}>
-        <ChatIcon className="icon" color={searchColor} />
-        <ChatText searchTextColor={searchTextColor}>Chat</ChatText>
+        <ChatIcon className="icon" color={chatColor} />
+        <SearchText searchTextColor={chatTextColor}>Chat</SearchText>
       </IconCont>
 
       <IconCont onClick={() => router.push(routeToSetting)}>

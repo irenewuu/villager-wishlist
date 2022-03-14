@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import styled from "styled-components";
 import Header from '../comps/Header';
 import BottomNav from '../comps/BottomNav';
+import { Chat } from "@styled-icons/bootstrap/Chat";
 
 
 
@@ -12,7 +13,7 @@ const Cont = styled.div`
   // justify-content: center;
   align-items: center;
   width: 100%;
-   height: 100%;
+  height: 100%;
 `;
 const Wrap = styled.div`
 height: 75%;
@@ -76,7 +77,7 @@ export default function ChatPage() {
         </Wrap>
 
 
-        <BottomNav/>
+        <BottomNav chatColor='#474747' chatTextColor='#474747'/>
        
         </Cont>
     );
