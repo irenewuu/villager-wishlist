@@ -5,7 +5,6 @@ import ax from "axios";
 import { motion } from "framer-motion";
 
 import { usePersonality, useHobby, useGender } from "../utils/provider";
-import acnh from "../utils/ac-villagers.json";
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
