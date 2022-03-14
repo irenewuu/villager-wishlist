@@ -8,7 +8,6 @@ import { useTheme } from '../utils/provider';
 import { useRouter } from 'next/router';
 import Button from '../comps/Button';
 
-
 const Container = styled.div`
   display:flex;
   align-items:center;
@@ -28,6 +27,7 @@ export default function Settings({
 }) {
   const {theme, setTheme} = useTheme();
   const router = useRouter();
+
   return (
     <Container>
         <Header text="Settings"></Header>
@@ -39,7 +39,11 @@ export default function Settings({
             theme==='dark'?'default':"dark"
           )}
         ></ColorMode>
-        <TextBubble name="Timmy and Tommy" text="Choose Your Appearance!"></TextBubble>
+        <TextBubble 
+          display='none' 
+          name="Timmy and Tommy" 
+          text="Bye for now!"
+          paddingt='20px'></TextBubble>
         <Photo src='/timmytommy.svg' ></Photo>
         <Button 
           text="Log Out" 

@@ -57,6 +57,7 @@ const BottomBubble = styled.div`
     height: 40px;
     background: #FFFAE4;
     border-radius: 41.5px;
+    display: ${(props) => props.display};
 `
 
 const Text = styled.p`
@@ -70,13 +71,15 @@ const Text = styled.p`
     color: #86765C;
     max-width: 70%;
     z-index: 100;
-    padding-top:50px;
+    padding-top:${(props) => props.paddingt};
     user-select: none;
 `
 
 const TextBubble = ({
     name="User",
-    text="Welcome to Villager Wishlist!"
+    text="Welcome to Villager Wishlist!",
+    display = "block",
+    paddingt = "50px"
 }) => {
 
         return (
@@ -85,9 +88,9 @@ const TextBubble = ({
         <Name>{name}</Name>
         <Bubbles>
             <TopBubble>
-                <Text>{text}</Text>
+                <Text paddingt={paddingt}>{text}</Text>
             </TopBubble>
-            <BottomBubble></BottomBubble>
+            <BottomBubble display={display}></BottomBubble>
         </Bubbles>
         </Cont>
     </Container>
