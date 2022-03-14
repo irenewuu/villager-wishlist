@@ -37,7 +37,7 @@ export default function Welcome() {
       {/* <BubbleCont>
         <TextBubble></TextBubble>
       </BubbleCont> */}
-      <ButtonCont onClick={()=>router.push("/wishlist/${uuidv4()}")}>
+      <ButtonCont onClick={()=>router.push("logIn")}>
         <Button />
       </ButtonCont>
       
