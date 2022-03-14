@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../comps/Button";
 import Link from "next/link";
+import Router from 'next/router';
+import { v4 as uuidv4 } from "uuid";
 
 import {withRouter} from 'react-router-dom';
 
@@ -98,7 +100,7 @@ export default function LogIn() {
       if (user) {
         // User is signed in, see docs for a list of available properties
         console.log("signed in", user);
-        
+        Router.push(`/wishlist/${uuidv4()}`)
 
       } else {
         console.log("signed out");

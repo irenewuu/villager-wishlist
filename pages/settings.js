@@ -11,11 +11,10 @@ import Button from '../comps/Button';
 
 const Container = styled.div`
   display:flex;
-  justify-content:center;
   align-items:center;
   flex-direction: column;
   width: 100%;
-  height: 100%; 
+  padding-bottom: 80px;
 `
 
 const Photo = styled.img`
@@ -42,7 +41,14 @@ export default function Settings({
         ></ColorMode>
         <TextBubble name="Timmy and Tommy" text="Choose Your Appearance!"></TextBubble>
         <Photo src='/timmytommy.svg' ></Photo>
-        <Button text="Logout" onClick={() => router.push(routeToSignIn)}></Button>
+        <Button 
+          text="Log Out" 
+          width='278'
+          onClick={() => router.push(routeToSignIn)} 
+          marginb="30px" 
+          bgColor='white'
+          border='2px solid #8CC8A2'
+          txtColor='#8CC8A2'/>
         <BottomNav settingColor='#474747' settingTextColor='#474747'></BottomNav>
     </Container>
   )

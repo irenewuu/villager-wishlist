@@ -29,6 +29,7 @@ flex-direction column;
 position:relative;
 justify-content:center;
 align-items:center;
+cursor: pointer;
 `
 const ChatButton = styled.img`
 width: 350px;
