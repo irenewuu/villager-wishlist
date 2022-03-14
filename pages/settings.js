@@ -11,12 +11,9 @@ import Router from 'next/router';
 
 import { initializeApp } from "firebase/app";
 import {
-  GoogleAuthProvider,
   getAuth,
-  signInWithPopup,
   onAuthStateChanged,
   signOut,
-  signInWithRedirect
 } from "firebase/auth";
 
 import { useEffect } from "react";

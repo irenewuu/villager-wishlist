@@ -13,7 +13,6 @@ import {
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
-  signOut,
   signInWithRedirect
 } from "firebase/auth";
 import { useEffect } from "react";
@@ -92,7 +91,6 @@ const app = initializeApp(firebaseConfig);
 
 export default function LogIn() {
 
-  // const [redirect, setredirect] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -105,7 +103,6 @@ export default function LogIn() {
       } else {
         console.log("signed out");
         
-        // setredirect("/logIn");
       }
     });
   }, []);
@@ -118,12 +115,6 @@ export default function LogIn() {
     // signInWithRedirect(auth, provider);
     
   };
-
-  //for signout in setting page =============
-  // const SignOutFire = async () => {
-  //   const auth = getAuth();
-  //   await signOut(auth);
-  // };
 
   return (
     <Background>
