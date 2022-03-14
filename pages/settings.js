@@ -7,6 +7,29 @@ import Header from '../comps/Header';
 import { useTheme } from '../utils/provider';
 import { useRouter } from 'next/router';
 import Button from '../comps/Button';
+import Router from 'next/router';
+
+import { initializeApp } from "firebase/app";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  onAuthStateChanged,
+  signOut,
+  signInWithRedirect
+} from "firebase/auth";
+
+import { useEffect } from "react";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCHAc6ZocmhVTPrXfGsoziKsoaRBJk0g-Y",
+  authDomain: "animal-crossing-10520.firebaseapp.com",
+  projectId: "animal-crossing-10520",
+  storageBucket: "animal-crossing-10520.appspot.com",
+  messagingSenderId: "463468343690",
+  appId: "1:463468343690:web:c323acea2b92253fee1873",
+  measurementId: "G-77B805BS4J",
+};
 
 const Container = styled.div`
   display:flex;
@@ -22,11 +45,35 @@ margin-top:1px;
 
 `
 
+const app = initializeApp(firebaseConfig);
+
 export default function Settings({
-  routeToSignIn = "/signin",
+  
 }) {
   const {theme, setTheme} = useTheme();
   const router = useRouter();
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // User is signed in, see docs for a list of available properties
+        console.log("signed out", user);
+        Router.push('/')
+        // setredirect("/");
+
+      } else {
+        console.log("signed");
+        
+      }
+    });
+  }, []);
+
+  const SignOutFire = async () => {
+    const auth = getAuth();
+    await signOut(auth);
+  };
+
 
   return (
     <Container>
@@ -48,7 +95,7 @@ export default function Settings({
         <Button 
           text="Log Out" 
           width='278'
-          onClick={() => router.push(routeToSignIn)} 
+          onClick={SignOutFire} 
           marginb="30px" 
           bgColor='white'
           border='2px solid #8CC8A2'

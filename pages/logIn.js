@@ -115,7 +115,7 @@ export default function LogIn() {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     console.log(result);
-    signInWithRedirect(auth, provider);
+    // signInWithRedirect(auth, provider);
     
   };
 
