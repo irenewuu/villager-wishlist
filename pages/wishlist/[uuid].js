@@ -81,6 +81,7 @@ export default function Wishlist() {
                 src={o.image_url}
                 bgcolor={o.personality ? bg[o.personality] : none}
                 innercolor={o.personality ? innerCircle[o.personality] : none}
+                starDisplay="none"
               />
               </motion.div>
             ))}
