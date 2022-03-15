@@ -37,7 +37,6 @@ export default function Search() {
       clearTimeout(timer);
       timer = null;
     }
-    
     if (timer === null) {
       timer = setTimeout(async () => {
         const res = await ax.get("api/villagers", {
@@ -57,11 +56,12 @@ export default function Search() {
         setText(txt);
         setCurPage(p);
         setVillager_num(res.data.numvillagers)
-
+  
         timer = null;
       }, 1000);
     }
   }
+
 
   // default
   useEffect(()=>{
@@ -106,12 +106,13 @@ export default function Search() {
     <div className="SearchCont">
       <SearchBar onTextChange={(e) => {TextInput(e.target.value);}} />
       {/* if data is true and data.length is greater than 0, show the list of villagers */}
-      {data && data.length > 0 ? 
+      {data && data.length > 0 && data !== "not author" ? 
         <div className="ResultsCont">
 
           <div className="VillagersCont"> 
             {/* {data.slice(0, 10).map((o,i) => ( */}
-            { data.map((o, i) => (
+            { data.length > 0 && data !== "not author" ? data.map((o, i) => (
+
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
                   <Villagers key={o._id}
                     name={o.name}
@@ -125,14 +126,18 @@ export default function Search() {
                     innercolor={o.personality ? innerCircle[o.personality] : none}
                   />
                 </motion.div>
-              ))}
+              )) 
+
+              : <></> }
           </div>
+          <div className="PagiCont"> {butt_arr} </div>
 
         </div>
-          :  <></>
+          :  <div>
+            <p>Please login to continue!</p>
+          </div>
         }
 
-        <div className="PagiCont"> {butt_arr} </div>
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
     </div>
   );

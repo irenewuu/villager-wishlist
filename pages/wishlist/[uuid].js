@@ -1,6 +1,11 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/router';
+import ax from "axios";
 import styled from "styled-components";
+import { motion } from "framer-motion";
+
+import {bg} from '../../utils/variables';
+import {innerCircle} from '../../utils/variables';
 
 import Villagers from "../../comps/Villagers";
 import Header from '../../comps/Header'
@@ -38,18 +43,48 @@ export default function Wishlist() {
     const r = useRouter();
     const {uuid} = r.query;
 
-    const [data, setData] = useState([]);
+    const [villagers, setVillagers] = useState({});
+
+    useEffect(()=> {
+      if(uuid) {
+        const getData = async () => {
+          const res = await ax.get("/api/load", {
+            params: {
+              uuid
+            }
+          })
+          if(res.data !== false) {
+            console.log(res.data, "loaded from uuid")
+            setVillagers(res.data.lists)
+          } else {
+            console.log("res.data is false")
+          }
+        }
+        getData()
+      }
+    }, [uuid])
   
     return (
       <Cont>
       <Header text="Your Villager Wishlist" />
+      <h3>{uuid}&#39;s wishlist</h3>
   
         {/* need to push the wishlisted villagers to data array in the usestate^ */}
-        {data && data.length < 0 ? 
+        {villagers && Object.keys(villagers).length >= 1 ? 
           <Content>
-            <Villagers />
-            {/* <Villagers bgcolor="#D4ECD3" innercolor="#88C9A1" />
-            <Villagers bgcolor="#DEF1EF" innercolor="#A4D8D4" /> */}
+            {villagers && Object.values(villagers).map((o) => (
+              <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
+              <Villagers 
+                key={o._id}
+                // onClick={() => {r.push(`/profile/${o._id}`);}}
+                name={o.name}
+                src={o.image_url}
+                bgcolor={o.personality ? bg[o.personality] : none}
+                innercolor={o.personality ? innerCircle[o.personality] : none}
+                starDisplay="none"
+              />
+              </motion.div>
+            ))}
   
           </Content>
           : <Content>

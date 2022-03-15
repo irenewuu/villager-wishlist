@@ -27,6 +27,7 @@ const BtnCont = styled.button`
     border: ${props=>props.border};
     border-radius: 62px;
     padding-top: 5px;
+    margin-bottom: ${props=>props.marginb};
 
     cursor: pointer;
 `
@@ -43,7 +44,8 @@ const Button = ({
     txtColor = "white",
     fontSize = "33",
     border = "none",
-    display = "none"
+    display = "none",
+    marginb = "0px"
     
 }) => {
 
@@ -56,6 +58,7 @@ const Button = ({
             txtColor={txtColor}
             fontSize={fontSize}
             border={border}
+            marginb={marginb}
            
             >
                 <GoogleIcon display={display}/>

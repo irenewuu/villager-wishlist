@@ -1,6 +1,5 @@
 import { filtering, GoToPage } from './../../utils/func'
 import ax from "axios";
-import acnh from './../../utils/ac-villagers.json'
 
 export default async function handler(req, res) {
     // console.log(req.query, req.body)

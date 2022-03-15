@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../comps/Button";
 import Link from "next/link";
+import Router from 'next/router';
+import { v4 as uuidv4 } from "uuid";
 
 import {withRouter} from 'react-router-dom';
 
@@ -11,7 +13,6 @@ import {
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
-  signOut,
   signInWithRedirect
 } from "firebase/auth";
 import { useEffect } from "react";
@@ -90,7 +91,6 @@ const app = initializeApp(firebaseConfig);
 
 export default function LogIn() {
 
-  // const [redirect, setredirect] = useState(null);
 
   useEffect(() => {
     const auth = getAuth();
@@ -98,12 +98,11 @@ export default function LogIn() {
       if (user) {
         // User is signed in, see docs for a list of available properties
         console.log("signed in", user);
-        
+        Router.push(`/wishlist/${uuidv4()}`)
 
       } else {
         console.log("signed out");
         
-        // setredirect("/logIn");
       }
     });
   }, []);
@@ -113,15 +112,9 @@ export default function LogIn() {
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
     console.log(result);
-    signInWithRedirect(auth, provider);
+    // signInWithRedirect(auth, provider);
     
   };
-
-  //for signout in setting page =============
-  // const SignOutFire = async () => {
-  //   const auth = getAuth();
-  //   await signOut(auth);
-  // };
 
   return (
     <Background>
