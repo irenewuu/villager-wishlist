@@ -67,7 +67,7 @@ export default function Wishlist() {
     return (
       <Cont>
       <Header text="Your Villager Wishlist" />
-      <h3>{uuid}'s wishlist</h3>
+      <h3>{uuid}&#39;s wishlist</h3>
   
         {/* need to push the wishlisted villagers to data array in the usestate^ */}
         {villagers && Object.keys(villagers).length >= 1 ? 
