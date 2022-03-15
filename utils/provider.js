@@ -2,6 +2,9 @@ import React, {useContext, createContext, useState} from 'react';
 import {themes} from './variables'
 
 const initialStates = {
+    filterSettings: [],
+    setFilterSettings: ()=>{},
+
     personalityFilter: [],
     setPersonalityFilter:()=>{},
 
@@ -20,6 +23,7 @@ const MyContext = createContext(initialStates);
 
 export default function AppProvider({children}) {
 
+    const [filterSettings, setFilterSettings] = useState([]);
     const [personalityFilter, setPersonalityFilter] = useState([]);
     const [hobbyFilter, setHobbyFilter] = useState([]);
     const [genderFilter, setGenderFilter] = useState([]);
@@ -27,6 +31,7 @@ export default function AppProvider({children}) {
 
     return <MyContext.Provider value = {{
         theme, setTheme, 
+        filterSettings, setFilterSettings,
         personalityFilter, setPersonalityFilter, 
         hobbyFilter, setHobbyFilter, 
         genderFilter, setGenderFilter
@@ -45,6 +50,11 @@ export default function AppProvider({children}) {
         </style>        
         {children}
     </MyContext.Provider>
+}
+
+export function useFilters() {
+    const {filterSettings, setFilterSettings} = useContext(MyContext);
+    return {filterSettings, setFilterSettings};
 }
 
 export function usePersonality() {
