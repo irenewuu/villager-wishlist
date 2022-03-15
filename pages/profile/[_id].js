@@ -25,29 +25,29 @@ export default function Profile() {
   const [villager, setVillager] = useState(null);
 
   const router = useRouter();
-  const {id} = router.query;
+  const {id, _id} = router.query;
 
   useEffect(()=>{
-    if(id) {
+    if(_id) {
       const GetVillager = async()=> {
-        const res = await ax.get(`https://villager-wishlist.herokuapp.com/profile/${id}`, {
+        // const res = await ax.get(`http://localhost:3000/profile/${_id}`, {
+          const res = await ax.get(`https://villager-wishlist.herokuapp.com/profile/${_id}`, {
           params: {
-            _id:id
+            id:_id
           }
         });
-        console.log(res.data);
 
         if(res.data) {
+          // console.log(res.data)
           setVillager(res.data)
         }
       }
       GetVillager();
     }
-  }, [id])
+  }, [_id])
 
-    if(villager === null ) {
+    if(villager === null || villager === undefined) {
       return <div></div>
-      // <div>no results for this villager id: {id}</div>
     }
 
 
@@ -57,8 +57,8 @@ export default function Profile() {
           name={villager.name}
 
           // color association
-          bg = { villager.personality ? bg[villager.personality] : none}
-          innerCircleBg = {villager.personality ? innerCircle[villager.personality] : none}
+          bg = { villager.personality ? bg[villager.personality] : null}
+          innerCircleBg = {villager.personality ? innerCircle[villager.personality] : null}
 
           // villager information
           villagerImg={villager.image_url}

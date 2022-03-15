@@ -5,7 +5,6 @@ import ax from "axios";
 import { motion } from "framer-motion";
 
 import { usePersonality, useHobby, useGender } from "../utils/provider";
-import acnh from "../utils/ac-villagers.json";
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
@@ -15,165 +14,105 @@ import {bg} from '../utils/variables'
 import {innerCircle} from '../utils/variables'
 
 
-var timer = null;
-const numvillagers = 480;
-
-const Cont = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding-bottom: 80px;
-`;
-
-const ResultsCont = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-// const VillagersCont = styled(motion.div)`
-const VillagersCont = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 8px;
-  margin-bottom: 50px;
-`;
-
-//Hover motion
-// const Selection = styled(motion.div)`
-//   display: flex;
-//   justify-content: space-evenly;
-//   flex: 1;
-//   flex-wrap: wrap;
-//   flex-direction: row;
-// `;
-
-//Pagination
-const PagiCont = styled.div`
-display:flex;
-justify-content: space-evenly;
-max-width: 600px;
-margin-bottom: 50px;
-
-`
-const PagiButt = styled.button`
-  border: 2px solid #8CC8A2;
-  padding: 10px 15px 10px 15px;
-  background: white;
-  color:#8CC8A2;
-  border-radius: 8px;
-  margin-right:10px;
-`
-
 export default function Search() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const { personalityFilter } = usePersonality();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
-  const [cur_page, setCurPage ]=useState(0);
+  const [cur_page, setCurPage ]=useState([]);
+  const [villager_num, setVillager_num] = useState();
+  const [text, setText] = useState('');
+  
 
-  // pagination function ===================================================
-  const PageClick = async(p)=>{
-    const res = await ax.get("/api/villagers", {
-      params:{
-        page:p,
-        num:10
-      }
-    });
-    console.log(res.data);
-    setData(res.data);
-    setCurPage(p);
+  var timer = null;
+  // pagination & text input function ===================================================
+  const TextInput = async(txt, p)=>{
+    console.log(txt);
+
+    var obj = {};
+    if(txt) { obj.txt = txt; }
+
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    if (timer === null) {
+      timer = setTimeout(async () => {
+        const res = await ax.get("api/villagers", {
+          params: {
+            txt: txt,
+            page:p,
+            num:10,
+            ...obj,
+            personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
+            hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
+            gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
+          },
+        });
+        console.log(res.data, "data");
+        
+        setData(res.data.lists);
+        setText(txt);
+        setCurPage(p);
+        setVillager_num(res.data.numvillagers)
+  
+        timer = null;
+      }, 1000);
+    }
   }
 
+
+  // default
+  useEffect(()=>{
+    TextInput('', 1);
+  }, [])
+
+  // pagination function ============================================================
   var butt_arr = [];
   var ind = 1;
-  for(var i = 0; i<numvillagers; i+=10){
+  for(var i = 0; i < villager_num; i += 10){
     butt_arr.push(
-      <button onClick={PageClick.bind(this, ind)}
+      <button onClick={TextInput.bind(this, text, ind)}
+        className="PagiButton"
         style={{
           backgroundColor: cur_page === ind?"#8CC8A2":"white",
-          color: cur_page === ind? "white":"#8CC8A2",
-          border: "2px solid #8CC8A2",
-          padding: "10px 15px 10px 15px",
-          marginRight: "10px",
-          borderRadius: "8px",
-          cursor: "pointer"}}>
+          color: cur_page === ind? "white":"#8CC8A2"}}>
         {ind}
     </button>
     );
     ind++;
   }
 
-  if(!cur_page) {
-    setCurPage(cur_page + 1)
-  } else if(cur_page === 1) {
-    butt_arr = butt_arr.slice(cur_page-1, cur_page+4);
-  } else if(cur_page === 2) {
-    butt_arr = butt_arr.slice(cur_page-2, cur_page+3);
-  } else if(cur_page === 3) {
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 4) {
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 38){
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 39) {
-    butt_arr = butt_arr.slice(cur_page-4, cur_page+1);
-  } else if(cur_page === 40) {
-    butt_arr = butt_arr.slice(cur_page-5, cur_page+2);
+  // active page button arragement ==================================================
+  var numpages = Math.ceil(villager_num/10);
+  if(cur_page == 1) {
+    var lastpage = cur_page+4;
+  } else if(cur_page == 2){
+    var lastpage = cur_page+3;
   } else {
-    butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
+    var lastpage = cur_page+2;
+  }
+  if(lastpage > numpages){
+    lastpage = numpages;
   }
 
-  // useEffect(()=> {
-  //   fetch("/search").then(res => {
-  //     if(res) {
-  //       return res.json()
-  //     }
-  //   })
-  //   .then(jsonRes => setData(jsonRes))
-  // })
-
-  // search function ==========================================
-  const inputFilter = async (txt) => {
-    console.log(txt);
-    const txtInput = txt;
-    //capitalize first letter
-    // const txtCapitalized = txtInput.charAt(0).toUpperCase() + txtInput.slice(1);
-    // console.log(txtCapitalized);
-
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    
-    if (timer === null) {
-      timer = setTimeout(async () => {
-        console.log("async call");
-
-        const res = await ax.get("api/villagers", {
-          params: {
-            txt: txt,
-            personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
-            hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
-            gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        timer = null;
-      }, 1000);
-    }
-  };
+  // slicing array of villagers to pages of 10
+  butt_arr = butt_arr.slice(cur_page-3 < 0 ? 0 : cur_page-3, lastpage);
+  // console.log(numpages, "numpages")
+  // console.log(butt_arr, "butt_arr")
 
   return (
-    <Cont>
-      <SearchBar onTextChange={(e) => {inputFilter(e.target.value);}} />
+    <div className="SearchCont">
+      <SearchBar onTextChange={(e) => {TextInput(e.target.value);}} />
       {/* if data is true and data.length is greater than 0, show the list of villagers */}
-      {data && data.length > 0 ? 
-        <ResultsCont>
-          <VillagersCont> 
-            {data.map((o, i) => (
+      {data && data.length > 0 && data !== "not author" ? 
+        <div className="ResultsCont">
+
+          <div className="VillagersCont"> 
+            {/* {data.slice(0, 10).map((o,i) => ( */}
+            { data.length > 0 && data !== "not author" ? data.map((o, i) => (
+
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
                   <Villagers key={o._id}
                     name={o.name}
@@ -187,16 +126,19 @@ export default function Search() {
                     innercolor={o.personality ? innerCircle[o.personality] : none}
                   />
                 </motion.div>
-              ))}
-          </VillagersCont>
-          <PagiCont> {butt_arr} </PagiCont>
+              )) 
 
-        </ResultsCont>
-        // else show this
-           :  <p>Type to search something!</p>
-          } 
+              : <></> }
+              <div className="PagiCont"> {butt_arr} </div>
+          </div>
+
+        </div>
+          :  <div>
+            <p>Please login to continue!</p>
+          </div>
+        }
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />
-    </Cont>
+    </div>
   );
 }

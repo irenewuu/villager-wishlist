@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import ax from "axios";
 import {usePersonality, useHobby, useGender} from "../../utils/provider";
 
 import Button from "../Button";
@@ -111,6 +112,23 @@ export default function FilterPanel({
     {gender: "Female", state: sbFemale, setStateFunction: ()=> genderFilterFunc("Female", sbFemale, setSBFemale)},
   ]
 
+  // Filters Clear Handler ===================================================
+  const HandleClear = () => {
+    {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
+    {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
+    {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
+    console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+    
+    //personalities
+    setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
+    setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)
+    //hobbies
+    setSBEducation(false), setSBMusic(false), setSBFashion(false)
+    setSBNature(false), setSBFitness(false), setSBPlay(false)
+    //genders
+    setSBMale(false), setSBFemale(false)
+  }
+
 
   return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
     <div className='FilterSection'>
@@ -156,23 +174,7 @@ export default function FilterPanel({
         width="120"  height="32"
         bgColor="white"  txtColor="#007C74"
         border="1.5px solid #007C74"
-        onClick={()=>{
-          //usecontexts
-          
-          {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
-          {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
-          {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
-          console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-          
-          //personalities
-          setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
-          setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)
-          //hobbies
-          setSBEducation(false), setSBMusic(false), setSBFashion(false)
-          setSBNature(false), setSBFitness(false), setSBPlay(false)
-          //genders
-          setSBMale(false), setSBFemale(false)
-        }}
+        onClick={()=>HandleClear()}
         />
       <Button text="Apply" fontSize="26"
         width="120"  height="32"
