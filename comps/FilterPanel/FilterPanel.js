@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import ax from "axios";
-import {usePersonality, useHobby, useGender} from "../../utils/provider";
+import {useFilters, usePersonality, useHobby, useGender} from "../../utils/provider";
 
 import Button from "../Button";
 
@@ -38,6 +37,7 @@ export default function FilterPanel({
   onApplyClick=()=>{}
 }) {
   //useContext for personality, hobby, and gender
+  const {filterSettings, setFilterSettings} = useFilters();
   const {personalityFilter, setPersonalityFilter} = usePersonality();
   const {hobbyFilter, setHobbyFilter} = useHobby();
   const {genderFilter, setGenderFilter} = useGender();
@@ -69,19 +69,30 @@ export default function FilterPanel({
     setState(!state)
     {state ? setPersonalityFilter(personalityFilter.filter(i=>i !== name)) 
       : setPersonalityFilter([...personalityFilter, name]) }
+      filtersFunc()
   }
 
   const hobbyFilterFunc = (name, state, setState) => {
       setState(!state)
       {state ? setHobbyFilter(hobbyFilter.filter(i=>i !== name)) 
         : setHobbyFilter([...hobbyFilter, name]) }
+      filtersFunc()
   }
 
   const genderFilterFunc = (name, state, setState) => {
       setState(!state)
       {state ? setGenderFilter(genderFilter.filter(i=>i !== name)) 
         : setGenderFilter([...genderFilter, name]) }
+      filtersFunc()
   }
+const filtersFunc = () => {
+   setFilterSettings((prev) => ({
+    // ...prev,
+    ...personalityFilter,
+    ...hobbyFilter,
+    ...genderFilter,
+   }))
+}
 
   console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
   // console.log(personalityFilter)

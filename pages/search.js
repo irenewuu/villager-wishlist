@@ -129,8 +129,8 @@ export default function Search() {
               )) 
 
               : <></> }
-              <div className="PagiCont"> {butt_arr} </div>
           </div>
+          <div className="PagiCont"> {butt_arr} </div>
 
         </div>
           :  <div>
