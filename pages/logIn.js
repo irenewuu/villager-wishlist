@@ -126,12 +126,13 @@ export default function LogIn() {
           <TextInput type="text" name="password" placeholder="Password" />
         </RowGap>
         <RowGap2>
-          <Button width="275" text="Login" fontSize="26" />
+          <Button width="275" text="Login" fontSize="26" textHover="none" />
           <Button
             display="block"
             width="275"
             text="Continue with Google"
             fontSize="26"
+            textHover="none"
             onClick={SignInGoogle}
           />
           <Signup>

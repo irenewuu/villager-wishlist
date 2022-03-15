@@ -67,7 +67,7 @@ export default function SignUp() {
         </RowGap>
 
         <RowGap>
-            <Button width="275" text="Signup" />
+            <Button width="275" text="Signup" textHover="none"/>
             <Signin>Have an account? <Link href="/logIn">Log in</Link></Signin>
         </RowGap>
         
