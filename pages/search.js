@@ -70,77 +70,19 @@ export default function Search() {
   const { personalityFilter } = usePersonality();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
-  const [cur_page, setCurPage ]=useState(0);
+  const [cur_page, setCurPage ]=useState([]);
+  const [villager_num, setVillager_num] = useState();
+  const [text, setText] = useState('');
+  
 
-  // pagination function ===================================================
-  const PageClick = async(p)=>{
-    const res = await ax.get("/api/villagers", {
-      params:{
-        page:p,
-        num:10
-      }
-    });
-    console.log(res.data);
-    setData(res.data);
-    setCurPage(p);
-  }
-
-  var butt_arr = [];
-  var ind = 1;
-  for(var i = 0; i<numvillagers; i+=10){
-    butt_arr.push(
-      <button onClick={PageClick.bind(this, ind)}
-        style={{
-          backgroundColor: cur_page === ind?"#8CC8A2":"white",
-          color: cur_page === ind? "white":"#8CC8A2",
-          border: "2px solid #8CC8A2",
-          padding: "10px 15px 10px 15px",
-          marginRight: "10px",
-          borderRadius: "8px",
-          cursor: "pointer"}}>
-        {ind}
-    </button>
-    );
-    ind++;
-  }
-
-  if(!cur_page) {
-    setCurPage(cur_page + 1)
-  } else if(cur_page === 1) {
-    butt_arr = butt_arr.slice(cur_page-1, cur_page+4);
-  } else if(cur_page === 2) {
-    butt_arr = butt_arr.slice(cur_page-2, cur_page+3);
-  } else if(cur_page === 3) {
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 4) {
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 38){
-    butt_arr = butt_arr.slice(cur_page-3, cur_page+2);
-  } else if(cur_page === 39) {
-    butt_arr = butt_arr.slice(cur_page-4, cur_page+1);
-  } else if(cur_page === 40) {
-    butt_arr = butt_arr.slice(cur_page-5, cur_page+2);
-  } else {
-    butt_arr = butt_arr.slice(cur_page-4 < 0 ? 0 : cur_page -3, cur_page+2);
-  }
-
-  // useEffect(()=> {
-  //   fetch("/search").then(res => {
-  //     if(res) {
-  //       return res.json()
-  //     }
-  //   })
-  //   .then(jsonRes => setData(jsonRes))
-  // })
-
-  // search function ==========================================
-  const inputFilter = async (txt) => {
+  var timer = null;
+  // pagination & text input function ===================================================
+  const TextInput = async(txt, p)=>{
     console.log(txt);
-    const txtInput = txt;
-    //capitalize first letter
-    // const txtCapitalized = txtInput.charAt(0).toUpperCase() + txtInput.slice(1);
-    // console.log(txtCapitalized);
-
+    
+    var obj = {};
+    if(txt) { obj.txt = txt; }
+    
     if (timer) {
       clearTimeout(timer);
       timer = null;
@@ -148,19 +90,26 @@ export default function Search() {
     
     if (timer === null) {
       timer = setTimeout(async () => {
-        console.log("async call");
-
+        
         const res = await ax.get("api/villagers", {
           params: {
             txt: txt,
-            personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
-            hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
-            gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-          },
-        });
-        console.log(res.data);
-        setData(res.data);
-        timer = null;
+            page:p,
+            num:10,
+            ...obj,
+              personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
+              hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
+              gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
+            },
+          });
+          console.log(res.data, "data");
+
+          setData(res.data.lists);
+          setText(txt);
+          setCurPage(p);
+          setVillager_num(res.data.numvillagers)
+  
+          timer = null;
       }, 1000);
     }
   };
