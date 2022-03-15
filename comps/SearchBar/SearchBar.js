@@ -21,7 +21,7 @@ export default function SearchBar({ onTextChange = () => {} }) {
   const [filterState, setFilterState] = useState(false);
   const [opacity, setOpacity] = useState(false);
   const [zIndex, setzIndex] = useState(false);
-
+  
   const HandleClick = () => {
     setFilterState(!filterState);
     setOpacity(!opacity);
@@ -50,7 +50,8 @@ export default function SearchBar({ onTextChange = () => {} }) {
       <FilterPanel 
         opacity={opacity ? 1 : 0} 
         zIndex={zIndex ? 5 : -10} 
-        onApplyClick={()=>HandleClick()} />
+        onApplyClick={()=>HandleClick()}
+        />
       <BackgroundBlur 
         opacity={opacity ? 1 : 0} 
         zIndex={zIndex ? 4 : -10} />

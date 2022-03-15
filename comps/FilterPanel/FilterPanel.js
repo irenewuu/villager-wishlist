@@ -112,6 +112,7 @@ export default function FilterPanel({
     {gender: "Female", state: sbFemale, setStateFunction: ()=> genderFilterFunc("Female", sbFemale, setSBFemale)},
   ]
 
+  // Filters Clear Handler ===================================================
   const HandleClear = () => {
     {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
     {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
@@ -128,30 +129,6 @@ export default function FilterPanel({
     setSBMale(false), setSBFemale(false)
   }
 
-  var timer = null;
-  // pagination & text input function ===================================================
-  const HandleSave = async()=>{
-    if (timer) {
-      clearTimeout(timer);
-      timer = null;
-    }
-    
-    if (timer === null) {
-      timer = setTimeout(async () => {
-        
-        const res = await ax.get("api/villagers", {
-          params: {
-              personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
-              hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
-              gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-            },
-          });
-          console.log(res.data, "data");
-  
-          timer = null;
-      }, 1000);
-    }
-  }
 
   return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
     <div className='FilterSection'>
@@ -202,7 +179,7 @@ export default function FilterPanel({
       <Button text="Apply" fontSize="26"
         width="120"  height="32"
         bgColor="#007C74"
-        onClick={()=>HandleSave()}
+        onClick={onApplyClick}
         />
     </BtnsCont>
   </FilterPanelCont>;
