@@ -91,7 +91,7 @@ export default function Wishlist() {
             <BubbleCont>
               <TextBubble text="You have no villagers in your wishlist." />
             </BubbleCont>
-            <Button text='Find Villagers' onClick={()=>{r.push("/search")}} />
+            <Button text='Find Villagers' textHover="none" onClick={()=>{r.push("/search")}} />
   
             <Photo src="/find-villagers.svg" />
           </Content>
