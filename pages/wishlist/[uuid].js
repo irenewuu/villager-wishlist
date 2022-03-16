@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import ax from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { DndProvider } from 'react-dnd';
+import { TouchBackend } from 'react-dnd-touch-backend'
 
 import {bg} from '../../utils/variables';
 import {innerCircle} from '../../utils/variables';
@@ -12,6 +14,7 @@ import Header from '../../comps/Header'
 import TextBubble from '../../comps/TextBubble';
 import Button from '../../comps/Button';
 import BottomNav from "../../comps/BottomNav";
+import DeleteZone from"../../comps/DeleteZone";
 
 const Cont = styled.div`
   display: flex;
@@ -44,6 +47,7 @@ export default function Wishlist() {
     const {uuid} = r.query;
 
     const [villagers, setVillagers] = useState({});
+    const [vil, setVil] = useState({});
 
     useEffect(()=> {
       if(uuid) {
@@ -66,6 +70,10 @@ export default function Wishlist() {
   
     return (
       <Cont>
+        <DndProvider backend={TouchBackend} options ={{
+        enableTouchEvents:false,
+        enableMouseEvents:true
+    }}>
       <Header text="Your Villager Wishlist" />
       <h3>{uuid}&#39;s wishlist</h3>
   
@@ -96,7 +104,12 @@ export default function Wishlist() {
             <Photo src="/find-villagers.svg" />
           </Content>
         }
+
+        <DeleteZone>
+        </DeleteZone>
           <BottomNav />
+
+          </DndProvider>
         </Cont>
     );
   }
