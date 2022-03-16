@@ -135,7 +135,7 @@ export default function LogIn() {
             onClick={SignInGoogle}
           />
           <Signup>
-            Don&#39;t have an account? <Link href="signUp">Sign up</Link>
+            Don&#39;t have an account? <Link href="signup">Sign Up</Link>
           </Signup>
         </RowGap2>
       </MainCont>
