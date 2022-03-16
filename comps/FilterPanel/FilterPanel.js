@@ -185,11 +185,16 @@ const filtersFunc = () => {
         width="120"  height="32"
         bgColor="white"  txtColor="#007C74"
         border="1.5px solid #007C74"
+        borderHover='#8CC8A2'
+        hover="none"
+        textHover='#8CC8A2'
         onClick={()=>HandleClear()}
         />
       <Button text="Apply" fontSize="26"
         width="120"  height="32"
         bgColor="#007C74"
+        textHover="none"
+        hover="#8CC8A2"
         onClick={onApplyClick}
         />
     </BtnsCont>
