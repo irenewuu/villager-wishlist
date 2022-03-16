@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useRouter } from 'next/router';
 import styled from "styled-components";
 
@@ -39,7 +39,19 @@ export default function Wishlist() {
     const {uuid} = r.query;
 
     const [data, setData] = useState([]);
-  
+    const [user, setUser] = useState(null)
+
+    useEffect(()=>{
+      if (!globalThis.localStorage) {
+        return;
+      }
+
+      var token = localStorage.getItem('token');
+      console.log(token)
+      setUser(token)
+    }, []);
+
+    if(user){
     return (
       <Cont>
       <Header text="Your Villager Wishlist" />
@@ -65,4 +77,5 @@ export default function Wishlist() {
         </Cont>
     );
   }
+}
   

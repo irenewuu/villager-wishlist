@@ -1,7 +1,7 @@
-import React, {useState}  from 'react';
-import {useRouter} from 'next/router';
+import React, {useState}  from 'react'
 import styled from "styled-components";
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import ax from "axios";
 
 const Cont = styled.div`
@@ -58,12 +58,8 @@ const Submit = styled.input`
   cursor: pointer;
 `;
 
-const Signin = styled.p`
-  color: #8D8D8D;
-`
-
-export default function AuthSignUp({
-  value = "Sign Up"
+export default function AuthLogIn({
+  value = "Log In"
 }) {
   const router = useRouter();
   const [input, setInput] = useState({
@@ -83,33 +79,45 @@ export default function AuthSignUp({
     })
   }
   
-  function handleClick(event){
+  const handleClick = async (event)=>{
     event.preventDefault();
-    const newUser = {
+    const user = {
       name: input.name,
       email: input.email,
       password: input.password
     }
 
-    ax.post('http://localhost:3000/signup', newUser)
-    console.log("signed up")
-    router.push("/logIn")
-  }
+    try{
+      let res = await ax.post('http://localhost:3000/login', user)
+      localStorage.setItem('token', res.data)
+      localStorage.setItem('user', res.config.data)
+      console.log("logIn is working")
+      console.log(res.data)
 
+      // check the user
+      if(localStorage.getItem('token')){
+        console.log(checked)
+        // allow some operstion for logen in user
+        router.push(`/wishlist/${uuidv4()}`)
+
+      }
+    }catch(e){
+      console.log("failed login")
+    }
+  }
+  
 
   return ( <Cont>
     <RowGap>
-        <TextInput onChange={handleChange} value={input.name} type="text" name="name" placeholder="Username" />
-        <TextInput onChange={handleChange} value={input.email} type="text" name="email" placeholder="Email" />
-        <TextInput onChange={handleChange} value={input.password} type="text" name="password" placeholder="Password" />
+      <TextInput onChange={handleChange} value={input.name} type="text" name="name" placeholder="Username" autoComplete='off'/>
+      <TextInput onChange={handleChange} value={input.email} type="text" name="email" placeholder="Email" autoComplete='off' />
+      <TextInput onChange={handleChange} value={input.password} type="text" name="password" placeholder="Password" autoComplete='off' />
     </RowGap>
 
     <RowGap>
       <Submit type="submit" value={value} onClick={handleClick} />
-      <Signin>Have an account? <Link href="/logIn">Log In</Link></Signin>
     </RowGap>
     
 </Cont>
-
   )
 }
