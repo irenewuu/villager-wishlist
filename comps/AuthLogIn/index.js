@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import ax from "axios";
+import { v4 as uuidv4 } from 'uuid';
 
 const Cont = styled.div`
   display:flex;
@@ -101,13 +102,14 @@ export default function AuthLogIn({
 
       // check the user
       if(localStorage.getItem('token')){
-        console.log(checked)
+        console.log('checked')
         // allow some operstion for logen in user
         router.push(`/wishlist/${uuidv4()}`)
 
       }
     }catch(e){
-      console.log("failed login")
+      console.log(e)
+      // console.log("failed login")
     }
   }
   

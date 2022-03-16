@@ -17,6 +17,7 @@ import {
 } from "firebase/auth";
 
 import { useEffect } from "react";
+import { redirect } from 'next/dist/server/api-utils';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHAc6ZocmhVTPrXfGsoziKsoaRBJk0g-Y",
@@ -67,8 +68,10 @@ export default function Settings({
   }, []);
 
   const SignOutFire = async () => {
-    const auth = getAuth();
-    await signOut(auth);
+    localStorage.removeItem('token')
+    // const auth = getAuth();
+    // await signOut(auth);
+    router.push('/')
   };
 
 
@@ -100,8 +103,6 @@ export default function Settings({
           borderHover='#FEBDC3'
           hover="none"
           textHover='#FEBDC3'
-          
-          
           />
         <BottomNav settingColor='#474747' settingTextColor='#474747'></BottomNav>
     </Container>

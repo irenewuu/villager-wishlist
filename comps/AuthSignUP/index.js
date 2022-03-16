@@ -104,9 +104,9 @@ export default function AuthSignUp({
 
   return ( <Cont>
     <RowGap>
-        <TextInput onChange={handleChange} value={input.name} type="text" name="name" placeholder="Username" />
-        <TextInput onChange={handleChange} value={input.email} type="text" name="email" placeholder="Email" />
-        <TextInput onChange={handleChange} value={input.password} type="text" name="password" placeholder="Password" />
+        <TextInput onChange={handleChange} value={input.name} type="text" name="name" placeholder="Username" autoComplete='off'/>
+        <TextInput onChange={handleChange} value={input.email} type="text" name="email" placeholder="Email" autoComplete='off'/>
+        <TextInput onChange={handleChange} value={input.password} type="text" name="password" placeholder="Password" autoComplete='off' />
     </RowGap>
 
     <RowGap>
