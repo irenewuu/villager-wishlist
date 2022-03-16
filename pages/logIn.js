@@ -2,11 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../comps/Button";
 import Link from "next/link";
-import {useRouter} from 'next/router';
+import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
-import AuthLogIn from "../comps/AuthLogIn"
+import AuthLogIn from "../comps/AuthLogIn";
+import ax from "axios";
 
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 import { initializeApp } from "firebase/app";
 import {
@@ -14,10 +15,11 @@ import {
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
-  signInWithRedirect
+  signInWithRedirect,
 } from "firebase/auth";
 import { useEffect } from "react";
-import { Route, Redirect } from 'react-router'
+import { Route, Redirect } from "react-router";
+import axios from "axios";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHAc6ZocmhVTPrXfGsoziKsoaRBJk0g-Y",
@@ -91,22 +93,19 @@ const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 
 export default function LogIn() {
-
   const router = useRouter();
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        console.log("signed in", user);
-        router.push(`/wishlist/${uuidv4()}`)
-
-      } else {
-        console.log("signed out");
-        
-      }
-    });
-  }, []);
+  // useEffect(() => {
+    // const auth = getAuth();
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     // User is signed in, see docs for a list of available properties
+    //     console.log("signed in", user);
+    //     router.push(`/wishlist/${uuidv4()}`)
+    //   } else {
+    //     console.log("signed out");
+    //   }
+    // });
+  // }, []);
 
   const SignInGoogle = async () => {
     const auth = getAuth();
@@ -114,7 +113,22 @@ export default function LogIn() {
     const result = await signInWithPopup(auth, provider);
     console.log(result);
     // signInWithRedirect(auth, provider);
-    
+    const newUser = {
+      name: result.user.displayName,
+      email: result.user.email,
+      password: result.user.email,
+    };
+    console.log("newUser:", newUser);
+    router.push(`/wishlist/${uuidv4()}`);
+    try {
+      let res = await ax.post("http://localhost:3000/signup", newUser);
+
+      console.log("token:", res.data);
+      localStorage.setItem("token", res.data);
+      // router.push("/logIn")
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

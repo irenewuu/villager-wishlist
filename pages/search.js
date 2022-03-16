@@ -48,6 +48,7 @@ export default function Search() {
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
+            token:localStorage.getItem('token')
           },
         });
         console.log(res.data, "data");
