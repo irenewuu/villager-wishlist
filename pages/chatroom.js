@@ -6,6 +6,10 @@ import BottomNav from '../comps/BottomNav';
 import OtherUser from '../comps/ChatComp/otheruser'
 import MainUser from '../comps/ChatComp/mainuser'
 import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
+import {Send} from '@styled-icons/fluentui-system-regular/Send';
+
+
+
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,7 +23,7 @@ const HeadCont = styled.div`
   position: relative;
   display:flex;
   align-items:center;
-  width: 300px;
+  width: 70%;
   margin-top: 50px;
   
 `
@@ -49,14 +53,34 @@ align-items:center;
 
 
 const ChatInput = styled.input`
+background: none;
+border:none;
+width: 100%;
+&:focus{
+  outline:none;
+}
+`
+const SendCont = styled.button`
+background: #007C74;
+border:none;
+color:#6AACA0;
+border-radius: 5px;
+width: 60px;
+height: 50px;
+
+`
+const SendButt = styled(Send)`
+  width: 30px;
+  color: white;
+  
+`
+const InputCont = styled.div`
 margin-bottom: 50px;
 width: 100%;
 border-radius: 10px;
-border: 2px solid #6AACA0;
+border: 2px solid #007C74;
 padding-left: 20px;
-padding-top: 5px;
-
-
+display:flex;
 
 `
 
@@ -77,7 +101,12 @@ export default function ChatPage() {
       
         <MainUser/>
 
+        <InputCont>
         <ChatInput placeholder='Write a message' ></ChatInput>
+        <SendCont><SendButt/></SendCont>
+        </InputCont>
+
+        
         </ChatCont>
        
           
