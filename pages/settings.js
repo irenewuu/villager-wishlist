@@ -60,7 +60,7 @@ export default function Settings({
         // setredirect("/");
 
       } else {
-        console.log("signed");
+        console.log("signed in");
         
       }
     });

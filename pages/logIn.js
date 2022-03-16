@@ -2,8 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../comps/Button";
 import Link from "next/link";
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import { v4 as uuidv4 } from "uuid";
+import AuthLogIn from "../comps/AuthLogIn"
 
 import {withRouter} from 'react-router-dom';
 
@@ -79,7 +80,7 @@ const MainCont = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  row-gap: 40px;
+  row-gap: 20px;
 `;
 
 const Signup = styled.p`
@@ -91,14 +92,14 @@ const app = initializeApp(firebaseConfig);
 
 export default function LogIn() {
 
-
+  const router = useRouter();
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
         console.log("signed in", user);
-        Router.push(`/wishlist/${uuidv4()}`)
+        router.push(`/wishlist/${uuidv4()}`)
 
       } else {
         console.log("signed out");
@@ -121,12 +122,8 @@ export default function LogIn() {
       <Photo src="/villager-wishlist.svg" />
 
       <MainCont>
-        <RowGap>
-          <TextInput type="text" name="username" placeholder="Username" />
-          <TextInput type="text" name="password" placeholder="Password" />
-        </RowGap>
+        <AuthLogIn />
         <RowGap2>
-          <Button width="275" text="Login" fontSize="26" textHover="none" />
           <Button
             display="block"
             width="275"
@@ -136,7 +133,7 @@ export default function LogIn() {
             onClick={SignInGoogle}
           />
           <Signup>
-            Don&#39;t have an account? <Link href="signUp">Sign up</Link>
+            Don&#39;t have an account? <Link href="signup">Sign Up</Link>
           </Signup>
         </RowGap2>
       </MainCont>
