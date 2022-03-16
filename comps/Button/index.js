@@ -30,6 +30,16 @@ const BtnCont = styled.button`
     margin-bottom: ${props=>props.marginb};
 
     cursor: pointer;
+
+    &:hover {
+        border-color: ${props=>props.borderHover};
+        background-color: ${props=>props.hover};
+        color:  ${props=>props.textHover};
+      };
+
+      
+
+
 `
 
 
@@ -45,7 +55,10 @@ const Button = ({
     fontSize = "33",
     border = "none",
     display = "none",
-    marginb = "0px"
+    marginb = "0px",
+    hover = "#FEBDC3",
+    borderHover = "#FEBDC3",
+    textHover = "#FEBDC3"
     
 }) => {
 
@@ -59,6 +72,9 @@ const Button = ({
             fontSize={fontSize}
             border={border}
             marginb={marginb}
+            hover={hover}
+            borderHover={borderHover}
+            textHover={textHover}
            
             >
                 <GoogleIcon display={display}/>

@@ -30,10 +30,12 @@ position:relative;
 justify-content:center;
 align-items:center;
 cursor: pointer;
+
 `
 const ChatButton = styled.img`
-width: 350px;
-height: 170px;
+min-width: 300px;
+max-width: 350px;
+max-height: 150px;
 border-radius: 20px;
 border: none;
 object-fit: cover;

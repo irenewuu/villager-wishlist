@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Star } from "@styled-icons/bootstrap/Star";
 import { StarFill } from "@styled-icons/bootstrap/StarFill";
 
-// import { usePersonality } from '../../utils/provider';
+import { useWishlist } from "../../utils/provider";
+import { v4 as uuidv4 } from 'uuid';
+import ax from "axios";
 
 const Cont = styled.div`
   background-color: ${(props) => props.bgcolor};
@@ -42,6 +45,7 @@ const Name = styled.p`
 const StarFilled = styled(StarFill)`
   color: #f7d359;
   position: absolute;
+  display: ${props=>props.display};
   left: ${(props) => props.left};
   top: 15px;
   width: 25px;
@@ -51,6 +55,7 @@ const StarFilled = styled(StarFill)`
 const StarOutline = styled(Star)`
   color: #f7d359;
   position: absolute;
+  display: ${props=>props.display};
   left: ${(props) => props.left};
   background: transparent;
   top: 15px;
@@ -63,20 +68,7 @@ const Img = styled.img`
   object-fit: contain;
   padding: 15px;
 `;
-// -------------------------WISHLIST IN PROGRESS --------------------
-// const {personalityFilter, setPersonalityFilter} = usePersonality();
 
-// const StorePersonality = (checked, obj) => {
-//   //store the favourites to be used on the wishlist page
-//   console.log(checked, obj);
-//     if(checked){
-//       const b_obj = {
-//         ...personalityFilter
-//       };
-//       b_obj[o._id] = o;
-//       setPersonalityFilter(b_obj);
-//     }
-// }
 
 export default function Villagers({
   // villager,
@@ -90,12 +82,33 @@ export default function Villagers({
   innerHeight = "140px",
   marginL = "0px",
   marginR = "0px",
+  starDisplay = "block",
   onClick = () => {},
 }) {
-  
-  var colors = ["#DEF1EF", "#FFF8D4", "#D4ECD3", "#FFE6E8"];
-  var innerColors = ["#A4D8D4", "#FFF2AF", "#98C7A4", "#FEBDC3"];
   const [star, setStar] = useState(false);
+  const [villager, setVillager] = useState({});
+  const {wishlist, setWishlist} = useState();;
+  const r = useRouter();
+  const {uuid} = r.query;
+
+  const AddingVillager = () => {
+    const villager_id = uuidv4()
+    setVillager((prev)=>({
+      ...prev,
+      [villager_id]: {villagerid:villager_id}
+    }))
+    HandleSave()
+  }
+
+
+  const HandleSave = async() => {
+    console.log(villager, 'villager list')
+    const resp = await ax.post('/api/save', {
+      uuid,
+      villager
+    })
+  }
+
 
   return (
     <Cont
@@ -104,19 +117,21 @@ export default function Villagers({
       marginL={marginL}
       marginR={marginR}
     >
-      {/* onChange={(e)=>StorePersonality(e.target.checked, o)}   */}
 
       {!star ? (
         <StarOutline
           left={left}
+          display={starDisplay}
           onClick={() => {
             setStar(true);
             console.log("filled the star");
+            AddingVillager()
           }}
         />
       ) : (
         <StarFilled
           left={left}
+          display={starDisplay}
           onClick={() => {
             setStar(false);
             console.log("unfilled the star");

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import {usePersonality, useHobby, useGender} from "../../utils/provider";
+import {useFilters, usePersonality, useHobby, useGender} from "../../utils/provider";
 
 import Button from "../Button";
 
@@ -37,6 +37,7 @@ export default function FilterPanel({
   onApplyClick=()=>{}
 }) {
   //useContext for personality, hobby, and gender
+  const {filterSettings, setFilterSettings} = useFilters();
   const {personalityFilter, setPersonalityFilter} = usePersonality();
   const {hobbyFilter, setHobbyFilter} = useHobby();
   const {genderFilter, setGenderFilter} = useGender();
@@ -68,19 +69,30 @@ export default function FilterPanel({
     setState(!state)
     {state ? setPersonalityFilter(personalityFilter.filter(i=>i !== name)) 
       : setPersonalityFilter([...personalityFilter, name]) }
+      filtersFunc()
   }
 
   const hobbyFilterFunc = (name, state, setState) => {
       setState(!state)
       {state ? setHobbyFilter(hobbyFilter.filter(i=>i !== name)) 
         : setHobbyFilter([...hobbyFilter, name]) }
+      filtersFunc()
   }
 
   const genderFilterFunc = (name, state, setState) => {
       setState(!state)
       {state ? setGenderFilter(genderFilter.filter(i=>i !== name)) 
         : setGenderFilter([...genderFilter, name]) }
+      filtersFunc()
   }
+const filtersFunc = () => {
+   setFilterSettings((prev) => ({
+    // ...prev,
+    ...personalityFilter,
+    ...hobbyFilter,
+    ...genderFilter,
+   }))
+}
 
   console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
   // console.log(personalityFilter)
@@ -110,6 +122,23 @@ export default function FilterPanel({
     {gender: "Male", state: sbMale, setStateFunction: ()=> genderFilterFunc("Male", sbMale, setSBMale)},
     {gender: "Female", state: sbFemale, setStateFunction: ()=> genderFilterFunc("Female", sbFemale, setSBFemale)},
   ]
+
+  // Filters Clear Handler ===================================================
+  const HandleClear = () => {
+    {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
+    {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
+    {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
+    console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+    
+    //personalities
+    setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
+    setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)
+    //hobbies
+    setSBEducation(false), setSBMusic(false), setSBFashion(false)
+    setSBNature(false), setSBFitness(false), setSBPlay(false)
+    //genders
+    setSBMale(false), setSBFemale(false)
+  }
 
 
   return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
@@ -156,23 +185,7 @@ export default function FilterPanel({
         width="120"  height="32"
         bgColor="white"  txtColor="#007C74"
         border="1.5px solid #007C74"
-        onClick={()=>{
-          //usecontexts
-          
-          {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
-          {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
-          {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
-          console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-          
-          //personalities
-          setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
-          setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)
-          //hobbies
-          setSBEducation(false), setSBMusic(false), setSBFashion(false)
-          setSBNature(false), setSBFitness(false), setSBPlay(false)
-          //genders
-          setSBMale(false), setSBFemale(false)
-        }}
+        onClick={()=>HandleClear()}
         />
       <Button text="Apply" fontSize="26"
         width="120"  height="32"

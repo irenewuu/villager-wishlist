@@ -2,6 +2,9 @@ import React, {useContext, createContext, useState} from 'react';
 import {themes} from './variables'
 
 const initialStates = {
+    filterSettings: [],
+    setFilterSettings: ()=>{},
+
     personalityFilter: [],
     setPersonalityFilter:()=>{},
 
@@ -14,19 +17,27 @@ const initialStates = {
     theme:"default",
     setTheme:()=>{},
 
+    wishlist: {},
+    setWishlist: ()=>{},
+
 }
 
 const MyContext = createContext(initialStates);
 
 export default function AppProvider({children}) {
 
+    const [filterSettings, setFilterSettings] = useState([]);
+    const [theme, setTheme] = useState(initialStates.theme);
+    const [wishlist, setWishlist] = useState({});
+
     const [personalityFilter, setPersonalityFilter] = useState([]);
     const [hobbyFilter, setHobbyFilter] = useState([]);
     const [genderFilter, setGenderFilter] = useState([]);
-    const [theme, setTheme] = useState(initialStates.theme);
 
     return <MyContext.Provider value = {{
         theme, setTheme, 
+        filterSettings, setFilterSettings,
+        wishlist, setWishlist,
         personalityFilter, setPersonalityFilter, 
         hobbyFilter, setHobbyFilter, 
         genderFilter, setGenderFilter
@@ -47,6 +58,11 @@ export default function AppProvider({children}) {
     </MyContext.Provider>
 }
 
+export function useFilters() {
+    const {filterSettings, setFilterSettings} = useContext(MyContext);
+    return {filterSettings, setFilterSettings};
+}
+
 export function usePersonality() {
     const {personalityFilter, setPersonalityFilter} = useContext(MyContext);
     return {personalityFilter, setPersonalityFilter};
@@ -64,4 +80,9 @@ export function useGender() {
 export function useTheme() {
     const {theme, setTheme} = useContext(MyContext);
     return {theme, setTheme};
+}
+
+export function useWishlist() {
+    const {wishlist, setWishlist} = useContext(MyContext);
+    return {wishlist, setWishlist}
 }

@@ -129,6 +129,7 @@ export default function LogIn() {
             width="275"
             text="Continue with Google"
             fontSize="26"
+            textHover="none"
             onClick={SignInGoogle}
           />
           <Signup>

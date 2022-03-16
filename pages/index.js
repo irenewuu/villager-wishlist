@@ -38,7 +38,7 @@ export default function Welcome() {
         <TextBubble></TextBubble>
       </BubbleCont> */}
       <ButtonCont onClick={()=>router.push("logIn")}>
-        <Button />
+        <Button  textHover="none"/>
       </ButtonCont>
       
     

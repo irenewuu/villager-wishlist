@@ -94,9 +94,15 @@ export default function Settings({
           width='278'
           onClick={SignOutFire} 
           marginb="30px" 
-          bgColor='white'
+          bgColor='transparent'
           border='2px solid #8CC8A2'
-          txtColor='#8CC8A2'/>
+          txtColor='#8CC8A2'
+          borderHover='#FEBDC3'
+          hover="none"
+          textHover='#FEBDC3'
+          
+          
+          />
         <BottomNav settingColor='#474747' settingTextColor='#474747'></BottomNav>
     </Container>
   )
