@@ -6,7 +6,7 @@ import BottomNav from '../comps/BottomNav';
 import OtherUser from '../comps/ChatComp/otheruser'
 import MainUser from '../comps/ChatComp/mainuser'
 import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
-import {Send} from '@styled-icons/fluentui-system-regular/Send';
+import {SendPlane} from '@styled-icons/remix-fill/SendPlane';
 
 
 
@@ -61,7 +61,7 @@ width: 100%;
 }
 `
 const SendCont = styled.button`
-background: #007C74;
+background: none;
 border:none;
 color:#6AACA0;
 border-radius: 5px;
@@ -69,9 +69,9 @@ width: 60px;
 height: 50px;
 
 `
-const SendButt = styled(Send)`
+const SendButt = styled(SendPlane)`
   width: 30px;
-  color: white;
+  color: #007C74;
   
 `
 const InputCont = styled.div`
