@@ -56,6 +56,11 @@ const Submit = styled.input`
   margin-bottom: 0px;
 
   cursor: pointer;
+
+  &:hover {
+    border-color:#FEBDC3;
+    background-color: #FEBDC3;
+  };
 `;
 
 const Signin = styled.p`
