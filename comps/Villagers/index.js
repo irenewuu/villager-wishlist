@@ -87,7 +87,7 @@ export default function Villagers({
 }) {
   const [star, setStar] = useState(false);
   const [villager, setVillager] = useState({});
-  const {wishlist, setWishlist} = useState();;
+  const {wishlist, setWishlist} = useState();
   const r = useRouter();
   const {uuid} = r.query;
 

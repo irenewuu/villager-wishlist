@@ -66,36 +66,35 @@ export default function FilterPanel({
 
   //reusable functions ========================================================================================================================
   const personalityFilterFunc = (name, state, setState) => {
-    setState(!state)
-    {state ? setPersonalityFilter(personalityFilter.filter(i=>i !== name)) 
+    state = !state
+    setState(state) 
+    {state === false ? setPersonalityFilter(personalityFilter.filter(i=>i !== name)) 
       : setPersonalityFilter([...personalityFilter, name]) }
-      filtersFunc()
+    // filtersFunc(name, state)
   }
 
   const hobbyFilterFunc = (name, state, setState) => {
-      setState(!state)
-      {state ? setHobbyFilter(hobbyFilter.filter(i=>i !== name)) 
-        : setHobbyFilter([...hobbyFilter, name]) }
-      filtersFunc()
+    state = !state
+    setState(state)
+    {state === false ? setHobbyFilter(hobbyFilter.filter(i=>i !== name)) 
+      : setHobbyFilter([...hobbyFilter, name]) }
+    // filtersFunc(name, state)
   }
 
   const genderFilterFunc = (name, state, setState) => {
-      setState(!state)
-      {state ? setGenderFilter(genderFilter.filter(i=>i !== name)) 
-        : setGenderFilter([...genderFilter, name]) }
-      filtersFunc()
+    state = !state
+    setState(state)
+    {state === false ? setGenderFilter(genderFilter.filter(i=>i !== name)) 
+      : setGenderFilter([...genderFilter,{ name, state}]) }
+    // filtersFunc(name, state)
   }
-const filtersFunc = () => {
-   setFilterSettings((prev) => ({
-    // ...prev,
-    ...personalityFilter,
-    ...hobbyFilter,
-    ...genderFilter,
-   }))
-}
+  // const filtersFunc = (name, state) => {
+  //   { state === false ? setFilterSettings(filterSettings.filter(i=>i !== name)) 
+  //     : setFilterSettings([...filterSettings, name]) }
+  // }
 
+  // console.log("filter settings: " + filterSettings)
   console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-  // console.log(personalityFilter)
 
   // filtering arrays ==========================================================================================================================
   const personalities = [
@@ -125,11 +124,12 @@ const filtersFunc = () => {
 
   // Filters Clear Handler ===================================================
   const HandleClear = () => {
+    // {filterSettings.length >= 1 ? filterSettings.length = 0 : ''}
     {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
     {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
     {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
     console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-    
+    // console.log("filter settings: " + filterSettings)
     //personalities
     setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),
     setSBCranky(false), setSBLazy(false), setSBJock(false), setSBNormal(false)
