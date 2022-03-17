@@ -4,11 +4,11 @@ export default async function handler(req, res) {
     // console.log(req.query, req.body)
     console.log(req.query, 'api/ind_villager');
 
-    const {_id} = req.query;
+    const {_id, token} = req.query;
     
     // backend axios call ==================================================================
     // const acnhList = await ax.get(`https://villager-wishlist.herokuapp.com/profile/${_id}`);
-    const acnhList = await ax.get(`http://localhost:3000/profile/${_id}`);
+    const acnhList = await ax.get(`http://localhost:3000/profile/${_id}?token=${token}`);
 
     var lists = [];
     console.log(acnhList.data, "ind villager data")

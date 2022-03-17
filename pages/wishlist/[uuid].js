@@ -71,6 +71,8 @@ export default function Wishlist() {
           if(res.data !== false) {
             console.log(res.data, "loaded from uuid")
             setVillagers(res.data.lists)
+            // console.log(villagers[0]._id, "id check")
+
           } else {
             console.log("res.data is false")
           }

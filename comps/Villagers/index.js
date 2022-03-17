@@ -89,7 +89,7 @@ export default function Villagers({
   const [villager, setVillager] = useState({});
   const {wishlist, setWishlist} = useState();;
   const r = useRouter();
-  const {uuid} = r.query;
+  const {token} = r.query;
 
   const AddingVillager = () => {
     const villager_id = uuidv4()
@@ -98,15 +98,17 @@ export default function Villagers({
       [villager_id]: {villagerid:villager_id}
     }))
     HandleSave()
+    console.log(villager, "whats this villager data")
   }
 
 
   const HandleSave = async() => {
-    console.log(villager, 'villager list')
     const resp = await ax.post('/api/save', {
-      uuid,
+      token,
       villager
     })
+    console.log(villager, 'villager list')
+    console.log(resp, "what abt this")
   }
 
 

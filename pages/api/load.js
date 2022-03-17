@@ -1,9 +1,9 @@
 import {Save, Read} from '../../utils/helpers';
 
 export default async function handler(req, res) {
-    const {uuid} = req.query;
+    const {token} = req.query;
     try {
-        const json = await import(`../../saves/${uuid}.json`);
+        const json = await import(`../../saves/${token}.json`);
         res.status(200).json(json.default);
         // delete json.default;
     } catch (e) {
