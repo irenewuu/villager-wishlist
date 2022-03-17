@@ -76,13 +76,14 @@ export default function Wishlist() {
     }}>
       <Header text="Your Villager Wishlist" />
       <h3>{uuid}&#39;s wishlist</h3>
-  
+      
         {/* need to push the wishlisted villagers to data array in the usestate^ */}
         {villagers && Object.keys(villagers).length >= 1 ? 
           <Content>
             {villagers && Object.values(villagers).map((o) => (
-              <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
+              // <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
               <Villagers 
+              type="indvillager"
                 key={o._id}
                 // onClick={() => {r.push(`/profile/${o._id}`);}}
                 name={o.name}
@@ -91,7 +92,7 @@ export default function Wishlist() {
                 innercolor={o.personality ? innerCircle[o.personality] : none}
                 starDisplay="none"
               />
-              </motion.div>
+              // </motion.div>
             ))}
   
           </Content>

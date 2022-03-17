@@ -17,7 +17,7 @@ const Deletezone = ({
   }) => {
       const [{ canDrop, isOver }, drop] = useDrop(() => ({
       // The type (or types) to accept - strings or symbols
-      accept: ['villager'],
+      accept: ['villagers'],
       drop:(item, monitor)=>{
         onDropItem(item);
   

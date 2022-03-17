@@ -109,11 +109,12 @@ export default function Villagers({
   //===========DND POSITION===============
   const [pos, setPos] = useState(vilpos || {
     top:0,
+    left:0,
     position:'relative'
   });
 
   useEffect(()=>{
-    if(type === 'villager'){
+    if(type === 'indvillager'){
       onUpdateVil({pos})
     }
   }, [pos])
@@ -121,13 +122,13 @@ export default function Villagers({
   const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
 		// "type" is required. It is used by the "accept" specification of drop targets.
     type,
-    item: {name},
+    item: {name: type},
     end:(item, monitor)=>{
-      if(type === 'villager'){
+      if(type === 'indvillager'){
         setPos({
-          left:monitor.getClientOffset().x,
-          top:monitor.getClientOffset().y,
-          position:'absolute'
+          left:monitor.getClientOffset().x - 350/2,
+          top:monitor.getClientOffset().y - 220/2,
+          position:'relative'
 
         })
       }
@@ -141,15 +142,15 @@ export default function Villagers({
   }))
 
   const sty={
-    left: type==='stickerImage' ? pos.left : null,
-    top: type==='villager' ? pos.top : null,
-    position: type==='villager' ? pos.position : null
+    left: type==='indvillager' ? pos.left : null,
+    top: type==='indvillager' ? pos.top : null,
+    position: type==='indvillager' ? pos.position : null
   }
   if(coords && isDragging){
-    console.log(sty)
+    console.log(coords)
     sty.left = coords.x - 350/2;
     sty.top = coords.y - 220/2;
-    sty.position = 'fixed';
+    sty.position = 'absolute';
     
   }
 
