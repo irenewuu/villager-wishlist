@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import { useTheme, useUser } from "../../utils/provider";
+import { nav_themes } from "../../utils/variables";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 import ax from "axios";
+
 import { Leaf } from "@styled-icons/remix-line/Leaf";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { Settings2Outline } from "@styled-icons/evaicons-outline/Settings2Outline";
 import { ChatDots } from "@styled-icons/bootstrap/ChatDots";
-import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
-import { useTheme, useUser } from "../../utils/provider";
-import { nav_themes } from "../../utils/variables";
 
 
 const NavCont = styled.div`
@@ -108,17 +109,17 @@ export default function BottomNav({
   const router = useRouter();
 
   const Wishlist = async() =>{
-  const res = await ax.get("api/villagers", {
-    params: {
-      token: user
+    if(router.pathname !== `/wishlist/[uuid]`) {
+      const res = await ax.get("api/villagers", {
+        params: {
+          token: user
+        }
+      })
+      router.push(`/wishlist/${user}`)
     }
-  })
-  
-  console.log(res.data)
-  router.push(`/wishlist/${user}`)
-}
+  }
 
-return (
+  return (
     <NavCont className="BottomNav" color={nav_themes[theme].color}>
       <IconCont onClick={() => {Wishlist()}}>
         <LeafIcon className="icon" color={leafColor} />

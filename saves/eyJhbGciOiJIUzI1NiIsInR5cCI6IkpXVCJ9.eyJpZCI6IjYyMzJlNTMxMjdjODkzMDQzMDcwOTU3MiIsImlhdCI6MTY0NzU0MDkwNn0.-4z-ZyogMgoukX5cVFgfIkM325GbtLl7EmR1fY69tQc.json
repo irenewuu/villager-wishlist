@@ -1,0 +1,26 @@
+{
+  "62213e82cb76d902e2b17a45": {
+    "_id": "62213e82cb76d902e2b17a45",
+    "name": "Alice",
+    "image_url": "https://dodo.ac/np/images/e/e1/Alice_NH.png",
+    "personality": "Normal"
+  },
+  "62213e82cb76d902e2b17a43": {
+    "_id": "62213e82cb76d902e2b17a43",
+    "name": "Al",
+    "image_url": "https://dodo.ac/np/images/c/c4/Al_NH.png",
+    "personality": "Lazy"
+  },
+  "62213e82cb76d902e2b17a50": {
+    "_id": "62213e82cb76d902e2b17a50",
+    "name": "Antonio",
+    "image_url": "https://dodo.ac/np/images/d/d4/Antonio_NH.png",
+    "personality": "Jock"
+  },
+  "62213e82cb76d902e2b17a47": {
+    "_id": "62213e82cb76d902e2b17a47",
+    "name": "Amelia",
+    "image_url": "https://dodo.ac/np/images/a/ab/Amelia_NH.png",
+    "personality": "Snooty"
+  }
+}

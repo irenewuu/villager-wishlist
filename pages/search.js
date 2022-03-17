@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
+import { v4 as uuidv4 } from 'uuid';
 
 import { usePersonality, useHobby, useGender, useUser } from "../utils/provider";
 
@@ -16,12 +17,16 @@ import {innerCircle} from '../utils/variables'
 
 export default function Search() {
   const router = useRouter();
-  const [data, setData] = useState([]);
+
   const { personalityFilter } = usePersonality();
   const {user, setUser} = useUser();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
-  const [cur_page, setCurPage ]=useState([]);
+  
+  const [data, setData] = useState([]);
+  const [villager, setVillager] = useState({});
+
+  const [cur_page, setCurPage ] = useState([]);
   const [villager_num, setVillager_num] = useState();
   const [text, setText] = useState('');
   
@@ -49,7 +54,6 @@ export default function Search() {
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-            // token:localStorage.getItem('token')
             token: user
           },
         });
@@ -64,7 +68,6 @@ export default function Search() {
       }, 1000);
     }
   }
-
 
   // default
   useEffect(()=>{
@@ -102,21 +105,28 @@ export default function Search() {
 
   // slicing array of villagers to pages of 10
   butt_arr = butt_arr.slice(cur_page-3 < 0 ? 0 : cur_page-3, lastpage);
-  // console.log(numpages, "numpages")
-  // console.log(butt_arr, "butt_arr")
 
-
-  const AddingVillager = () => {
-    const villager_id = uuidv4()
-    setVillager((prev)=>({
-      ...prev,
-      [villager_id]: {villagerid:"hey"}
-      // [villager_id]: {villagerid:villager_id}
-    }))
+// save function =====================================================================
+  const AddingVillager = (id, name, image, personality) => {
+    villager[id] = {
+      _id: id,
+      name,
+      image_url: image,
+      personality
+    }
     HandleSave()
-    console.log(villager, "whats this villager data")
   }
 
+  const RemovingVillager = (id, name, image, personality) => {
+    villager[id] = {
+      _id: id,
+      name,
+      image_url: image,
+      personality
+    }
+    delete villager[id]
+    HandleSave()
+  }
 
   const HandleSave = async() => {
     const resp = await ax.post('/api/save', {
@@ -124,7 +134,6 @@ export default function Search() {
       villager
     })
     console.log(villager, 'villager list')
-    console.log(resp, "what abt this")
   }
 
 
@@ -136,13 +145,14 @@ export default function Search() {
         <div className="ResultsCont">
 
           <div className="VillagersCont"> 
-            {/* {data.slice(0, 10).map((o,i) => ( */}
             { data.length > 0 && data !== "not author" ? data.map((o, i) => (
 
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
                   <Villagers
                     name={o.name}
                     onClick={() => {router.push(`/profile/${o._id}`);}}
+                    fillStarClick={()=> {AddingVillager(o._id, o.name, o.image_url, o.personality)}}
+                    unStarClick={()=>{RemovingVillager(o._id, o.name, o.image_url, o.personality)}}
                     src={o.image_url}
                     width="148px"
                     left="110px"
@@ -160,7 +170,7 @@ export default function Search() {
 
         </div>
           :  <div>
-            <p>Please login to continue!</p>
+            {/* <p>Please login to continue!</p> */}
           </div>
         }
 

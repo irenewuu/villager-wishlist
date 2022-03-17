@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useRouter } from 'next/router';
+import { useUser } from "../../utils/provider";
 import ax from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
@@ -13,7 +14,6 @@ import TextBubble from '../../comps/TextBubble';
 import Button from '../../comps/Button';
 import BottomNav from "../../comps/BottomNav";
 
-import { useUser } from "../../utils/provider";
 
 const Cont = styled.div`
   display: flex;
@@ -39,63 +39,54 @@ const Content = styled.div`
   margin-bottom: 80px;
 `;
 
-
-
 export default function Wishlist() {
     const r = useRouter();
-    const {uuid} = r.query;
 
-    const [data, setData] = useState([]);
     const {user, setUser} = useUser();
+    const [data, setData] = useState([]);
+    const [villagers, setVillagers] = useState({});
 
     useEffect(()=>{
-      if (!globalThis.localStorage) {
-        return;
-      }
+      if (!globalThis.localStorage) { return; }
 
       var token = localStorage.getItem('token');
       setUser(token)
-      console.log(token, "set user token")
+      // console.log(token, "user token")
     }, []);
 
 
-    const [villagers, setVillagers] = useState({});
-
     useEffect(()=> {
-      if(uuid) {
+      if(user) {
         const getData = async () => {
           const res = await ax.get("/api/load", {
             params: {
-              uuid
+              token: user
             }
           })
           if(res.data !== false) {
-            console.log(res.data, "loaded from uuid")
-            setVillagers(res.data.lists)
-            // console.log(villagers[0]._id, "id check")
-
+            console.log(res.data, "loaded from token")
+            setVillagers(res.data)
           } else {
-            console.log("res.data is false")
+            console.log("no data in wishlist")
           }
         }
         getData()
       }
-    }, [uuid])
+    }, [user])
   
 
     return (
       <Cont>
       <Header text="Your Villager Wishlist" />
-      <h3>{uuid}&#39;s wishlist</h3>
-  
-        {/* need to push the wishlisted villagers to data array in the usestate^ */}
+
         {villagers && Object.keys(villagers).length >= 1 ? 
           <Content>
             {villagers && Object.values(villagers).map((o) => (
-              <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
+              <motion.div key={o._id} 
+              onClick={() => {r.push(`/profile/${o._id}`);}}
+              whileHover={{ scale: 1.03 }} >
               <Villagers 
                 key={o._id}
-                // onClick={() => {r.push(`/profile/${o._id}`);}}
                 name={o.name}
                 src={o.image_url}
                 bgcolor={o.personality ? bg[o.personality] : none}

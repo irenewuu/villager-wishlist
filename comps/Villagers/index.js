@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { Star } from "@styled-icons/bootstrap/Star";
 import { StarFill } from "@styled-icons/bootstrap/StarFill";
 
-import { useWishlist, useUser } from "../../utils/provider";
-import { v4 as uuidv4 } from 'uuid';
-import ax from "axios";
-
 const Cont = styled.div`
   background-color: ${(props) => props.bgcolor};
   display: flex;
@@ -84,34 +80,11 @@ export default function Villagers({
   marginR = "0px",
   starDisplay = "block",
   onClick = () => {},
+  fillStarClick = () => {},
+  unStarClick = () => {},
 }) {
   const [star, setStar] = useState(false);
-  const [villager, setVillager] = useState({});
-  const {user, setUser} = useUser();
   const r = useRouter();
-
-  const AddingVillager = () => {
-    const villager_id = uuidv4()
-    // setVillager((prev)=>({
-    //   ...prev,
-    //   [villager_id]: {villagerid:"hey"}
-    //   // [villager_id]: {villagerid:villager_id}
-    // }))
-    setVillager("hey")
-    HandleSave()
-    console.log(villager, "whats this villager data")
-  }
-
-
-  const HandleSave = async() => {
-    const resp = await ax.post('/api/save', {
-      user,
-      villager
-    })
-    console.log(villager, 'villager list')
-    console.log(resp, "what abt this")
-  }
-
 
   return (
     <Cont
@@ -127,8 +100,7 @@ export default function Villagers({
           display={starDisplay}
           onClick={() => {
             setStar(true);
-            console.log("filled the star");
-            AddingVillager()
+            fillStarClick()
           }}
         />
       ) : (
@@ -137,7 +109,7 @@ export default function Villagers({
           display={starDisplay}
           onClick={() => {
             setStar(false);
-            console.log("unfilled the star");
+            unStarClick()
           }}
         />
       )}
