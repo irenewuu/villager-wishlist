@@ -97,14 +97,14 @@ export default function AuthLogIn({
       let res = await ax.post('http://localhost:3000/login', user)
       localStorage.setItem('token', res.data)
       localStorage.setItem('user', res.config.data)
-      console.log("logIn is working")
-      console.log(res.data)
+      console.log("logged in")
+      console.log(res.data, "token")
 
       // check the user
       if(localStorage.getItem('token')){
         console.log('checked')
         // allow some operstion for logen in user
-        router.push(`/wishlist/${uuidv4()}`)
+        router.push(`/wishlist/${res.data}`);
 
       }
     }catch(e){

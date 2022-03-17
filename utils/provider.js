@@ -20,6 +20,9 @@ const initialStates = {
     wishlist: {},
     setWishlist: ()=>{},
 
+    user: null,
+    setUser: ()=>{},
+
 }
 
 const MyContext = createContext(initialStates);
@@ -29,6 +32,7 @@ export default function AppProvider({children}) {
     const [filterSettings, setFilterSettings] = useState([]);
     const [theme, setTheme] = useState(initialStates.theme);
     const [wishlist, setWishlist] = useState({});
+    const [user, setUser] = useState();
 
     const [personalityFilter, setPersonalityFilter] = useState([]);
     const [hobbyFilter, setHobbyFilter] = useState([]);
@@ -38,6 +42,7 @@ export default function AppProvider({children}) {
         theme, setTheme, 
         filterSettings, setFilterSettings,
         wishlist, setWishlist,
+        user, setUser,
         personalityFilter, setPersonalityFilter, 
         hobbyFilter, setHobbyFilter, 
         genderFilter, setGenderFilter
@@ -85,4 +90,9 @@ export function useTheme() {
 export function useWishlist() {
     const {wishlist, setWishlist} = useContext(MyContext);
     return {wishlist, setWishlist}
+}
+
+export function useUser() {
+    const {user, setUser} = useContext(MyContext);
+    return {user, setUser}
 }

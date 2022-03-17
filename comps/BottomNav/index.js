@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import ax from "axios";
 import { Leaf } from "@styled-icons/remix-line/Leaf";
 import { SearchOutline } from "@styled-icons/evaicons-outline/SearchOutline";
 import { Settings2Outline } from "@styled-icons/evaicons-outline/Settings2Outline";
 import { ChatDots } from "@styled-icons/bootstrap/ChatDots";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
-import { useTheme } from "../../utils/provider";
+import { useTheme, useUser } from "../../utils/provider";
 import { nav_themes } from "../../utils/variables";
 
 
@@ -97,19 +98,29 @@ export default function BottomNav({
   settingTextColor = "white",
   chatTextColor = "white",
 
-  // routeToWishlist="/wishlist",
-  routeToWishlist = `/wishlist/${uuidv4()}`,
   routeToSearch = "/search",
   routeToSetting = "/settings",
   routeToChat = "/chat"
 }) {
   
   const { theme } = useTheme();
+  const {user, setUser} = useUser();
   const router = useRouter();
 
-  return (
+  const Wishlist = async() =>{
+  const res = await ax.get("api/villagers", {
+    params: {
+      token: user
+    }
+  })
+  
+  console.log(res.data)
+  router.push(`/wishlist/${user}`)
+}
+
+return (
     <NavCont className="BottomNav" color={nav_themes[theme].color}>
-      <IconCont onClick={() => router.push(routeToWishlist)}>
+      <IconCont onClick={() => {Wishlist()}}>
         <LeafIcon className="icon" color={leafColor} />
         <LeafText leafTextColor={leafTextColor}>Wishlist</LeafText>
       </IconCont>

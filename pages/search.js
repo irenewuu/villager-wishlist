@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
 
-import { usePersonality, useHobby, useGender } from "../utils/provider";
+import { usePersonality, useHobby, useGender, useUser } from "../utils/provider";
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
@@ -18,6 +18,7 @@ export default function Search() {
   const router = useRouter();
   const [data, setData] = useState([]);
   const { personalityFilter } = usePersonality();
+  const {user, setUser} = useUser();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
   const [cur_page, setCurPage ]=useState([]);
@@ -48,7 +49,8 @@ export default function Search() {
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-            token:localStorage.getItem('token')
+            // token:localStorage.getItem('token')
+            token: user
           },
         });
         console.log(res.data, "data");
@@ -78,7 +80,7 @@ export default function Search() {
         className="PagiButton"
         style={{
           backgroundColor: cur_page === ind?"#8CC8A2":"white",
-          color: cur_page === ind? "white":"#8CC8A2"}}>
+          color: cur_page === ind? "white":"#8CC8A2"}} key={ind} >
         {ind}
     </button>
     );
@@ -103,6 +105,29 @@ export default function Search() {
   // console.log(numpages, "numpages")
   // console.log(butt_arr, "butt_arr")
 
+
+  const AddingVillager = () => {
+    const villager_id = uuidv4()
+    setVillager((prev)=>({
+      ...prev,
+      [villager_id]: {villagerid:"hey"}
+      // [villager_id]: {villagerid:villager_id}
+    }))
+    HandleSave()
+    console.log(villager, "whats this villager data")
+  }
+
+
+  const HandleSave = async() => {
+    const resp = await ax.post('/api/save', {
+      user,
+      villager
+    })
+    console.log(villager, 'villager list')
+    console.log(resp, "what abt this")
+  }
+
+
   return (
     <div className="SearchCont">
       <SearchBar onTextChange={(e) => {TextInput(e.target.value);}} />
@@ -115,7 +140,7 @@ export default function Search() {
             { data.length > 0 && data !== "not author" ? data.map((o, i) => (
 
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
-                  <Villagers key={o._id}
+                  <Villagers
                     name={o.name}
                     onClick={() => {router.push(`/profile/${o._id}`);}}
                     src={o.image_url}

@@ -111,6 +111,7 @@ export default function LogIn() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
+    
     console.log(result);
     // signInWithRedirect(auth, provider);
     const newUser = {
@@ -119,12 +120,13 @@ export default function LogIn() {
       password: result.user.email,
     };
     console.log("newUser:", newUser);
-    router.push(`/wishlist/${uuidv4()}`);
+    
     try {
       let res = await ax.post("http://localhost:3000/signup", newUser);
-
+      
       console.log("token:", res.data);
       localStorage.setItem("token", res.data);
+      router.push(`/wishlist/${res.data}`);
       // router.push("/logIn")
     } catch (e) {
       console.log(e);

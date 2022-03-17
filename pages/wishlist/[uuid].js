@@ -13,6 +13,8 @@ import TextBubble from '../../comps/TextBubble';
 import Button from '../../comps/Button';
 import BottomNav from "../../comps/BottomNav";
 
+import { useUser } from "../../utils/provider";
+
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,7 +46,7 @@ export default function Wishlist() {
     const {uuid} = r.query;
 
     const [data, setData] = useState([]);
-    const [user, setUser] = useState(null)
+    const {user, setUser} = useUser();
 
     useEffect(()=>{
       if (!globalThis.localStorage) {
@@ -52,11 +54,10 @@ export default function Wishlist() {
       }
 
       var token = localStorage.getItem('token');
-      console.log(token)
       setUser(token)
+      console.log(token, "set user token")
     }, []);
 
-//     if(user){}
 
     const [villagers, setVillagers] = useState({});
 

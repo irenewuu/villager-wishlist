@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Star } from "@styled-icons/bootstrap/Star";
 import { StarFill } from "@styled-icons/bootstrap/StarFill";
 
-import { useWishlist } from "../../utils/provider";
+import { useWishlist, useUser } from "../../utils/provider";
 import { v4 as uuidv4 } from 'uuid';
 import ax from "axios";
 
@@ -87,16 +87,17 @@ export default function Villagers({
 }) {
   const [star, setStar] = useState(false);
   const [villager, setVillager] = useState({});
-  const {wishlist, setWishlist} = useState();;
+  const {user, setUser} = useUser();
   const r = useRouter();
-  const {token} = r.query;
 
   const AddingVillager = () => {
     const villager_id = uuidv4()
-    setVillager((prev)=>({
-      ...prev,
-      [villager_id]: {villagerid:villager_id}
-    }))
+    // setVillager((prev)=>({
+    //   ...prev,
+    //   [villager_id]: {villagerid:"hey"}
+    //   // [villager_id]: {villagerid:villager_id}
+    // }))
+    setVillager("hey")
     HandleSave()
     console.log(villager, "whats this villager data")
   }
@@ -104,7 +105,7 @@ export default function Villagers({
 
   const HandleSave = async() => {
     const resp = await ax.post('/api/save', {
-      token,
+      user,
       villager
     })
     console.log(villager, 'villager list')
