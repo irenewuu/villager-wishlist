@@ -6,7 +6,8 @@ const DropCont = styled(Delete)`
 width: 120px;
 height: 120px;
 color: ${({bg})=>bg || '#E7736C'};
-position: relative;
+position: absolute;
+bottom: 100px;
 `
 
 const Deletezone = ({

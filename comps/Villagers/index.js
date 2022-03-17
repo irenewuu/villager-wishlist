@@ -27,7 +27,8 @@ const Cont = styled.div`
   user-select: none;
   cursor: pointer;
 
-  ${({position, top})=>(position === 'fixed' || position === 'absolute') && `
+  ${({position, left, top})=>(position === 'fixed' || position === 'absolute') && `
+  left:${left}px;
   top:${top}px;
   position:${position};
   `}
@@ -140,11 +141,14 @@ export default function Villagers({
   }))
 
   const sty={
+    left: type==='stickerImage' ? pos.left : null,
     top: type==='villager' ? pos.top : null,
     position: type==='villager' ? pos.position : null
   }
   if(coords && isDragging){
-    sty.top = coords.y;
+    console.log(sty)
+    sty.left = coords.x - 350/2;
+    sty.top = coords.y - 220/2;
     sty.position = 'fixed';
     
   }
