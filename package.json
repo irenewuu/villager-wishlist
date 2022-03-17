@@ -16,6 +16,7 @@
     "framer-motion": "^6.2.6",
     "next": "^12.1.0",
     "react": "17.0.2",
+    "react-beautiful-dnd": "^13.1.0",
     "react-dnd": "^15.1.1",
     "react-dnd-html5-backend": "^15.1.2",
     "react-dnd-touch-backend": "^15.1.1",

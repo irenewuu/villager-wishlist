@@ -20,12 +20,13 @@ const Cont = styled.div`
   width: ${(props) => props.width};
   height: 220px;
 
-  margin-top: 20px;
+  margin-top: 10px;
   margin-left: ${(props) => props.marginL};
   margin-right: ${(props) => props.marginR};
   border-radius: 20px;
   user-select: none;
   cursor: pointer;
+  margin-bottom: 20px;
 
   ${({position, top})=>(position === 'fixed' || position === 'absolute') && `
   top:${top}px;
@@ -106,48 +107,49 @@ export default function Villagers({
 
   
   //===========DND POSITION===============
-  const [pos, setPos] = useState(vilpos || {
-    top:0,
-    position:'relative'
-  });
+  // const [pos, setPos] = useState(vilpos || {
+  //   top:0,
+  //   left:0,
+  //   position:'relative'
+  // });
 
-  useEffect(()=>{
-    if(type === 'villager'){
-      onUpdateVil({pos})
-    }
-  }, [pos])
+  // useEffect(()=>{
+  //   if(type === 'villager'){
+  //     onUpdateVil({pos})
+  //   }
+  // }, [pos])
 
-  const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
-		// "type" is required. It is used by the "accept" specification of drop targets.
-    type,
-    item: {name},
-    end:(item, monitor)=>{
-      if(type === 'villager'){
-        setPos({
-          left:monitor.getClientOffset().x,
-          top:monitor.getClientOffset().y,
-          position:'absolute'
+  // const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
+	// 	// "type" is required. It is used by the "accept" specification of drop targets.
+  //   type,
+  //   item: {name},
+  //   end:(item, monitor)=>{
+  //     if(type === 'villager'){
+  //       setPos({
+  //         left:monitor.getClientOffset().x,
+  //         top:monitor.getClientOffset().y,
+  //         position:'absolute'
 
-        })
-      }
-    },
-		// The collect function utilizes a "monitor" instance (see the Overview for what this is)
-		// to pull important pieces of state from the DnD system.
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-      coords: monitor.getClientOffset()
-    })
-  }))
+  //       })
+  //     }
+  //   },
+	// 	// The collect function utilizes a "monitor" instance (see the Overview for what this is)
+	// 	// to pull important pieces of state from the DnD system.
+  //   collect: (monitor) => ({
+  //     isDragging: monitor.isDragging(),
+  //     coords: monitor.getClientOffset()
+  //   })
+  // }))
 
-  const sty={
-    top: type==='villager' ? pos.top : null,
-    position: type==='villager' ? pos.position : null
-  }
-  if(coords && isDragging){
-    sty.top = coords.y;
-    sty.position = 'fixed';
+  // const sty={
+  //   top: type==='villager' ? pos.top : null,
+  //   position: type==='villager' ? pos.position : null
+  // }
+  // if(coords && isDragging){
+  //   sty.top = coords.y;
+  //   sty.position = 'fixed';
     
-  }
+  // }
 
   
 
@@ -173,7 +175,7 @@ export default function Villagers({
 
 
   return (
-    <Cont ref={drag}  {...sty}
+    <Cont 
       onBlur={()=>setShowInput(false)}
       width={width}
       bgcolor={bgcolor}

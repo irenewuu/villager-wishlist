@@ -16,6 +16,9 @@ import Button from '../../comps/Button';
 import BottomNav from "../../comps/BottomNav";
 import DeleteZone from"../../comps/DeleteZone";
 
+import { DragDropContext, Droppable, Draggable  } from "react-beautiful-dnd";
+
+
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,6 +51,8 @@ export default function Wishlist() {
 
     const [villagers, setVillagers] = useState({});
     const [vil, setVil] = useState({});
+    //for drag n drop
+    // const [villager, updateVillager] = useState({});
 
     useEffect(()=> {
       if(uuid) {
@@ -67,34 +72,72 @@ export default function Wishlist() {
         getData()
       }
     }, [uuid])
+
+    // (from 1)
+    function handleOnDragEnd(result){
+      console.log(result);
+
+      // const items = Array.from(characters);
+      // const [reorderedItem] = items.splice(result.source.index, 1);
+      // items.splice(result.destination.index, 0, reorderedItem);
+
+      // updateVillager(items)
+    }
+
+    // this onDragEnd not make sense its might conflicting (from 2)
+    const onDragEnd = (result, villagers, setVillagers) =>{
+      if(!result.destination) return; 
+      const {source, destination} = result;
+      const column = villagers[source.droppableId];
+      const copiedItems = [...column.lists]
+      const [removed] = copiedItems.splice(source.index, 1);
+      copiedItems.splice(destination.index, 0, removed);
+      setVillagers({
+        ...villagers,
+        [source.droppableId]: {
+          ...column,
+          items:copiedItems
+        }
+      })
+    }
   
     return (
       <Cont>
-        <DndProvider backend={TouchBackend} options ={{
+        {/* <DndProvider backend={TouchBackend} options ={{
         enableTouchEvents:false,
         enableMouseEvents:true
-    }}>
+    }}> */}
       <Header text="Your Villager Wishlist" />
       <h3>{uuid}&#39;s wishlist</h3>
   
         {/* need to push the wishlisted villagers to data array in the usestate^ */}
-        {villagers && Object.keys(villagers).length >= 1 ? 
-          <Content>
-            {villagers && Object.values(villagers).map((o) => (
-              <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
-              <Villagers 
-                key={o._id}
-                // onClick={() => {r.push(`/profile/${o._id}`);}}
-                name={o.name}
-                src={o.image_url}
-                bgcolor={o.personality ? bg[o.personality] : none}
-                innercolor={o.personality ? innerCircle[o.personality] : none}
-                starDisplay="none"
-              />
-              </motion.div>
-            ))}
-  
-          </Content>
+        {Object.keys(villagers).length >= 1 ? 
+        <DragDropContext onDragEnd={result => onDragEnd(result, villagers, setVillagers)}>
+          <Droppable droppableId="villagers">
+          {(provided, snapshot)=>(
+            <Content {...provided.droppableProps} ref={provided.innerRef}>
+              {Object.values(villagers).map((o, index) => (
+                <Draggable key={o._id} draggableId={o._id} index={index} >
+                  {(provided, snapshot) =>(
+                <motion.div whileHover={{ scale: 1.03 }} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
+                <Villagers 
+                  key={o._id}
+                  // onClick={() => {r.push(`/profile/${o._id}`);}}
+                  name={o.name}
+                  src={o.image_url}
+                  bgcolor={o.personality ? bg[o.personality] : none}
+                  innercolor={o.personality ? innerCircle[o.personality] : none}
+                  starDisplay="none"
+                />
+                </motion.div>
+                )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </Content>
+          )}
+          </Droppable>
+          </DragDropContext>
           : <Content>
             <BubbleCont>
               <TextBubble text="You have no villagers in your wishlist." />
@@ -105,11 +148,11 @@ export default function Wishlist() {
           </Content>
         }
 
-        <DeleteZone>
-        </DeleteZone>
+        {/* <DeleteZone>
+        </DeleteZone> */}
           <BottomNav />
 
-          </DndProvider>
+          {/* </DndProvider> */}
         </Cont>
     );
   }
