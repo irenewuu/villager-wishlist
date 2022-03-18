@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styled from "styled-components";
+import { io } from "socket.io-client";
 
 
 const NavCont = styled.div`
@@ -39,12 +40,35 @@ const Name = styled.p`
 
 const MainUser = () => {
 
+  const [mySoc, setMySoc] = useState(null);
+  const [msgs, setMsgs] = useState([]);
+
+
+
+  useEffect(()=>{
+    const socket = io("http://localhost:8888");
+
+    socket.on("change", (id)=>{
+      //alert(`${id} has connected`)
+      setMsgs((prev)=>[
+        ...prev,
+        `helloooo`
+      ])
+    });
+
+    setMySoc(socket);
+  }, []);
+
   return (
     <NavCont>
 
       <InfoCont>
         <Name>Me</Name>
-        <ChatBubble><p>hellooooooo</p></ChatBubble>
+        {msgs.map((o,i)=>
+        <ChatBubble>
+          {o}
+          </ChatBubble>
+          )} 
       </InfoCont>
 
      

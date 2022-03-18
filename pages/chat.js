@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useRouter } from 'next/router';
 import styled from "styled-components";
 import Header from '../comps/Header';

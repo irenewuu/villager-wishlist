@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { useRouter } from 'next/router';
 import styled from "styled-components";
 import Header from '../comps/Header';
@@ -7,7 +7,7 @@ import OtherUser from '../comps/ChatComp/otheruser'
 import MainUser from '../comps/ChatComp/mainuser'
 import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
 import {SendPlane} from '@styled-icons/remix-fill/SendPlane';
-
+import { io } from "socket.io-client";
 
 
 const Cont = styled.div`
@@ -88,8 +88,36 @@ display:flex;
 
 export default function ChatPage() {
     const router = useRouter()
+
+    const [mySoc, setMySoc] = useState(null);
+    const [msgs, setMsgs] = useState([]);
+
+
+
+    useEffect(()=>{
+      const socket = io("http://localhost:8888");
+  
+      socket.on("change", (id)=>{
+        //alert(`${id} has connected`)
+        setMsgs((prev)=>[
+          ...prev,
+          `${id} says hi`
+        ])
+      });
+
+      setMySoc(socket);
+    }, []);
+
+    const SendToIO = async () =>{
+      mySoc.emit("alert all")
+
+    }
+
     return (
       <Cont>
+        <div>
+          <button onClick={SendToIO}>Alert Now</button>
+        </div>
         <HeadCont>
         <Back onClick={()=>router.push('/chat')}/>
         <Head>Global</Head>
@@ -99,7 +127,12 @@ export default function ChatPage() {
       <OtherUser/>
       
       
-        <MainUser/>
+        {/* <MainUser/> */}
+        {/* {msgs.map((o,i)=> */}
+        <MainUser>
+          {/* {o} */}
+          </MainUser>
+          {/* )} */}
 
         <InputCont>
         <ChatInput placeholder='Write a message' ></ChatInput>
@@ -108,11 +141,6 @@ export default function ChatPage() {
 
         
         </ChatCont>
-       
-          
-        
-
-       
        
         </Cont>
     );
