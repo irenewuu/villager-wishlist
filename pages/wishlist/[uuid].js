@@ -106,8 +106,8 @@ export default function Wishlist() {
           </Content>
         }
 
-        <DeleteZone>
-        </DeleteZone>
+        {/* <DeleteZone>
+        </DeleteZone> */}
           <BottomNav />
 
           </DndProvider>
