@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useDrag, useDrop } from 'react-dnd'
+// import { useDrag, useDrop } from 'react-dnd'
 import { Star } from "@styled-icons/bootstrap/Star";
 import { StarFill } from "@styled-icons/bootstrap/StarFill";
 

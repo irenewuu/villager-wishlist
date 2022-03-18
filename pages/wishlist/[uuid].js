@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import ax from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { DndProvider } from 'react-dnd';
+// import { DndProvider } from 'react-dnd';
 import { TouchBackend } from 'react-dnd-touch-backend'
+import { v4 as uuidv4 } from "uuid";
 
 import {bg} from '../../utils/variables';
 import {innerCircle} from '../../utils/variables';
@@ -53,7 +54,8 @@ export default function Wishlist() {
     const [vil, setVil] = useState({});
     //for drag n drop
     // const [villager, updateVillager] = useState({});
-
+    const [columns, setColumns] = useState({});
+    
     useEffect(()=> {
       if(uuid) {
         const getData = async () => {
@@ -64,80 +66,95 @@ export default function Wishlist() {
           })
           if(res.data !== false) {
             console.log(res.data, "loaded from uuid")
-            setVillagers(res.data.lists)
+            setVillagers(res.data)
+            // console.log(villagers, "villagers data")
           } else {
             console.log("res.data is false")
           }
-        }
+          const villagerIds = Object.values(villagers).map((o, i)=> o._id)
+          setColumns({
+              'villagers': {...villagers},
+              'villagercolumn': {
+                id: "villagercolumn",
+                title: "villager wishlist",
+                villagerIds: [...villagerIds]
+              }
+          })
+  
+          // console.log(columns, "columns")
+        }//
         getData()
       }
     }, [uuid])
 
-    // (from 1)
+    
     function handleOnDragEnd(result){
-      console.log(result);
+      const {destination, source, draggableId} = result;
 
-      // const items = Array.from(characters);
-      // const [reorderedItem] = items.splice(result.source.index, 1);
-      // items.splice(result.destination.index, 0, reorderedItem);
+      if (!destination) { return;}
+      if(destination.droppableId === source.droppableId &&
+        destination.index === source.index) {
+          console.log("returned empty")
+          return;
+      }
 
-      // updateVillager(items)
-    }
-
-    // this onDragEnd not make sense its might conflicting (from 2)
-    const onDragEnd = (result, villagers, setVillagers) =>{
-      if(!result.destination) return; 
-      const {source, destination} = result;
-      const column = villagers[source.droppableId];
-      const copiedItems = [...column.lists]
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setVillagers({
-        ...villagers,
-        [source.droppableId]: {
-          ...column,
-          items:copiedItems
-        }
+      const column = columns[source.droppableId];
+      console.log(source, "source")
+      const newTaskIds = Array.from(column.villagerIds);
+      console.log(newTaskIds, "new task ids")
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+//
+      setColumns({
+        ...column,
+        villagerIds: newTaskIds
       })
+      console.log(columns, "new columns?")
     }
   
+    console.log(villagers, 'villagers list')
+    console.log(columns, "columns")
     return (
       <Cont>
-        {/* <DndProvider backend={TouchBackend} options ={{
-        enableTouchEvents:false,
-        enableMouseEvents:true
-    }}> */}
       <Header text="Your Villager Wishlist" />
       <h3>{uuid}&#39;s wishlist</h3>
   
         {/* need to push the wishlisted villagers to data array in the usestate^ */}
         {Object.keys(villagers).length >= 1 ? 
-        <DragDropContext onDragEnd={result => onDragEnd(result, villagers, setVillagers)}>
-          <Droppable droppableId="villagers">
-          {(provided, snapshot)=>(
+        <DragDropContext onDragEnd={result => handleOnDragEnd(result)}>
+
+          {/* column */}
+          <Droppable droppableId="villagercolumn">
+
+          {(provided)=>(
             <Content {...provided.droppableProps} ref={provided.innerRef}>
+
               {Object.values(villagers).map((o, index) => (
                 <Draggable key={o._id} draggableId={o._id} index={index} >
-                  {(provided, snapshot) =>(
-                <motion.div whileHover={{ scale: 1.03 }} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
-                <Villagers 
-                  key={o._id}
-                  // onClick={() => {r.push(`/profile/${o._id}`);}}
-                  name={o.name}
-                  src={o.image_url}
-                  bgcolor={o.personality ? bg[o.personality] : none}
-                  innercolor={o.personality ? innerCircle[o.personality] : none}
-                  starDisplay="none"
-                />
-                </motion.div>
+                  {(provided) =>(
+                    <motion.div whileHover={{ scale: 1.03 }} {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} >
+                      <Villagers 
+                        // key={o._id}
+                        // onClick={() => {r.push(`/profile/${o._id}`);}}
+                        name={o.name}
+                        src={o.image_url}
+                        bgcolor={o.personality ? bg[o.personality] : null}
+                        innercolor={o.personality ? innerCircle[o.personality] : null}
+                        starDisplay="none"
+                      />
+                    </motion.div>
                 )}
                 </Draggable>
               ))}
+
               {provided.placeholder}
+
             </Content>
           )}
           </Droppable>
+
           </DragDropContext>
+
           : <Content>
             <BubbleCont>
               <TextBubble text="You have no villagers in your wishlist." />
