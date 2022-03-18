@@ -77,29 +77,29 @@ export default function Wishlist() {
     function handleOnDragEnd(result){
       console.log(result);
 
-      // const items = Array.from(characters);
-      // const [reorderedItem] = items.splice(result.source.index, 1);
-      // items.splice(result.destination.index, 0, reorderedItem);
+      const items = Array.from(villagers);
+      const [reorderedItem] = items.splice(result.source.index, 1);
+      items.splice(result.destination.index, 0, reorderedItem);
 
       // updateVillager(items)
     }
 
     // this onDragEnd not make sense its might conflicting (from 2)
-    const onDragEnd = (result, villagers, setVillagers) =>{
-      if(!result.destination) return; 
-      const {source, destination} = result;
-      const column = villagers[source.droppableId];
-      const copiedItems = [...column.lists]
-      const [removed] = copiedItems.splice(source.index, 1);
-      copiedItems.splice(destination.index, 0, removed);
-      setVillagers({
-        ...villagers,
-        [source.droppableId]: {
-          ...column,
-          items:copiedItems
-        }
-      })
-    }
+    // const onDragEnd = (result, villagers, setVillagers) =>{
+    //   if(!result.destination) return; 
+    //   const {source, destination} = result;
+    //   const column = villagers[source.droppableId];
+    //   const copiedItems = [...column.lists]
+    //   const [removed] = copiedItems.splice(source.index, 1);
+    //   copiedItems.splice(destination.index, 0, removed);
+    //   setVillagers({
+    //     ...villagers,
+    //     [source.droppableId]: {
+    //       ...column,
+    //       items:copiedItems
+    //     }
+    //   })
+    // }
   
     return (
       <Cont>
@@ -112,7 +112,7 @@ export default function Wishlist() {
   
         {/* need to push the wishlisted villagers to data array in the usestate^ */}
         {Object.keys(villagers).length >= 1 ? 
-        <DragDropContext onDragEnd={result => onDragEnd(result, villagers, setVillagers)}>
+        <DragDropContext onDragEnd={handleOnDragEnd}>
           <Droppable droppableId="villagers">
           {(provided, snapshot)=>(
             <Content {...provided.droppableProps} ref={provided.innerRef}>
