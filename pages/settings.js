@@ -1,13 +1,15 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect } from "react";
 import styled from 'styled-components';
+
+import { useTheme } from '../utils/provider';
+
 import TextBubble from '../comps/TextBubble';
 import ColorMode from '../comps/ColorMode';
 import BottomNav from '../comps/BottomNav';
 import Header from '../comps/Header';
-import { useTheme } from '../utils/provider';
-import { useRouter } from 'next/router';
 import Button from '../comps/Button';
-import Router from 'next/router';
 
 import { initializeApp } from "firebase/app";
 import {
@@ -16,8 +18,6 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { useEffect } from "react";
-import { redirect } from 'next/dist/server/api-utils';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHAc6ZocmhVTPrXfGsoziKsoaRBJk0g-Y",
@@ -40,7 +40,6 @@ const Container = styled.div`
 const Photo = styled.img`
 padding: 15px;
 margin-top:1px;
-
 `
 
 const app = initializeApp(firebaseConfig);
@@ -84,14 +83,13 @@ export default function Settings({
           )}
           onButtonClick2={()=>setTheme(
             theme==='dark'?'default':"dark"
-          )}
-        ></ColorMode>
+          )} />
         <TextBubble 
           display='none' 
           name="Timmy and Tommy" 
           text="Bye for now!"
-          paddingt='20px'></TextBubble>
-        <Photo src='/timmytommy.svg' ></Photo>
+          paddingt='20px' />
+        <Photo src='/timmytommy.svg' />
         <Button 
           text="Log Out" 
           width='278'
@@ -104,7 +102,7 @@ export default function Settings({
           hover="none"
           textHover='#FEBDC3'
           />
-        <BottomNav settingColor='#474747' settingTextColor='#474747'></BottomNav>
+        <BottomNav settingColor='#474747' settingTextColor='#474747' />
     </Container>
   )
 }

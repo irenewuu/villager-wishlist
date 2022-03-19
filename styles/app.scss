@@ -7,13 +7,10 @@
 @import './components/BottomNav.scss';
 
 @import './search.scss';
+@import './login-signup.scss';
 
 
 // component scss imports ============================================================
-  // import any components here plz ~~~~~~  
-// @import './components/BlankFile.scss';
-
-
 @import './components/SearchBar.scss';
 @import './components/FilterPanel.scss';
 @import './components/FilterButton.scss';
@@ -29,6 +26,13 @@ html, #__next, body {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+}
+
+.Cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 // text styleguide ====================================================================

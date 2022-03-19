@@ -14,15 +14,6 @@ import TextBubble from '../../comps/TextBubble';
 import Button from '../../comps/Button';
 import BottomNav from "../../comps/BottomNav";
 
-
-const Cont = styled.div`
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-  width: 100%;
-  // height: 100%;
-`;
 const BubbleCont = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
@@ -51,9 +42,10 @@ export default function Wishlist() {
 
       var token = localStorage.getItem('token');
       setUser(token)
-      // console.log(token, "user token")
+      console.log(token, "user token")
     }, []);
-
+    
+    console.log(user, "user token from user")
 
     useEffect(()=> {
       if(user) {
@@ -76,7 +68,7 @@ export default function Wishlist() {
   
 
     return (
-      <Cont>
+      <div className="Cont">
       <Header text="Your Villager Wishlist" />
 
         {villagers && Object.keys(villagers).length >= 1 ? 
@@ -107,7 +99,7 @@ export default function Wishlist() {
           </Content>
         }
           <BottomNav />
-        </Cont>
+        </div>
     );
   
 }
