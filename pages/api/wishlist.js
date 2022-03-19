@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     if(req.body.villager) {
       try {
-        const acnhList = await ax.post(`http://localhost:3000/wishlist?token=${token}&user=${user}`, {user, villager});
+        const acnhList = await ax.post(`http://localhost:3000/wishlist?user=${user}`, {user, villager});
       } catch(e) {
         console.log(e)
       }
@@ -20,16 +20,19 @@ export default async function handler(req, res) {
     }
   } 
   
-  // if(req.method === "GET") {
-  //   const {user} = req.query;
-    
-  //   try {
-  //     // const villagers = await import(`@/saves/${user}.json`);
-  //     res.status(200).json(villagers);
-  //   } catch (e) {
-  //     res.status(200).json(false);
-  //   }
-  // }
+  if(req.method === "GET") {
+    const {user} = req.query;
+    console.log(req.query, "wishlist api")
+
+    try {
+      const acnhList = await ax.get(`http://localhost:3000/wishlist?user=${user}`);
+      console.log(acnhList.data, "my data..??????")
+      var wishlistData = acnhList.data
+      res.status(200).json(wishlistData);
+    } catch (e) {
+      res.status(200).json(false);
+    }
+  }
 
 
   

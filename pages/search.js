@@ -133,7 +133,7 @@ export default function Search() {
                   <Villagers
                     name={o.name}
                     onClick={() => {router.push(`/profile/${o._id}`);}}
-                    fillStarClick={()=> {HandleSave(o)}}
+                    fillStarClick={()=> {HandleSave(o._id)}}
                     // fillStarClick={()=> {AddingVillager(o._id, o.name, o.image_url, o.personality)}}
                     // unStarClick={()=>{RemovingVillager(o._id, o.name, o.image_url, o.personality)}}
                     src={o.image_url}

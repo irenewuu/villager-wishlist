@@ -104,7 +104,7 @@ export default function AuthLogIn({
       if(localStorage.getItem('token')){
         console.log('checked')
         // allow some operstion for logen in user
-        router.push(`/wishlist/${res.data}`);
+        router.push(`/wishlist`);
 
       }
     }catch(e){

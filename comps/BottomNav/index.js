@@ -115,7 +115,7 @@ export default function BottomNav({
       //     token: user
       //   }
       // })
-      router.push(`/wishlist/${userToken}`)
+      router.push(`/wishlist`)
     }
   }
 
