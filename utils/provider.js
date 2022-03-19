@@ -17,11 +17,11 @@ const initialStates = {
     theme:"default",
     setTheme:()=>{},
 
-    wishlist: {},
-    setWishlist: ()=>{},
+    userId: {},
+    setUserId: ()=>{},
 
-    user: null,
-    setUser: ()=>{},
+    userToken: null,
+    setUserToken: ()=>{},
 
 }
 
@@ -31,8 +31,8 @@ export default function AppProvider({children}) {
 
     const [filterSettings, setFilterSettings] = useState([]);
     const [theme, setTheme] = useState(initialStates.theme);
-    const [wishlist, setWishlist] = useState({});
-    const [user, setUser] = useState();
+    const [userId, setUserId] = useState({});
+    const [userToken, setUserToken] = useState();
 
     const [personalityFilter, setPersonalityFilter] = useState([]);
     const [hobbyFilter, setHobbyFilter] = useState([]);
@@ -41,8 +41,8 @@ export default function AppProvider({children}) {
     return <MyContext.Provider value = {{
         theme, setTheme, 
         filterSettings, setFilterSettings,
-        wishlist, setWishlist,
-        user, setUser,
+        userId, setUserId,
+        userToken, setUserToken,
         personalityFilter, setPersonalityFilter, 
         hobbyFilter, setHobbyFilter, 
         genderFilter, setGenderFilter
@@ -87,12 +87,12 @@ export function useTheme() {
     return {theme, setTheme};
 }
 
-export function useWishlist() {
-    const {wishlist, setWishlist} = useContext(MyContext);
-    return {wishlist, setWishlist}
+export function useUserId() {
+    const {userId, setUserId} = useContext(MyContext);
+    return {userId, setUserId}
 }
 
-export function useUser() {
-    const {user, setUser} = useContext(MyContext);
-    return {user, setUser}
+export function useUserToken() {
+    const {userToken, setUserToken} = useContext(MyContext);
+    return {userToken, setUserToken}
 }

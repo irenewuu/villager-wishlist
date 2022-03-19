@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
 import { useRouter } from 'next/router';
-import { useUser } from "../../utils/provider";
 import ax from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { decodeToken } from "react-jwt";
 
+import { useUserToken, useUserId } from "../../utils/provider";
 import {bg} from '../../utils/variables';
 import {innerCircle} from '../../utils/variables';
 
@@ -33,26 +34,29 @@ const Content = styled.div`
 export default function Wishlist() {
     const r = useRouter();
 
-    const {user, setUser} = useUser();
-    const [data, setData] = useState([]);
+    const {userToken, setUserToken} = useUserToken();
+    const {userId, setUserId} = useUserId();
     const [villagers, setVillagers] = useState({});
 
     useEffect(()=>{
-      if (!globalThis.localStorage) { return; }
-
-      var token = localStorage.getItem('token');
-      setUser(token)
-      console.log(token, "user token")
-    }, []);
-    
-    console.log(user, "user token from user")
+      setUserToken( window.localStorage.getItem('token'))
+      console.log(userToken)
+      
+      if(userToken !== undefined)
+      {
+        const myDecodedToken = decodeToken(userToken);
+        setUserId(myDecodedToken.id)
+      }
+  
+    },[userToken])
+    console.log(userId, "user id")
 
     useEffect(()=> {
-      if(user) {
+      if(userToken) {
         const getData = async () => {
           const res = await ax.get("/api/load", {
             params: {
-              token: user
+              token: userToken
             }
           })
           if(res.data !== false) {
@@ -64,7 +68,7 @@ export default function Wishlist() {
         }
         getData()
       }
-    }, [user])
+    }, [userToken])
   
 
     return (

@@ -3,25 +3,25 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
-import { v4 as uuidv4 } from 'uuid';
 
-import { usePersonality, useHobby, useGender, useUser } from "../utils/provider";
+import { usePersonality, useHobby, useGender, useUserToken, useUserId } from "../utils/provider";
+import {bg} from '../utils/variables'
+import {innerCircle} from '../utils/variables'
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
 import SearchBar from "../comps/SearchBar/SearchBar";
 
-import {bg} from '../utils/variables'
-import {innerCircle} from '../utils/variables'
 
 
 export default function Search() {
   const router = useRouter();
 
   const { personalityFilter } = usePersonality();
-  const {user, setUser} = useUser();
+  const {userToken} = useUserToken();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
+  const {userId} = useUserId()
   
   const [data, setData] = useState([]);
   const [villager, setVillager] = useState({});
@@ -30,6 +30,7 @@ export default function Search() {
   const [villager_num, setVillager_num] = useState();
   const [text, setText] = useState('');
   
+  console.log(userId, "userid")
 
   var timer = null;
   // pagination & text input function ===================================================
@@ -54,7 +55,8 @@ export default function Search() {
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-            token: user
+            user: userId,
+            token: userToken
           },
         });
         console.log(res.data, "data");
@@ -106,34 +108,14 @@ export default function Search() {
   // slicing array of villagers to pages of 10
   butt_arr = butt_arr.slice(cur_page-3 < 0 ? 0 : cur_page-3, lastpage);
 
-// save function =====================================================================
-  const AddingVillager = (id, name, image, personality) => {
-    villager[id] = {
-      _id: id,
-      name,
-      image_url: image,
-      personality
-    }
-    HandleSave()
-  }
+  // saving villager data to wishlist ================================================
 
-  const RemovingVillager = (id, name, image, personality) => {
-    villager[id] = {
-      _id: id,
-      name,
-      image_url: image,
-      personality
-    }
-    delete villager[id]
-    HandleSave()
-  }
-
-  const HandleSave = async() => {
-    const resp = await ax.post('/api/save', {
-      user,
-      villager
+  const HandleSave = async(o) => {
+    const resp = await ax.post('/api/wishlist', {
+      user: userId,
+      villager: o
     })
-    console.log(villager, 'villager list')
+    console.log(resp.data, 'data added to wishlist')
   }
 
 
@@ -151,8 +133,9 @@ export default function Search() {
                   <Villagers
                     name={o.name}
                     onClick={() => {router.push(`/profile/${o._id}`);}}
-                    fillStarClick={()=> {AddingVillager(o._id, o.name, o.image_url, o.personality)}}
-                    unStarClick={()=>{RemovingVillager(o._id, o.name, o.image_url, o.personality)}}
+                    fillStarClick={()=> {HandleSave(o)}}
+                    // fillStarClick={()=> {AddingVillager(o._id, o.name, o.image_url, o.personality)}}
+                    // unStarClick={()=>{RemovingVillager(o._id, o.name, o.image_url, o.personality)}}
                     src={o.image_url}
                     width="148px"
                     left="110px"

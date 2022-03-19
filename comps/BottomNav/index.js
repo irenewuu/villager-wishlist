@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useTheme, useUser } from "../../utils/provider";
+import { useTheme, useUserToken } from "../../utils/provider";
 import { nav_themes } from "../../utils/variables";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
@@ -105,7 +105,7 @@ export default function BottomNav({
 }) {
   
   const { theme } = useTheme();
-  const {user, setUser} = useUser();
+  const {userToken, setUserToken} = useUserToken();
   const router = useRouter();
 
   const Wishlist = async() =>{
@@ -115,7 +115,7 @@ export default function BottomNav({
       //     token: user
       //   }
       // })
-      router.push(`/wishlist/${user}`)
+      router.push(`/wishlist/${userToken}`)
     }
   }
 
