@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
 
-import { usePersonality, useHobby, useGender } from "../utils/provider";
+import { usePersonality, useHobby, useGender, useTheme, filter_themes } from "../utils/provider";
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";

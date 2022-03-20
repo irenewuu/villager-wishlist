@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import {useFilters, usePersonality, useHobby, useGender} from "../../utils/provider";
+import {useFilters, usePersonality, useHobby, useGender, filter_themes, useTheme} from "../../utils/provider";
 
 import Button from "../Button";
 
@@ -30,6 +30,10 @@ const BtnsCont = styled.div`
   justify-content: space-around;
   margin: 8px 0;
 `; 
+
+const Header = styled.h5`
+color:${props=>props.color};
+`
 
 export default function FilterPanel({
   zIndex=null,
@@ -140,10 +144,11 @@ const filtersFunc = () => {
     setSBMale(false), setSBFemale(false)
   }
 
+  const {theme} = useTheme();
 
   return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
     <div className='FilterSection'>
-      <h5>Personality</h5>
+      <Header>Personality</Header>
 
       <div>
         {personalities.map((o,i)=>

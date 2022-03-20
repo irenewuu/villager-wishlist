@@ -80,10 +80,10 @@ export default function Settings({
         <Header text="Settings"></Header>
         <ColorMode
           onButtonClick1={()=>setTheme(
-            theme==='dark'?'default':"dark"
+            theme==='default'?'default':"default"
           )}
           onButtonClick2={()=>setTheme(
-            theme==='dark'?'default':"dark"
+            theme==='dark'?'dark':"dark"
           )}
         ></ColorMode>
         <TextBubble 
