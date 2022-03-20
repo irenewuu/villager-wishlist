@@ -56,7 +56,7 @@ export default function Settings({
       if (!user) {
         // User is signed in, see docs for a list of available properties
         console.log("signed out", user);
-        Router.push('/')
+        router.push('/')
         // setredirect("/");
 
       } else {
@@ -79,11 +79,12 @@ export default function Settings({
         <Header text="Settings"></Header>
         <ColorMode
           onButtonClick1={()=>setTheme(
-            theme==='dark'?'default':"dark"
+            theme==='default'?'default':"default"
           )}
           onButtonClick2={()=>setTheme(
-            theme==='dark'?'default':"dark"
-          )} />
+            theme==='dark'?'dark':"dark"
+          )}
+        ></ColorMode>
         <TextBubble 
           display='none' 
           name="Timmy and Tommy" 

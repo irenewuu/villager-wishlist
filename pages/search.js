@@ -4,9 +4,8 @@ import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
 
-import { usePersonality, useHobby, useGender, useUserToken, useUserId } from "../utils/provider";
-import {bg} from '../utils/variables'
-import {innerCircle} from '../utils/variables'
+import { filter_themes, usePersonality, useHobby, useGender, useUserToken, useUserId } from "../utils/provider";
+import {bg, innerCircle} from '../utils/variables';
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
