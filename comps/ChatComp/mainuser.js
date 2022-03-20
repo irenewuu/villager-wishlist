@@ -40,35 +40,16 @@ const Name = styled.p`
 
 const MainUser = () => {
 
-  const [mySoc, setMySoc] = useState(null);
-  const [msgs, setMsgs] = useState([]);
 
-
-
-  useEffect(()=>{
-    const socket = io("http://localhost:8888");
-
-    socket.on("change", (id)=>{
-      //alert(`${id} has connected`)
-      setMsgs((prev)=>[
-        ...prev,
-        `helloooo`
-      ])
-    });
-
-    setMySoc(socket);
-  }, []);
 
   return (
+    
     <NavCont>
 
       <InfoCont>
         <Name>Me</Name>
-        {msgs.map((o,i)=>
         <ChatBubble>
-          {o}
-          </ChatBubble>
-          )} 
+        </ChatBubble>
       </InfoCont>
 
      

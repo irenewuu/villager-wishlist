@@ -83,60 +83,128 @@ padding-left: 20px;
 display:flex;
 
 `
+// mainuser component .........................................................
+const NavCont = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 60px;
+  width: 100%;
+  justify-content: center;
+
+`;
+
+const InfoCont = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+const ChatBubble = styled.div`
+display: flex;
+order: 0;
+width: 100%;
+border-radius: 10px;
+align-self: center;
+flex-grow: 0;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px -1px 1px rgba(0, 0, 0, 0.08);
+// color: #1a1a1a;
+padding: 10px;
+margin-top: 10px;
+font-size: 25px;
+font-family:Dongle;
+flex-direction: column;
+
+`;
+const Name = styled.p`
+  font-size: 25px;
+  font-weight: 300;
+  color: grey;
+  display:flex;
+  font-family:Dongle;
+  // justify-content:flex-end;
+`;
+//......................................................................................
 
 
 
 export default function ChatPage() {
+
+    
+
     const router = useRouter()
 
     const [mySoc, setMySoc] = useState(null);
     const [msgs, setMsgs] = useState([]);
+    const [name, setName] = useState([]);
+    const [user, setUser] = useState([]);
+    const [inputTxt, setInputTxt] = useState("");
 
-
+    const bgcolors = ["#6AACA0", "#DEF1EE"];
+    const txtcolors = ["white", "#474747"]
 
     useEffect(()=>{
       const socket = io("http://localhost:8888");
   
-      socket.on("change", (id)=>{
-        //alert(`${id} has connected`)
+      socket.on("change", (id, txt)=>{
+        setName((prev)=>[
+          ...prev,
+          `${id}`
+        ]);
         setMsgs((prev)=>[
           ...prev,
-          `${id} says hi`
+          `
+            ${id}
+            ${txt}
+          `
+        ]);
+        setUser((prev)=>[
+          ...prev,
         ])
+
+      
       });
 
       setMySoc(socket);
     }, []);
 
     const SendToIO = async () =>{
-      mySoc.emit("alert all")
+      mySoc.emit("alert all", inputTxt)
 
     }
 
     return (
       <Cont>
-        <div>
-          <button onClick={SendToIO}>Alert Now</button>
-        </div>
         <HeadCont>
         <Back onClick={()=>router.push('/chat')}/>
         <Head>Global</Head>
         </HeadCont>
      
       <ChatCont>
-      <OtherUser/>
       
+      {/* mainuser component................................................... */}
       
-        {/* <MainUser/> */}
-        {/* {msgs.map((o,i)=> */}
-        <MainUser>
-          {/* {o} */}
-          </MainUser>
-          {/* )} */}
+      <NavCont>
+        <InfoCont>
+          {msgs.map((o,i)=>
+          <ChatBubble style={{background:bgcolors[i%2], color:txtcolors[i%2]}}>
+
+            {/* {name.map((o,i)=>
+              <Name>{o}</Name>
+            )} */}
+
+            {o}
+          </ChatBubble>
+            )} 
+        </InfoCont>
+      </NavCont> 
+  
+      {/* .......................................................................... */}
+
+
+      
 
         <InputCont>
-        <ChatInput placeholder='Write a message' ></ChatInput>
-        <SendCont><SendButt/></SendCont>
+        <ChatInput placeholder='Write a message'  type='text' onChange={(e)=>setInputTxt(e.target.value)}></ChatInput>
+        <SendCont><SendButt onClick={SendToIO}/></SendCont>
         </InputCont>
 
         
