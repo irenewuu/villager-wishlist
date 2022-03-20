@@ -8,51 +8,49 @@ export default async function handler(req, res) {
 
     if(req.body.villager) {
       try {
-        const acnhList = await ax.post(`http://localhost:3000/wishlist?user=${user}`, {user, villager});
+        const acnhList = await ax.post(`http://localhost:3000/wishlist?user=${user}&villager=${villager}`, {user, villager});
+        console.log({user, villager}, "save to wishlist")
+        res.status(200).send({ user, villager });
       } catch(e) {
-        console.log("error: ", e)
+        console.log(e, "error")
+        res.status(500).send(false)
       }
       
-      // await Save(user, villager);
-      // res.status(200).json("data saved")
-      console.log({user, villager}, "save to wishlist")
-      res.status(200).send({ user, villager });
     }
   } 
   
   if(req.method === "GET") {
-    const {user} = req.query;
-    // console.log(req.query, "wishlist api")
+    const {user, villager} = req.query;
+    console.log(req.query, "get wishlist reqquery")
 
     try {
-      const acnhList = await ax.get(`http://localhost:3000/wishlist?user=${user}`);
-      console.log(acnhList.data, "my data..??????")
+      const acnhList = await ax.get(`http://localhost:3000/wishlist?user=${user}&villager=${villager}`);
+      // console.log(acnhList.data, "wishlist data")
       var wishlistData = acnhList.data
-      res.status(200).json(wishlistData);
+      res.status(200).send(wishlistData);
     } catch (e) {
-      console.log("error: ", e)
-      res.status(200).json(false);
+      console.log(e, "error")
+      res.status(404).json(false);
     }
   }
 
   if(req.method === "DELETE") {
-    const {user, villager} = req.body;
-    console.log(req.body, "delete wishlist api")
+    const {user, villager} = req.query;
+    console.log(req.query, "delete req.method req query")
 
-    if(req.body.villager) {
+    if(req.query.user) {
       try {
-        const acnhList = await ax.delete(`http://localhost:3000/wishlist?user=${user}&villager=${villager}`, {villager});
-        console.log({user, villager}, "delete data?")
+        const acnhList = await ax.delete(`http://localhost:3000/wishlist?user=${user}&villager=${villager}`, {user, villager});
+        console.log({user, villager}, "data deleted from wishlist")
+        res.status(200).send({ user, villager })
       } catch(e) {
-        console.log("error: ", e)
+        console.log(e, "error")
+        res.status(500).json(false);
       }
-      console.log({user, villager}, "delete from wishlist")
-      res.status(200).send(villager)
     }
     console.log("is this function even running")
-  }
 
-
+    }
   
 }
   

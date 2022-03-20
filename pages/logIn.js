@@ -66,7 +66,7 @@ export default function LogIn() {
       
       console.log("token:", res.data);
       localStorage.setItem("token", res.data);
-      router.push(`/wishlist/${res.data}`);
+      router.push(`/wishlist`);
     } catch (e) {
       console.log(e);
     }

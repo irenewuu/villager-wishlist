@@ -59,6 +59,7 @@ export default function Wishlist() {
           const res = await ax.get("/api/wishlist", {
             params: {
               user: userId,
+              villager: villagers
             }
           })
           if(res.data !== false) {

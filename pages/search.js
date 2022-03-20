@@ -108,8 +108,7 @@ export default function Search() {
   // slicing array of villagers to pages of 10
   butt_arr = butt_arr.slice(cur_page-3 < 0 ? 0 : cur_page-3, lastpage);
 
-  // saving villager data to wishlist ================================================
-
+  // saving/deleting villager data to/from wishlist ================================================
   const HandleSave = async(o) => {
     const resp = await ax.post('/api/wishlist', {
       user: userId,
@@ -117,13 +116,15 @@ export default function Search() {
     })
     console.log(resp.data, 'data added to wishlist')
   }
+
   const HandleDelete = async(o) => {
     console.log("are u denadljkaefneak deleting")
-    const resp = await ax.delete('/api/delete', {
-      // user: userId,
+    const resp = await ax.delete('/api/wishlist', {
+    params: {
+      user: userId,
       villager: o
-    })
-    console.log(resp, "deleting data from wishlist")
+    }})
+    console.log(resp.data, "deleting data from wishlist")
   }
 
 
@@ -143,8 +144,6 @@ export default function Search() {
                     onClick={() => {router.push(`/profile/${o._id}`);}}
                     fillStarClick={()=> {HandleSave(o._id)}}
                     unStarClick={()=> {HandleDelete(o._id)}}
-                    // fillStarClick={()=> {AddingVillager(o._id, o.name, o.image_url, o.personality)}}
-                    // unStarClick={()=>{RemovingVillager(o._id, o.name, o.image_url, o.personality)}}
                     src={o.image_url}
                     width="148px"
                     left="110px"
