@@ -152,7 +152,7 @@ export default function ChatPage() {
         setMsgs((prev)=>[
           ...prev,
           `
-            ${id}
+            ${id}:
             ${txt}
           `
         ]);
