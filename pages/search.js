@@ -117,6 +117,14 @@ export default function Search() {
     })
     console.log(resp.data, 'data added to wishlist')
   }
+  const HandleDelete = async(o) => {
+    console.log("are u denadljkaefneak deleting")
+    const resp = await ax.delete('/api/delete', {
+      // user: userId,
+      villager: o
+    })
+    console.log(resp, "deleting data from wishlist")
+  }
 
 
   return (
@@ -134,6 +142,7 @@ export default function Search() {
                     name={o.name}
                     onClick={() => {router.push(`/profile/${o._id}`);}}
                     fillStarClick={()=> {HandleSave(o._id)}}
+                    unStarClick={()=> {HandleDelete(o._id)}}
                     // fillStarClick={()=> {AddingVillager(o._id, o.name, o.image_url, o.personality)}}
                     // unStarClick={()=>{RemovingVillager(o._id, o.name, o.image_url, o.personality)}}
                     src={o.image_url}
