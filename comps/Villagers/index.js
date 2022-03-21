@@ -82,8 +82,9 @@ export default function Villagers({
   onClick = () => {},
   fillStarClick = () => {},
   unStarClick = () => {},
+  wishListed
 }) {
-  const [star, setStar] = useState(false);
+  const [star, setStar] = useState(wishListed || false);
   const r = useRouter();
 
   return (

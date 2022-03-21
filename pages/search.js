@@ -24,6 +24,7 @@ export default function Search() {
   
   const [data, setData] = useState([]);
   const [villager, setVillager] = useState({});
+  const [wishList, setWishList] = useState({});
 
   const [cur_page, setCurPage ] = useState([]);
   const [villager_num, setVillager_num] = useState();
@@ -54,8 +55,8 @@ export default function Search() {
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-            user: userId,
-            token: userToken
+            // user: userId,
+            token: window.localStorage.getItem('token')
           },
         });
         console.log(res.data, "data");
@@ -70,9 +71,27 @@ export default function Search() {
     }
   }
 
-  // default
   useEffect(()=>{
     TextInput('', 1);
+    // star villager if villager is in wishlist ======================================
+    const getData = async () => {
+      const res = await ax.get("/api/wishlist", {
+        params: {
+          token: window.localStorage.getItem('token')
+        }
+      })
+      if(res.data !== false) {
+        var villagerData = []
+        for(var i = 0; i < res.data.length; i++) {
+          villagerData.push(res.data[i].villager)
+        }
+        console.log(villagerData, "whats in here")
+        setWishList(villagerData)
+      } else {
+        console.log("no data in wishlist")
+      }
+    }
+    getData()
   }, [])
 
   // pagination function ============================================================
@@ -110,17 +129,16 @@ export default function Search() {
   // saving/deleting villager data to/from wishlist ================================================
   const HandleSave = async(o) => {
     const resp = await ax.post('/api/wishlist', {
-      user: userId,
+      token: window.localStorage.getItem('token'),
       villager: o
     })
     console.log(resp.data, 'data added to wishlist')
   }
 
   const HandleDelete = async(o) => {
-    console.log("are u denadljkaefneak deleting")
     const resp = await ax.delete('/api/wishlist', {
     params: {
-      user: userId,
+      token: window.localStorage.getItem('token'),
       villager: o
     }})
     console.log(resp.data, "deleting data from wishlist")
@@ -150,6 +168,7 @@ export default function Search() {
                     innerHeight="114px"
                     bgcolor={o.personality ? bg[o.personality] : none}
                     innercolor={o.personality ? innerCircle[o.personality] : none}
+                    wishListed={wishList.filter(w => w._id == o._id).length > 0}
                   />
                 </motion.div>
               )) 

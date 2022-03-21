@@ -39,22 +39,23 @@ export default function Wishlist() {
     const [villagers, setVillagers] = useState({});
 
     useEffect(()=>{
-      setUserToken( window.localStorage.getItem('token'))
-      // console.log(userToken)
+      // setUserToken( window.localStorage.getItem('token'))
+      // // console.log(userToken)
       
-      if(userToken !== undefined)
-      {
-        const myDecodedToken = decodeToken(userToken);
-        setUserId(myDecodedToken.id)
-      } else {
-        console.log("no token")
-      }
+      // if(userToken !== undefined)
+      // {
+      //   const myDecodedToken = decodeToken(userToken);
+      //   setUserId(myDecodedToken.id)
+      // } else {
+      //   console.log("no token")
+      // }
       
-      if(userId) {
+      
+      // // if(userId) {
         const getData = async () => {
           const res = await ax.get("/api/wishlist", {
             params: {
-              user: userId
+              token: window.localStorage.getItem('token')
             }
           })
           if(res.data !== false) {
@@ -69,9 +70,9 @@ export default function Wishlist() {
           }
         }
         getData()
-      }
       
-    },[userToken, userId])
+    },[])
+    
     console.log(userId, "user id")
       
 
