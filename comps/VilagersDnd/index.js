@@ -215,7 +215,7 @@ export const VillagersDnd = ({
   }
   if(coords && isDragging){
     console.log(coords, index)
-    sty.left = coords.x +30;
+    sty.left = coords.x +0;
     sty.top = coords.y - 220/2;
     sty.position = 'absolute';
     
