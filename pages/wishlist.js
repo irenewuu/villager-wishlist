@@ -49,11 +49,7 @@ export default function Wishlist() {
       } else {
         console.log("no token")
       }
-  
-    },[userToken])
-    console.log(userId, "user id")
-
-    useEffect(()=> {
+      
       if(userId) {
         const getData = async () => {
           const res = await ax.get("/api/wishlist", {
@@ -74,8 +70,10 @@ export default function Wishlist() {
         }
         getData()
       }
-    }, [userId])
-  
+      
+    },[userToken, userId])
+    console.log(userId, "user id")
+      
 
     return (
       <div className="Cont">
