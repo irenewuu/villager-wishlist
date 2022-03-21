@@ -58,8 +58,7 @@ export default function Wishlist() {
         const getData = async () => {
           const res = await ax.get("/api/wishlist", {
             params: {
-              user: userId,
-              villager: villagers
+              user: userId
             }
           })
           if(res.data !== false) {
@@ -85,12 +84,8 @@ export default function Wishlist() {
         {villagers && villagers.length >= 1 ? 
           <Content>
           {villagers && villagers.map((o) => (
-            // {villagers && Object.values(villagers).map((o) => (
               <motion.div key={o._id} 
-              // onClick={() => {r.push(`/profile/${o._id}`);}}
-              onClick={()=>{
-                console.log(o)
-              }}
+              onClick={() => {r.push(`/profile/${o._id}`);}}
               whileHover={{ scale: 1.03 }} >
               <Villagers 
                 key={o._id}

@@ -2,7 +2,6 @@ import { filtering, GoToPage } from "./../../utils/func";
 import ax from "axios";
 
 export default async function handler(req, res) {
-  // console.log(req.query, req.body)
   console.log(req.query, "api/villagers");
 
   const { txt, personality, hobby, gender, offset, user, token } = req.query;
