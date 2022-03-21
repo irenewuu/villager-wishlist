@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     
     if(req.query.user) {
       try {
-        const wishlistVillager = await ax.get(`http://localhost:3000/wishlist?user=${user}`);
+        const wishlistVillager = await ax.get(`https://villager-wishlist.herokuapp.com/wishlist?user=${user}`);
         console.log(wishlistVillager.data, "wishlist data")
         var wishlistData = wishlistVillager.data
         res.status(200).send(wishlistData);
@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
     if(req.body.villager) {
       try {
-        const wishlistVillager = await ax.post(`http://localhost:3000/wishlist?user=${user}&villager=${villager}`, {user, villager});
+        const wishlistVillager = await ax.post(`https://villager-wishlist.herokuapp.com/wishlist?user=${user}&villager=${villager}`, {user, villager});
         console.log(wishlistVillager.data, "data added to wishlist")
         res.status(200).send(wishlistVillager.data);
         
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
 
     if(req.query.user) {
       try {
-        const wishlistVillager = await ax.delete(`http://localhost:3000/wishlist?user=${user}&villager=${villager}`, {user, villager});
+        const wishlistVillager = await ax.delete(`https://villager-wishlist.herokuapp.com/wishlist?user=${user}&villager=${villager}`, {user, villager});
         console.log(wishlistVillager.data, "data deleted from wishlist")
         res.status(200).send(wishlistVillager.data)
       } catch(e) {

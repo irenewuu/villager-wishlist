@@ -50,7 +50,7 @@ export default function LogIn() {
     console.log("newUser:", newUser);
     
     try {
-      let res = await ax.post("http://localhost:3000/signup", newUser);
+      let res = await ax.post("https://villager-wishlist.herokuapp.com/signup", newUser);
       
       console.log("token:", res.data);
       localStorage.setItem("token", res.data);

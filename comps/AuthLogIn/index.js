@@ -94,7 +94,7 @@ export default function AuthLogIn({
     }
 
     try{
-      let res = await ax.post('http://localhost:3000/login', user)
+      let res = await ax.post('https://villager-wishlist.herokuapp.com/login', user)
       localStorage.setItem('token', res.data)
       localStorage.setItem('user', res.config.data)
       // console.log("logged in")
