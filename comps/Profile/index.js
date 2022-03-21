@@ -2,12 +2,10 @@ import React, {useState} from 'react';
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
 
-import Image from 'next/image';
 import {ArrowIosBackOutline} from '@styled-icons/evaicons-outline/ArrowIosBackOutline';
 import { useTheme } from '../../utils/provider';
 import { profile_themes } from '../../utils/variables';
 
-// import { usePersonality } from '../../utils/provider';
 
 const Cont = styled.div`
   box-sizing: border-box; 
@@ -105,23 +103,6 @@ const WishButton = styled.button`
   font-size: 30px;
 `
 
-// -------------------------WISHLIST IN PROGRESS --------------------
-// const {personalityFilter, setPersonalityFilter} = usePersonality();
-
-// const StorePersonality = (checked, obj) => {
-//   //store the favourites to be used on the wishlist page
-//   console.log(checked, obj);
-//     if(checked){
-//       const b_obj = {
-//         ...personalityFilter
-//       };
-//       b_obj[o._id] = o;
-//       setPersonalityFilter(b_obj);
-//     }
-// }
-
-
-
 const ProfileComp = ({
   name="Apple",
   villagerImg="/apple.png",
@@ -174,7 +155,6 @@ return <Cont>
     </Details>
 
   <WishButton >Add to Wishlist</WishButton>
-  {/* /* onChange={(e)=>StorePersonality(e.target.checked, o)}  */ }
   </ProfileInfo>
 </Cont>
 }

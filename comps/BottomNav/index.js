@@ -110,11 +110,6 @@ export default function BottomNav({
 
   const Wishlist = async() =>{
     if(router.pathname !== `/wishlist/[uuid]`) {
-      // const res = await ax.get("api/villagers", {
-      //   params: {
-      //     token: user
-      //   }
-      // })
       router.push(`/wishlist`)
     }
   }

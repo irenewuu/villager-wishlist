@@ -40,7 +40,6 @@ export default function Wishlist() {
 
     useEffect(()=>{
       setUserToken( window.localStorage.getItem('token'))
-      // console.log(userToken)
       
       if(userToken !== undefined)
       {
