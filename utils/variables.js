@@ -80,7 +80,7 @@ export const filter_themes = {
 
 export const search_themes = {
     default:{
-        background:"white"
+        background:"#F5F5F5"
     },
     dark:{
         background:"#474747"
