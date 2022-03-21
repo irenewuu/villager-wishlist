@@ -45,35 +45,33 @@ export default function Wishlist() {
       {
         const myDecodedToken = decodeToken(userToken);
         setUserId(myDecodedToken.id)
+
+        if(userId) {
+          const getData = async () => {
+            const res = await ax.get("/api/wishlist", {
+              params: {
+                user: userId
+              }
+            })
+            if(res.data !== false) {
+              console.log(res.data, "wishlist res data")
+              var villagerData = []
+              for(var i = 0; i < res.data.length; i++) {
+                villagerData.push(res.data[i].villager)
+              }
+              setVillagers(villagerData)
+            } else {
+              console.log("no data in wishlist")
+            }
+          }
+          getData()
+        }
       } else {
         console.log("no token")
       }
       
       
-    },[userToken])
-    
-    useEffect(()=>{
-      if(userId) {
-        const getData = async () => {
-          const res = await ax.get("/api/wishlist", {
-            params: {
-              user: userId
-            }
-          })
-          if(res.data !== false) {
-            console.log(res.data, "wishlist res data")
-            var villagerData = []
-            for(var i = 0; i < res.data.length; i++) {
-              villagerData.push(res.data[i].villager)
-            }
-            setVillagers(villagerData)
-          } else {
-            console.log("no data in wishlist")
-          }
-        }
-        getData()
-      }
-    }, [userId])
+    },[userToken, userId])
     
     console.log(userId, "user id")
       
