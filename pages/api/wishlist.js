@@ -5,17 +5,20 @@ export default async function handler(req, res) {
     const {user, villager} = req.query;
     console.log(req.query, "get wishlist reqquery")
     
-    if(req.query.user) {
+    // if(req.query.user) {
       try {
-        const wishlistVillager = await ax.get(`http://localhost:3000/wishlist?user=${user}`);
-        console.log(wishlistVillager.data, "wishlist data")
-        var wishlistData = wishlistVillager.data
-        res.status(200).send(wishlistData);
+        // setTimeout(async()=>{
+          const wishlistVillager = await ax.get(`http://localhost:3000/wishlist?user=${user}`);
+          console.log(wishlistVillager.data, "wishlist data")
+          var wishlistData = wishlistVillager.data
+          res.status(200).send(wishlistData);
+
+        // }, 200)
       } catch (e) {
         console.log(e, "error")
-        res.status(404).json(false);
+        res.status(500).json(false);
       }
-    }
+    // }
   }
 
   if(req.method === "POST") {
