@@ -3,7 +3,9 @@ import { useRouter } from 'next/router';
 import ax from "axios";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { decodeToken } from "react-jwt";
 
+import { useUserToken, useUserId } from "../../utils/provider";
 import {bg} from '../../utils/variables';
 import {innerCircle} from '../../utils/variables';
 
@@ -13,14 +15,6 @@ import TextBubble from '../../comps/TextBubble';
 import Button from '../../comps/Button';
 import BottomNav from "../../comps/BottomNav";
 
-const Cont = styled.div`
-  display: flex;
-  flex-direction: column;
-  // justify-content: center;
-  align-items: center;
-  width: 100%;
-  // height: 100%;
-`;
 const BubbleCont = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
@@ -37,62 +31,58 @@ const Content = styled.div`
   margin-bottom: 80px;
 `;
 
-
-
 export default function Wishlist() {
     const r = useRouter();
-    const {uuid} = r.query;
 
-    const [data, setData] = useState([]);
-    const [user, setUser] = useState(null)
-
-    useEffect(()=>{
-      if (!globalThis.localStorage) {
-        return;
-      }
-
-      var token = localStorage.getItem('token');
-      console.log(token)
-      setUser(token)
-    }, []);
-
-//     if(user){}
-
+    const {userToken, setUserToken} = useUserToken();
+    const {userId, setUserId} = useUserId();
     const [villagers, setVillagers] = useState({});
 
+    useEffect(()=>{
+      setUserToken( window.localStorage.getItem('token'))
+      console.log(userToken)
+      
+      if(userToken !== undefined)
+      {
+        const myDecodedToken = decodeToken(userToken);
+        setUserId(myDecodedToken.id)
+      }
+  
+    },[userToken])
+    console.log(userId, "user id")
+
     useEffect(()=> {
-      if(uuid) {
+      if(userToken) {
         const getData = async () => {
           const res = await ax.get("/api/load", {
             params: {
-              uuid
+              token: userToken
             }
           })
           if(res.data !== false) {
-            console.log(res.data, "loaded from uuid")
-            setVillagers(res.data.lists)
+            console.log(res.data, "loaded from token")
+            setVillagers(res.data)
           } else {
-            console.log("res.data is false")
+            console.log("no data in wishlist")
           }
         }
         getData()
       }
-    }, [uuid])
+    }, [userToken])
   
 
     return (
-      <Cont>
+      <div className="Cont">
       <Header text="Your Villager Wishlist" />
-      <h3>{uuid}&#39;s wishlist</h3>
-  
-        {/* need to push the wishlisted villagers to data array in the usestate^ */}
+
         {villagers && Object.keys(villagers).length >= 1 ? 
           <Content>
             {villagers && Object.values(villagers).map((o) => (
-              <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
+              <motion.div key={o._id} 
+              onClick={() => {r.push(`/profile/${o._id}`);}}
+              whileHover={{ scale: 1.03 }} >
               <Villagers 
                 key={o._id}
-                // onClick={() => {r.push(`/profile/${o._id}`);}}
                 name={o.name}
                 src={o.image_url}
                 bgcolor={o.personality ? bg[o.personality] : none}
@@ -113,7 +103,7 @@ export default function Wishlist() {
           </Content>
         }
           <BottomNav />
-        </Cont>
+        </div>
     );
   
 }

@@ -88,17 +88,23 @@ export default function AuthSignUp({
     })
   }
   
-  function handleClick(event){
+  const handleClick = async (event) => {
     event.preventDefault();
     const newUser = {
       name: input.name,
       email: input.email,
       password: input.password
     }
-
-    ax.post('http://localhost:3000/signup', newUser)
-    console.log("signed up")
-    router.push("/logIn")
+    try {
+      let res = await ax.post('http://localhost:3000/signup', newUser)
+      localStorage.setItem('token', res.data)
+      localStorage.setItem('user', res.config.data)
+      console.log(res.data, "token")
+      console.log("signed up")
+      router.push("/logIn")
+    } catch(e) {
+      console.log(e)
+    }
   }
 
 

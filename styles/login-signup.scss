@@ -1,0 +1,33 @@
+.BackgroundCont {
+    background-color: #def1ee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+#MainCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+.LoginImg {
+    margin-bottom: 48px;
+}
+
+.RowGap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 27px;
+}
+
+.SignUpLink {
+  color: #8d8d8d;
+}

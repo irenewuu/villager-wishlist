@@ -1,15 +1,15 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "../comps/Button";
-import Link from "next/link";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
-import AuthLogIn from "../comps/AuthLogIn";
 import ax from "axios";
+import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
 
-import { withRouter } from "react-router-dom";
+import AuthLogIn from "../comps/AuthLogIn";
+import Button from "../comps/Button";
 
 import { initializeApp } from "firebase/app";
+
 import {
   GoogleAuthProvider,
   getAuth,
@@ -17,9 +17,6 @@ import {
   onAuthStateChanged,
   signInWithRedirect,
 } from "firebase/auth";
-import { useEffect } from "react";
-import { Route, Redirect } from "react-router";
-import axios from "axios";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCHAc6ZocmhVTPrXfGsoziKsoaRBJk0g-Y",
@@ -31,63 +28,6 @@ const firebaseConfig = {
   measurementId: "G-77B805BS4J",
 };
 
-const Background = styled.div`
-  background-color: #def1ee;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-const Photo = styled.img`
-  margin-bottom: 48px;
-`;
-
-const TextInput = styled.input`
-  box-sizing: border-box;
-  color: #8d8d8d;
-  width: 275px;
-  height: 50px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  border: none;
-  padding-left: 16px;
-
-  ::placeholder {
-    color: #8d8d8d;
-  }
-  :focus {
-    outline: none;
-  }
-`;
-
-const RowGap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 20px;
-`;
-const RowGap2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 27px;
-`;
-const MainCont = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 20px;
-`;
-
-const Signup = styled.p`
-  color: #8d8d8d;
-`;
 
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
@@ -111,6 +51,7 @@ export default function LogIn() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
+    
     console.log(result);
     // signInWithRedirect(auth, provider);
     const newUser = {
@@ -119,25 +60,25 @@ export default function LogIn() {
       password: result.user.email,
     };
     console.log("newUser:", newUser);
-    router.push(`/wishlist/${uuidv4()}`);
+    
     try {
       let res = await ax.post("http://localhost:3000/signup", newUser);
-
+      
       console.log("token:", res.data);
       localStorage.setItem("token", res.data);
-      // router.push("/logIn")
+      router.push(`/wishlist`);
     } catch (e) {
       console.log(e);
     }
   };
 
   return (
-    <Background>
-      <Photo src="/villager-wishlist.svg" />
+    <div className="BackgroundCont">
+      <img src="/villager-wishlist.svg" className="LoginImg" />
 
-      <MainCont>
+      <div id="MainCont">
         <AuthLogIn />
-        <RowGap2>
+        <div className="RowGap">
           <Button
             display="block"
             width="275"
@@ -146,11 +87,11 @@ export default function LogIn() {
             textHover="none"
             onClick={SignInGoogle}
           />
-          <Signup>
+          <p className="SignUpLink">
             Don&#39;t have an account? <Link href="signup">Sign Up</Link>
-          </Signup>
-        </RowGap2>
-      </MainCont>
-    </Background>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
