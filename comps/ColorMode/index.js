@@ -118,17 +118,11 @@ const Button = styled.input`
 opacity: 0;
   z-index: 1;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
   &:hover ~ ${RadioButtonLabel} {
     &::after {
       display: block;
       color: #007C74;
       background: #A4D9D4;
-      width: 12px;
-      height: 12px;
-      margin: 4px;
     }
   }
   &:checked + ${Item} {
@@ -141,14 +135,9 @@ opacity: 0;
     border: 1.25px solid #007C74;
     &::after {
         display: block;
-        width: 12px;
-        height: 12px;
-        margin: 4px;
     }
   }
   `
-
-
 
 
 const ColorMode = ({
@@ -171,6 +160,7 @@ const ColorMode = ({
                 <ButtonCont>
                 <Item>
                     <Button
+                    defaultChecked={true}
                     type="radio"
                     name="radio"
                     onClick={()=>{onButtonClick1()}}

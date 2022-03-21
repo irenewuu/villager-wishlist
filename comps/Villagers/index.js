@@ -5,10 +5,12 @@ import { useDrag, useDrop } from 'react-dnd'
 import { Star } from "@styled-icons/bootstrap/Star";
 import { StarFill } from "@styled-icons/bootstrap/StarFill";
 
+
 import { useWishlist } from "../../utils/provider";
 import { v4 as uuidv4 } from 'uuid';
 import ax from "axios";
 // import { useEffect } from 'react/cjs/react.production.min';
+
 
 
 const Cont = styled.div`
@@ -96,67 +98,17 @@ export default function Villagers({
   children=null,
   vilpos=null,
   type='villager',
-  onUpdateVil=()=>{}
+  onUpdateVil=()=>{},
+  fillStarClick = () => {},
+  unStarClick = () => {},
+
 }) {
   const [star, setStar] = useState(false);
   const [villager, setVillager] = useState({});
   const {wishlist, setWishlist} = useState();;
   const r = useRouter();
   const {uuid} = r.query;
-
-
   
-  //===========DND POSITION===============
-  const [pos, setPos] = useState(vilpos || {
-    top:0,
-    left:0,
-    position:'relative'
-  });
-
-  useEffect(()=>{
-    if(type === 'indvillager'){
-      onUpdateVil({pos})
-    }
-  }, [pos])
-
-  const [{ isDragging, coords }, drag, dragPreview] = useDrag(() => ({
-		// "type" is required. It is used by the "accept" specification of drop targets.
-    type,
-    item: {name: type},
-    end:(item, monitor)=>{
-      if(type === 'indvillager'){
-        setPos({
-          left:monitor.getClientOffset().x - 350/2,
-          top:monitor.getClientOffset().y - 220/2,
-          position:'relative'
-
-        })
-      }
-    },
-		// The collect function utilizes a "monitor" instance (see the Overview for what this is)
-		// to pull important pieces of state from the DnD system.
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-      coords: monitor.getClientOffset()
-    })
-  }))
-
-  const sty={
-    left: type==='indvillager' ? pos.left : null,
-    top: type==='indvillager' ? pos.top : null,
-    position: type==='indvillager' ? pos.position : null
-  }
-  if(coords && isDragging){
-    console.log(coords)
-    sty.left = coords.x - 350/2;
-    sty.top = coords.y - 220/2;
-    sty.position = 'absolute';
-    
-  }
-
-  
-
-//===========DND POSITION ENDS===============
 
   const AddingVillager = () => {
     const villager_id = uuidv4()
@@ -176,7 +128,6 @@ export default function Villagers({
     })
   }
 
-
   return (
     <Cont ref={drag}  {...sty}
       onBlur={()=>setShowInput(false)}
@@ -184,7 +135,6 @@ export default function Villagers({
       bgcolor={bgcolor}
       marginL={marginL}
       marginR={marginR}
-
     >
       
 
@@ -194,7 +144,6 @@ export default function Villagers({
           display={starDisplay}
           onClick={() => {
             setStar(true);
-            console.log("filled the star");
             AddingVillager()
           }}
         />
@@ -204,7 +153,6 @@ export default function Villagers({
           display={starDisplay}
           onClick={() => {
             setStar(false);
-            console.log("unfilled the star");
           }}
         />
       )}
@@ -217,7 +165,6 @@ export default function Villagers({
         <Img src={src} />
       </InnerCont>
       <Name>{name}</Name>
-   
     </Cont>
   );
 }
