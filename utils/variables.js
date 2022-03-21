@@ -69,9 +69,20 @@ export const innerCircle = {
 
 export const filter_themes = {
     default:{
-        color:"#08847C"
+        color:"#08847C",
+        background:"white"
     },
     dark:{
-        color:"#8ECFC9"
+        color:"white",
+        background:"#474747"
+    }
+}
+
+export const search_themes = {
+    default:{
+        background:"white"
+    },
+    dark:{
+        background:"#474747"
     }
 }

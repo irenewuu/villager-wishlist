@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import {useFilters, usePersonality, useHobby, useGender, filter_themes, useTheme} from "../../utils/provider";
+import {useFilters, usePersonality, useHobby, useGender, useTheme} from "../../utils/provider";
+import { filter_themes } from '../../utils/variables';
 
 import Button from "../Button";
 
@@ -11,6 +12,7 @@ const FilterPanelCont = styled.div`
   opacity: ${props => props.opacity};
   z-index: ${props => props.zIndex};
   // transition: all 0.5s ease-in-out 0.2s;
+  background-color: ${props=>props.background};
 `;
 
 const FilterBtn = styled.button`
@@ -146,15 +148,15 @@ const filtersFunc = () => {
 
   const {theme} = useTheme();
 
-  return <FilterPanelCont className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
+  return <FilterPanelCont background={filter_themes[theme].background} className='FilterPanelCont' id="FilterPanelContainer" opacity={opacity} zIndex={zIndex}>
     <div className='FilterSection'>
-      <Header>Personality</Header>
+      <Header color={filter_themes[theme].color}>Personality</Header>
 
       <div>
         {personalities.map((o,i)=>
           <FilterBtn 
           key={i}
-          style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
+          style={{backgroundColor:o.state === true ?"#007C74":"rgba(0, 0, 0, 0)", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.personality}
           </FilterBtn> )}
@@ -162,24 +164,24 @@ const filtersFunc = () => {
 
     </div>
     <div className='FilterSection'>
-      <h5>Hobby</h5>
+      <Header color={filter_themes[theme].color}>Hobby</Header>
       <div>
         {hobbies.map((o,i)=>
           <FilterBtn
           key={i}
-          style={{backgroundColor:o.state === true ?"#007C74":"white", color:o.state === true ?"white":"#007C74"}}
+          style={{backgroundColor:o.state === true ?"#007C74":"rgba(0, 0, 0, 0)", color:o.state === true ?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.hobby}
           </FilterBtn> )}
       </div>
     </div>
     <div className='FilterSection'>
-      <h5>Gender</h5>
+      <Header color={filter_themes[theme].color}>Gender</Header>
       <div>
         {genders.map((o,i)=>
           <FilterBtn
           key={i}
-          style={{backgroundColor:o.state?"#007C74":"white", color:o.state?"white":"#007C74"}}
+          style={{backgroundColor:o.state?"#007C74":"rgba(0, 0, 0, 0)", color:o.state?"white":"#007C74"}}
           onClick={o.setStateFunction}>
             {o.gender}
           </FilterBtn> )}
@@ -188,18 +190,14 @@ const filtersFunc = () => {
     <BtnsCont>
       <Button text="Clear" fontSize="26"
         width="120"  height="32"
-        bgColor="white"  txtColor="#007C74"
+        bgColor="rgba(0, 0, 0, 0)"  txtColor="#007C74"
         border="1.5px solid #007C74"
-        borderHover='#8CC8A2'
-        hover="none"
-        textHover='#8CC8A2'
         onClick={()=>HandleClear()}
+        background={filter_themes[theme].background}
         />
       <Button text="Apply" fontSize="26"
         width="120"  height="32"
         bgColor="#007C74"
-        textHover="none"
-        hover="#8CC8A2"
         onClick={onApplyClick}
         />
     </BtnsCont>
