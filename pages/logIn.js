@@ -30,23 +30,11 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 
 export default function LogIn() {
   const router = useRouter();
-  // useEffect(() => {
-    // const auth = getAuth();
-    // onAuthStateChanged(auth, (user) => {
-    //   if (user) {
-    //     // User is signed in, see docs for a list of available properties
-    //     console.log("signed in", user);
-    //     router.push(`/wishlist/${uuidv4()}`)
-    //   } else {
-    //     console.log("signed out");
-    //   }
-    // });
-  // }, []);
 
+  // login with google account
   const SignInGoogle = async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();

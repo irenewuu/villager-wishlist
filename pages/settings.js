@@ -54,10 +54,8 @@ export default function Settings({
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        // User is signed in, see docs for a list of available properties
         console.log("signed out", user);
         router.push('/')
-        // setredirect("/");
 
       } else {
         console.log("signed in");
@@ -68,8 +66,6 @@ export default function Settings({
 
   const SignOutFire = async () => {
     localStorage.removeItem('token')
-    // const auth = getAuth();
-    // await signOut(auth);
     router.push('/')
   };
 

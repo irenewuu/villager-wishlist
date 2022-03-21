@@ -160,7 +160,6 @@ export default function Search() {
 
         </div>
           :  <div>
-            {/* <p>Please login to continue!</p> */}
           </div>
         }
 
