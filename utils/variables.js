@@ -66,3 +66,23 @@ export const innerCircle = {
     "Big sister" : "#FDBFC4",
     Cranky: "#F8C8A5"
 }
+
+export const filter_themes = {
+    default:{
+        color:"#08847C",
+        background:"white"
+    },
+    dark:{
+        color:"white",
+        background:"#474747"
+    }
+}
+
+export const search_themes = {
+    default:{
+        background:"#F5F5F5"
+    },
+    dark:{
+        background:"#474747"
+    }
+}

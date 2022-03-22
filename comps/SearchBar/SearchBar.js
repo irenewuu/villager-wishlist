@@ -3,6 +3,8 @@ import styled from "styled-components";
 import FilterPanel from "../FilterPanel/FilterPanel";
 import FilterIcon from "./../../public/FilterIcon.svg";
 import SearchIcon from "./../../public/SearchIcon.svg";
+import { useTheme} from "../../utils/provider";
+import { search_themes } from '../../utils/variables';
 
 const BackgroundBlur = styled.div`
   position: fixed;
@@ -17,6 +19,10 @@ const BackgroundBlur = styled.div`
   transition: all 0.5s ease-in-out;
 `;
 
+const SearchbarCont = styled.div`
+background-color: ${props=>props.background};
+`
+
 export default function SearchBar({ onTextChange = () => {} }) {
   const [filterState, setFilterState] = useState(false);
   const [opacity, setOpacity] = useState(false);
@@ -28,9 +34,11 @@ export default function SearchBar({ onTextChange = () => {} }) {
     setzIndex(!zIndex);
   };
 
+  const {theme} = useTheme();
+
   return (
     <div className="SearchFilterCont">
-      <div className="SearchbarCont">
+      <SearchbarCont background={search_themes[theme].background} className="SearchbarCont">
         <input
           type="text"
           className="Searchbar"
@@ -46,7 +54,7 @@ export default function SearchBar({ onTextChange = () => {} }) {
             console.log(filterState);
           }}
         />
-      </div>
+      </SearchbarCont>
       <FilterPanel 
         opacity={opacity ? 1 : 0} 
         zIndex={zIndex ? 5 : -10} 

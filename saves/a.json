@@ -3,7 +3,9 @@
         "lists": {
             "1": {
                 "_id":"1234",
+
                 "name": "A",
+
                 "url": "https://nookipedia.com/wiki/Admiral",
                 "alt_name": "",
                 "title_color": "0ca54a",
@@ -58,7 +60,9 @@
 
             "2": {
                 "_id":"5678",
+
                 "name": "B",
+
                 "url": "https://nookipedia.com/wiki/Anchovy",
                 "alt_name": "",
                 "title_color": "d86808",
@@ -117,6 +121,7 @@
             "3": {
                 "_id":"9876",
                 "name": "C",
+
                 "url": "https://nookipedia.com/wiki/Bangle",
                 "alt_name": "",
                 "title_color": "7a2500",
@@ -174,7 +179,9 @@
 
             "4":{
                 "_id":"5432",
+
                 "name":"D",
+
                 "url":"https://nookipedia.com/wiki/Al",
                 "alt_name":"",
                 "title_color":"798040",

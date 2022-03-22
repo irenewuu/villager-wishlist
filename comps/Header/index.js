@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from '../../utils/provider';
-import { useRouter } from 'next/router';
 import {header_themes} from '../../utils/variables';
 
 const Heading =styled.h1`
@@ -26,5 +25,3 @@ const Header = ({
 }
 
 export default Header;
-
-//    color: #08847C #8ECFC9

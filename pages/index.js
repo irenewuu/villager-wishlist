@@ -34,9 +34,6 @@ export default function Welcome() {
   return <Background>
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
-      {/* <BubbleCont>
-        <TextBubble></TextBubble>
-      </BubbleCont> */}
       <ButtonCont onClick={()=>router.push("logIn")}>
         <Button  textHover="none"/>
       </ButtonCont>
