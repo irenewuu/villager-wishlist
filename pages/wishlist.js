@@ -85,7 +85,16 @@ export default function Wishlist() {
     
     // console.log(userId, "user id")
     console.log(cards, "cards array")
+    
+    const HandleDelete = async(o) => {
+      const resp = await ax.delete('/api/dnd_wishlist', {
+      params: {
+        token: window.localStorage.getItem('token'),
+        villager: o
+      }})
       
+      console.log(resp.data, "deleting data from wishlist")
+    }
 
     return (
       <div className="Cont">
@@ -114,6 +123,7 @@ export default function Wishlist() {
                 starDisplay="none"
                 moveCard={moveCard}
                 index={i}
+                deleteClick={()=> {HandleDelete(o._id)}}
               />
               // </motion.div>
             ))}

@@ -102,7 +102,8 @@ export const VillagersDnd = ({
   vilpos=null,
   type='villager',
   onUpdateVil=()=>{},
-  id, text, index, moveCard
+  id, text, index, moveCard,
+  deleteClick = () => {},
 }) => {
   const [star, setStar] = useState(false);
   const [villager, setVillager] = useState({});
@@ -257,7 +258,11 @@ export const VillagersDnd = ({
       marginR={marginR}
 
     >
-      <DeleteButton/>
+      <DeleteButton 
+        onClick={()=>{
+          deleteClick();
+        }}
+      />
 
       
       <InnerCont 
