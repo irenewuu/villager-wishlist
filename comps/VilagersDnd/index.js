@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useDrag, useDrop } from 'react-dnd'
 import { Star } from "@styled-icons/bootstrap/Star";
-import { StarFill } from "@styled-icons/bootstrap/StarFill";
+import { Delete } from "@styled-icons/typicons/Delete";
 
 import { useWishlist } from "../../utils/provider";
 import { useRef } from 'react';
@@ -20,6 +20,7 @@ const Cont = styled.div`
   align-items: center;
   width: ${(props) => props.width};
   height: 220px;
+  
 
   margin-top: 20px;
   margin-left: ${(props) => props.marginL};
@@ -36,6 +37,7 @@ const Cont = styled.div`
 `;
 
 
+
 const InnerCont = styled.div`
   width: ${(props) => props.innerWidth};
   height: ${(props) => props.innerHeight};
@@ -43,7 +45,7 @@ const InnerCont = styled.div`
   border-radius: 50%;
   display: flex;
   justify-content: center;
-  margin-top: 5px;
+  margin-top: -18px;
 `;
 
 const Name = styled.p`
@@ -52,15 +54,17 @@ const Name = styled.p`
   color: #474747;
 `;
 
-const StarFilled = styled(StarFill)`
-  color: #f7d359;
-  position: absolute;
+const DeleteButton = styled(Delete)`
+  position: relative;
   display: ${props=>props.display};
-  left: ${(props) => props.left};
-  top: 15px;
-  width: 25px;
-  z-index: 3;
+  left: 145px;
+  width: 35px;
+  color: black;
+  opacity: 0.2;
+  cursor: pointer;
+  z-index: 100;
 `;
+
 
 const StarOutline = styled(Star)`
   color: #f7d359;
@@ -253,28 +257,9 @@ export const VillagersDnd = ({
       marginR={marginR}
 
     >
-      
+      <DeleteButton/>
 
-      {!star ? (
-        <StarOutline
-          left={left}
-          display={starDisplay}
-          onClick={() => {
-            setStar(true);
-            console.log("filled the star");
-            AddingVillager()
-          }}
-        />
-      ) : (
-        <StarFilled
-          left={left}
-          display={starDisplay}
-          onClick={() => {
-            setStar(false);
-            console.log("unfilled the star");
-          }}
-        />
-      )}
+      
       <InnerCont 
         onClick={onClick}
         innercolor={innercolor}
