@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { useDrag, useDrop } from 'react-dnd'
 import { Star } from "@styled-icons/bootstrap/Star";
 import { StarFill } from "@styled-icons/bootstrap/StarFill";
-
-
-import { useWishlist } from "../../utils/provider";
-import { v4 as uuidv4 } from 'uuid';
-import ax from "axios";
-// import { useEffect } from 'react/cjs/react.production.min';
-
-
 
 const Cont = styled.div`
   background-color: ${(props) => props.bgcolor};
@@ -19,23 +10,16 @@ const Cont = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   width: ${(props) => props.width};
   height: 220px;
-
   margin-top: 20px;
   margin-left: ${(props) => props.marginL};
   margin-right: ${(props) => props.marginR};
   border-radius: 20px;
   user-select: none;
   cursor: pointer;
-
-  ${({position, left, top})=>(position === 'fixed' || position === 'absolute') && `
-  left:${left}px;
-  top:${top}px;
-  position:${position};
-  `}
 `;
-
 
 const InnerCont = styled.div`
   width: ${(props) => props.innerWidth};
@@ -95,48 +79,19 @@ export default function Villagers({
   marginR = "0px",
   starDisplay = "block",
   onClick = () => {},
-  children=null,
-  vilpos=null,
-  type='villager',
-  onUpdateVil=()=>{},
   fillStarClick = () => {},
   unStarClick = () => {},
-
 }) {
   const [star, setStar] = useState(false);
-  const [villager, setVillager] = useState({});
-  const {wishlist, setWishlist} = useState();;
   const r = useRouter();
-  const {uuid} = r.query;
-  
-
-  const AddingVillager = () => {
-    const villager_id = uuidv4()
-    setVillager((prev)=>({
-      ...prev,
-      [villager_id]: {villagerid:villager_id}
-    }))
-    HandleSave()
-  }
-
-
-  const HandleSave = async() => {
-    console.log(villager, 'villager list')
-    const resp = await ax.post('/api/save', {
-      uuid,
-      villager
-    })
-  }
 
   return (
-    <Cont ref={drag}  {...sty}
-      onBlur={()=>setShowInput(false)}
+    <Cont
       width={width}
       bgcolor={bgcolor}
       marginL={marginL}
       marginR={marginR}
     >
-      
 
       {!star ? (
         <StarOutline
@@ -144,7 +99,7 @@ export default function Villagers({
           display={starDisplay}
           onClick={() => {
             setStar(true);
-            AddingVillager()
+            fillStarClick()
           }}
         />
       ) : (
@@ -153,10 +108,11 @@ export default function Villagers({
           display={starDisplay}
           onClick={() => {
             setStar(false);
+            unStarClick()
           }}
         />
       )}
-      <InnerCont 
+      <InnerCont
         onClick={onClick}
         innercolor={innercolor}
         innerWidth={innerWidth}
