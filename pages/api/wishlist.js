@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     console.log(req.query, "delete req.method req query")
 
     try {
-      const wishlistVillager = await ax.post(`https://villager-wishlist.herokuapp.com/wishlist?token=${token}&villager=${villager}`, {token, villager});
+      const wishlistVillager = await ax.delete(`https://villager-wishlist.herokuapp.com/wishlist?token=${token}&villager=${villager}`, {token, villager});
       // const wishlistVillager = await ax.delete(`http://localhost:3000/wishlist?token=${token}&villager=${villager}`, {token, villager});
       console.log(wishlistVillager, "data deleted from wishlist")
       res.status(200).send(wishlistVillager.data)
