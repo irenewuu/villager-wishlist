@@ -7,9 +7,8 @@ export default async function handler(req, res) {
   const { txt, personality, hobby, gender, offset, user, token } = req.query;
 
   // backend axios call ==================================================================
-  // const acnhList = await ax.get("https://villager-wishlist.herokuapp.com/search");
-  const acnhList = await ax.get(`http://localhost:3000/search?token=${token}`);
-  // const acnhList = await ax.get(`http://localhost:3000/search?name=${txt}&offset=${offset}`);
+  const acnhList = await ax.get(`https://villager-wishlist.herokuapp.com/search?token=${token}`);
+  // const acnhList = await ax.get(`http://localhost:3000/search?token=${token}`);
   console.log("Incoming", acnhList.data);
   var lists = [];
 

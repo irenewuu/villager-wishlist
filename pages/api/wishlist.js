@@ -6,10 +6,11 @@ export default async function handler(req, res) {
     console.log(req.query, "get wishlist reqquery")
     
       try {
-          const wishlistVillager = await ax.get(`http://localhost:3000/wishlist?token=${token}`);
-          console.log(wishlistVillager.data, "wishlist data")
-          var wishlistData = wishlistVillager.data
-          res.status(200).send(wishlistData);
+        const wishlistVillager = await ax.get(`https://villager-wishlist.herokuapp.com/wishlist?token=${token}`);
+        // const wishlistVillager = await ax.get(`http://localhost:3000/wishlist?token=${token}`);
+        console.log(wishlistVillager.data, "wishlist data")
+        var wishlistData = wishlistVillager.data
+        res.status(200).send(wishlistData);
       } catch (e) {
         console.log(e, "error")
         res.status(404).json(false);
@@ -22,7 +23,8 @@ export default async function handler(req, res) {
 
     if(req.body.villager) {
       try {
-        const wishlistVillager = await ax.post(`http://localhost:3000/wishlist?token=${token}&villager=${villager}`, {token, villager});
+        const wishlistVillager = await ax.post(`https://villager-wishlist.herokuapp.com/wishlist?token=${token}&villager=${villager}`, {token, villager});
+        // const wishlistVillager = await ax.post(`http://localhost:3000/wishlist?token=${token}&villager=${villager}`, {token, villager});
         console.log(wishlistVillager.data, "data added to wishlist")
         res.status(200).send(wishlistVillager.data);
         
@@ -38,7 +40,8 @@ export default async function handler(req, res) {
     console.log(req.query, "delete req.method req query")
 
     try {
-      const wishlistVillager = await ax.delete(`http://localhost:3000/wishlist?token=${token}&villager=${villager}`, {token, villager});
+      const wishlistVillager = await ax.post(`https://villager-wishlist.herokuapp.com/wishlist?token=${token}&villager=${villager}`, {token, villager});
+      // const wishlistVillager = await ax.delete(`http://localhost:3000/wishlist?token=${token}&villager=${villager}`, {token, villager});
       console.log(wishlistVillager, "data deleted from wishlist")
       res.status(200).send(wishlistVillager.data)
     } catch(e) {
