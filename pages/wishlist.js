@@ -15,7 +15,7 @@ import Header from "../comps/Header";
 import TextBubble from "../comps/TextBubble";
 import Button from "../comps/Button";
 import BottomNav from "../comps/BottomNav";
-import DeleteZone from "../comps/DeleteZone";
+// import Deletezone from "../comps/Deletezone";
 import { VillagersDnd } from "../comps/VilagersDnd";
 
 const BubbleCont = styled.div`
