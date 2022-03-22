@@ -55,13 +55,14 @@ const Name = styled.p`
 `;
 
 const DeleteButton = styled(Delete)`
-position: relative;
-display: ${props=>props.display};
-left: 145px;
-width: 35px;
-color: black;
-opacity: 0.2;
- 
+  position: relative;
+  display: ${props=>props.display};
+  left: 145px;
+  width: 35px;
+  color: black;
+  opacity: 0.2;
+  cursor: pointer;
+  z-index: 100;
 `;
 
 
