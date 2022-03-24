@@ -177,7 +177,7 @@ export default function ChatPage() {
       <NavCont>
         <InfoCont>
           {msgs.map((o,i)=>
-          <ChatBubble style={{background:bgcolors[i%2], color:txtcolors[i%2]}}>
+          <ChatBubble key={i} style={{background:bgcolors[i%2], color:txtcolors[i%2]}}>
             {o}
           </ChatBubble>
             )} 
