@@ -96,7 +96,8 @@ export default function AuthSignUp({
       password: input.password
     }
     try {
-      let res = await ax.post('https://villager-wishlist.herokuapp.com/signup', newUser)
+      // let res = await ax.post('http://localhost:3000/signup', newUser)
+      let res = await ax.post('https://villager-wishlist.herokuapp.com/signup', newUser)      
       localStorage.setItem('token', res.data)
       localStorage.setItem('user', res.config.data)
       console.log(res.data, "token")

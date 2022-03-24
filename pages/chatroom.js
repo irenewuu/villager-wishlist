@@ -135,7 +135,8 @@ export default function ChatPage() {
     const txtcolors = ["white", "#474747"]
 
     useEffect(()=>{
-      const socket = io("http://localhost:8888");
+      const socket = io("https://villager-wishlist.herokuapp.com");
+      // const socket = io("https://localhost:3000");
   
       socket.on("change", (id, txt)=>{
         setName((prev)=>[

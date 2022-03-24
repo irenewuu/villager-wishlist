@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     const {_id, token} = req.query;
     
     // backend axios call ==================================================================
-    // const acnhList = await ax.get(`https://villager-wishlist.herokuapp.com/profile/${_id}`);
     const acnhList = await ax.get(`https://villager-wishlist.herokuapp.com/profile/${_id}?token=${token}`);
 
     var lists = [];
