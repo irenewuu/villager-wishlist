@@ -4,39 +4,29 @@ import styled from "styled-components";
 import ax from "axios";
 import { motion } from "framer-motion";
 
-import { filter_themes, usePersonality, useHobby, useGender, useUserToken, useUserId } from "../utils/provider";
+import { filter_themes, usePersonality, useHobby, useGender } from "../utils/provider";
 import {bg, innerCircle} from '../utils/variables';
 
 import BottomNav from "../comps/BottomNav";
 import Villagers from "../comps/Villagers";
 import SearchBar from "../comps/SearchBar/SearchBar";
 
-
-
 export default function Search() {
   const router = useRouter();
 
   const { personalityFilter } = usePersonality();
-  const {userToken} = useUserToken();
   const { hobbyFilter } = useHobby();
   const { genderFilter } = useGender();
-  const {userId} = useUserId()
   
   const [data, setData] = useState([]);
-  const [villager, setVillager] = useState({});
-  const [wishList, setWishList] = useState({});
-
+  const [wishList, setWishList] = useState([]);
   const [cur_page, setCurPage ] = useState([]);
   const [villager_num, setVillager_num] = useState();
   const [text, setText] = useState('');
-  
-  console.log(userId, "userid")
 
   var timer = null;
   // pagination & text input function ===================================================
   const TextInput = async(txt, p)=>{
-    console.log(txt);
-
     var obj = {};
     if(txt) { obj.txt = txt; }
 
@@ -55,12 +45,10 @@ export default function Search() {
             personality: personalityFilter.length >= 1 ? JSON.stringify(personalityFilter) : '',
             hobby: hobbyFilter.length >= 1 ? JSON.stringify(hobbyFilter) : '',
             gender: genderFilter.length >= 1 ? JSON.stringify(genderFilter) : '',
-            // user: userId,
             token: window.localStorage.getItem('token')
           },
         });
-        console.log(res.data, "data");
-        
+        // console.log(res.data, "data");        
         setData(res.data.lists);
         setText(txt);
         setCurPage(p);
@@ -85,10 +73,7 @@ export default function Search() {
         for(var i = 0; i < res.data.length; i++) {
           villagerData.push(res.data[i].villager)
         }
-        console.log(villagerData, "whats in here")
         setWishList(villagerData)
-      } else {
-        console.log("no data in wishlist")
       }
     }
     getData()
@@ -132,7 +117,6 @@ export default function Search() {
       token: window.localStorage.getItem('token'),
       villager: o
     })
-    console.log(resp.data, 'data added to wishlist')
   }
 
   const HandleDelete = async(o) => {
@@ -141,20 +125,15 @@ export default function Search() {
       token: window.localStorage.getItem('token'),
       villager: o
     }})
-    console.log(resp.data, "deleting data from wishlist")
   }
-
 
   return (
     <div className="SearchCont">
       <SearchBar onTextChange={(e) => {TextInput(e.target.value);}} />
-      {/* if data is true and data.length is greater than 0, show the list of villagers */}
-      {data && data.length > 0 && data !== "not author" ? 
+      {data && data.length > 0? 
         <div className="ResultsCont">
-
           <div className="VillagersCont"> 
-            { data.length > 0 && data !== "not author" ? data.map((o, i) => (
-
+            { data.length > 0 ? data.map((o, i) => (
               <motion.div whileHover={{ scale: 1.03 }} key={o._id} >
                   <Villagers
                     name={o.name}
@@ -172,14 +151,11 @@ export default function Search() {
                   />
                 </motion.div>
               )) 
-
               : <></> }
           </div>
           <div className="PagiCont"> {butt_arr} </div>
-
         </div>
-          :  <div>
-          </div>
+          :  <div></div>
         }
 
       <BottomNav searchColor="#474747" searchTextColor="#474747" />

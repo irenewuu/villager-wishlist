@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useDrag, useDrop } from 'react-dnd'
-import { Star } from "@styled-icons/bootstrap/Star";
 import { Delete } from "@styled-icons/typicons/Delete";
 
-import { useWishlist } from "../../utils/provider";
 import { useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ax from "axios";
-// import { useEffect } from 'react/cjs/react.production.min';
 
 
 const Cont = styled.div`
@@ -65,18 +62,6 @@ const DeleteButton = styled(Delete)`
   z-index: 100;
 `;
 
-
-const StarOutline = styled(Star)`
-  color: #f7d359;
-  position: absolute;
-  display: ${props=>props.display};
-  left: ${(props) => props.left};
-  background: transparent;
-  top: 15px;
-  width: 25px;
-  z-index: 3;
-`;
-
 const Img = styled.img`
   width: 100px;
   object-fit: contain;
@@ -96,7 +81,6 @@ export const VillagersDnd = ({
   innerHeight = "140px",
   marginL = "0px",
   marginR = "0px",
-  starDisplay = "block",
   onClick = () => {},
   children=null,
   vilpos=null,
@@ -105,13 +89,7 @@ export const VillagersDnd = ({
   id, text, index, moveCard,
   deleteClick = () => {},
 }) => {
-  const [star, setStar] = useState(false);
-  const [villager, setVillager] = useState({});
-  const {wishlist, setWishlist} = useState();;
   const r = useRouter();
-  const {uuid} = r.query;
-
-
   
   //===========DND POSITION===============
 
@@ -131,7 +109,7 @@ export const VillagersDnd = ({
       const dragIndex = item.index;
       const hoverIndex = index;
       // Don't replace items with themselves
-      console.log('hovering', hoverIndex, dragIndex, item);
+      // console.log('hovering', hoverIndex, dragIndex, item);
       if (dragIndex === hoverIndex) {
         return;
       }
@@ -196,7 +174,6 @@ export const VillagersDnd = ({
     end:(item, monitor)=>{
       if(type === 'indvillager'){
         if(!monitor.didDrop()){
-
           setPos({
             left:monitor.getClientOffset().x + 30,
             top:monitor.getClientOffset().y - 220/2,
@@ -218,34 +195,13 @@ export const VillagersDnd = ({
     top: type==='indvillager' ? pos.top : null,
     position: type==='indvillager' ? pos.position : null
   }
+
   if(coords && isDragging){
-    console.log(coords, index)
+    // console.log(coords, index)
     sty.left = coords.x +0;
     sty.top = coords.y - 220/2;
     sty.position = 'absolute';
     
-  }
-
-  
-
-//===========DND POSITION ENDS===============
-
-  const AddingVillager = () => {
-    const villager_id = uuidv4()
-    setVillager((prev)=>({
-      ...prev,
-      [villager_id]: {villagerid:villager_id}
-    }))
-    HandleSave()
-  }
-
-
-  const HandleSave = async() => {
-    console.log(villager, 'villager list')
-    const resp = await ax.post('/api/save', {
-      uuid,
-      villager
-    })
   }
   
   drag(drop(ref));
@@ -256,15 +212,12 @@ export const VillagersDnd = ({
       bgcolor={bgcolor}
       marginL={marginL}
       marginR={marginR}
-
     >
       <DeleteButton 
         onClick={()=>{
           deleteClick();
         }}
       />
-
-      
       <InnerCont 
         onClick={onClick}
         innercolor={innercolor}

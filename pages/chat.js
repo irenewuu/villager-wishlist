@@ -61,20 +61,17 @@ export default function ChatPage() {
     <Cont>
       <Header text="Chatrooms" />
       <Wrap>
-        <ButtonCont>
-          <ChatButton
-            src="/global.png"
-            onClick={() => router.push("/chatroom")}
-          ></ChatButton>
+        <ButtonCont onClick={() => router.push("/chatroom/global")} >
+          <ChatButton src="/global.png" />
           <ButtonText>Global</ButtonText>
         </ButtonCont>
 
-        <ButtonCont>
+        <ButtonCont onClick={() => router.push("/chatroom/villager")} >
           <ChatButton src="/villager.png" />
           <ButtonText>Villager</ButtonText>
         </ButtonCont>
 
-        <LastButtonCont>
+        <LastButtonCont onClick={() => router.push("/chatroom/trading")} >
           <ChatButton src="/trading.png" />
           <ButtonText>Trading</ButtonText>
         </LastButtonCont>

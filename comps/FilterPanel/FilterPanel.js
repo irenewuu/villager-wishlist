@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import {useFilters, usePersonality, useHobby, useGender, useTheme} from "../../utils/provider";
+import {usePersonality, useHobby, useGender, useTheme} from "../../utils/provider";
 import { filter_themes } from '../../utils/variables';
 
 import Button from "../Button";
@@ -14,7 +14,6 @@ const FilterPanelCont = styled.div`
   // transition: all 0.5s ease-in-out 0.2s;
   background-color: ${props=>props.background};
 `;
-
 const FilterBtn = styled.button`
   width: 80px;
   margin: 8px 8px;
@@ -32,7 +31,6 @@ const BtnsCont = styled.div`
   justify-content: space-around;
   margin: 8px 0;
 `; 
-
 const Header = styled.h5`
 color:${props=>props.color};
 `
@@ -43,7 +41,6 @@ export default function FilterPanel({
   onApplyClick=()=>{}
 }) {
   //useContext for personality, hobby, and gender
-  const {filterSettings, setFilterSettings} = useFilters();
   const {personalityFilter, setPersonalityFilter} = usePersonality();
   const {hobbyFilter, setHobbyFilter} = useHobby();
   const {genderFilter, setGenderFilter} = useGender();
@@ -75,33 +72,20 @@ export default function FilterPanel({
     setState(!state)
     {state ? setPersonalityFilter(personalityFilter.filter(i=>i !== name)) 
       : setPersonalityFilter([...personalityFilter, name]) }
-      filtersFunc()
   }
 
   const hobbyFilterFunc = (name, state, setState) => {
       setState(!state)
       {state ? setHobbyFilter(hobbyFilter.filter(i=>i !== name)) 
         : setHobbyFilter([...hobbyFilter, name]) }
-      filtersFunc()
   }
 
   const genderFilterFunc = (name, state, setState) => {
       setState(!state)
       {state ? setGenderFilter(genderFilter.filter(i=>i !== name)) 
         : setGenderFilter([...genderFilter, name]) }
-      filtersFunc()
   }
-const filtersFunc = () => {
-   setFilterSettings((prev) => ({
-    // ...prev,
-    ...personalityFilter,
-    ...hobbyFilter,
-    ...genderFilter,
-   }))
-}
-
-  console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
-  // console.log(personalityFilter)
+  // console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
 
   // filtering arrays ==========================================================================================================================
   const personalities = [
@@ -134,7 +118,7 @@ const filtersFunc = () => {
     {personalityFilter.length >= 1 ? personalityFilter.length = 0 : ''}
     {hobbyFilter.length >= 1 ? hobbyFilter.length = 0 : ''}
     {genderFilter.length >= 1 ? genderFilter.length = 0 : ''}
-    console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
+    // console.log("personality: " + personalityFilter + ", hobby: " + hobbyFilter + ", gender: " + genderFilter)  
     
     //personalities
     setSBSisterly(false), setSBPeppy(false), setSBSnooty(false), setSBSmug(false),

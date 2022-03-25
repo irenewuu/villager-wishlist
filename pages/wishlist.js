@@ -10,12 +10,10 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { bg } from "../utils/variables";
 import { innerCircle } from "../utils/variables";
 
-import Villagers from "../comps/Villagers";
 import Header from "../comps/Header";
 import TextBubble from "../comps/TextBubble";
 import Button from "../comps/Button";
 import BottomNav from "../comps/BottomNav";
-// import Deletezone from "../comps/Deletezone";
 import { VillagersDnd } from "../comps/VilagersDnd";
 
 const BubbleCont = styled.div`
@@ -36,8 +34,6 @@ const Content = styled.div`
 
 export default function Wishlist() {
     const r = useRouter();
-    const [villagers, setVillagers] = useState([]);
-
     const [cards, setCards] = useState([]);      
     
     useEffect(()=>{
@@ -48,18 +44,12 @@ export default function Wishlist() {
           }
         })
         if(res.data !== false) {
-          console.log(res.data, "wishlist res data")
           var villagerData = []
           for(var i = 0; i < res.data.length; i++) {
             villagerData.push(res.data[i].villager)
           }
-          // setVillagers(villagerData)
-          console.log(villagerData, "villagerData array")
-          // setCards(Object.keys(villagerData))
+          // console.log(villagerData, "villagerData array")
           setCards([...villagerData])
-          console.log(cards, "cards array")
-        } else {
-          console.log("no data in wishlist")
         }
       }
       getData()
@@ -67,14 +57,13 @@ export default function Wishlist() {
       
     },[])
     const moveCard = (dragIndex, hoverIndex) => {
-      console.log("move", dragIndex, hoverIndex)
+      // console.log("move", dragIndex, hoverIndex)
       var item1 = {...cards[dragIndex]};
       var item2 = {...cards[hoverIndex]};
       
       cards[hoverIndex]=item1
-        cards[dragIndex]=item2
-    
-        setCards([...cards])
+      cards[dragIndex]=item2
+      setCards([...cards])
         // setCards((prevCards) => update(prevCards, {
           //     $splice: [
         //         [dragIndex, 1],
@@ -82,9 +71,7 @@ export default function Wishlist() {
         //     ],
         // })); 
     };
-    
-    // console.log(userId, "user id")
-    console.log(cards, "cards array")
+    // console.log(cards, "cards array")
     
     const HandleDelete = async(o) => {
       const resp = await ax.delete('/api/dnd_wishlist', {
@@ -92,8 +79,6 @@ export default function Wishlist() {
         token: window.localStorage.getItem('token'),
         villager: o
       }})
-      
-      console.log(resp.data, "deleting data from wishlist")
     }
 
     return (

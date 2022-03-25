@@ -1,0 +1,81 @@
+.ChatMainCont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.HeaderCont {
+    position: relative;
+    display:flex;
+    align-items:center;
+    width: 70%;
+    margin-top: 50px;
+
+    .HeaderText {
+        color:#007C74;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.ChatCont {
+    display: flex;
+    height: 100%;
+    width: 70%;
+    align-items:center;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .ChatBubbleCont {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 24px;
+    }
+    .ChatBubble {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        flex-grow: 0;
+        order: 0;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        
+        border-radius: 10px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16), 0px -1px 1px rgba(0, 0, 0, 0.08);
+        // color: #1a1a1a;
+        font-size: 25px;
+        font-family:Dongle;
+    }
+}
+
+.ChatInputCont {
+    margin-bottom: 50px;
+    width: 100%;
+    border-radius: 10px;
+    border: 2px solid #007C74;
+    padding-left: 20px;
+    display:flex;
+
+    .ChatInput {
+        background: none;
+        border:none;
+        width: 100%;
+        &:focus{
+          outline:none;
+        }
+    }
+    .SendCont {
+        background: none;
+        border:none;
+        color:#6AACA0;
+        border-radius: 5px;
+        width: 60px;
+        height: 50px;
+    }
+} 

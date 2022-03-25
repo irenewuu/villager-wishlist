@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import FilterPanel from "../FilterPanel/FilterPanel";
-import FilterIcon from "./../../public/FilterIcon.svg";
-import SearchIcon from "./../../public/SearchIcon.svg";
 import { useTheme} from "../../utils/provider";
 import { search_themes } from '../../utils/variables';
+
+import FilterIcon from "./../../public/FilterIcon.svg";
+import SearchIcon from "./../../public/SearchIcon.svg";
+import FilterPanel from "../FilterPanel/FilterPanel";
 
 const BackgroundBlur = styled.div`
   position: fixed;
@@ -49,10 +50,7 @@ export default function SearchBar({ onTextChange = () => {} }) {
         <img
           src={FilterIcon.src}
           alt="filter icon"
-          onClick={() => {
-            HandleClick();
-            console.log(filterState);
-          }}
+          onClick={() =>HandleClick()}
         />
       </SearchbarCont>
       <FilterPanel 

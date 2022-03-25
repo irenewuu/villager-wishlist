@@ -18,7 +18,6 @@ import {
   signOut,
 } from "firebase/auth";
 
-
 const firebaseConfig = {
   apiKey: "AIzaSyCHAc6ZocmhVTPrXfGsoziKsoaRBJk0g-Y",
   authDomain: "animal-crossing-10520.firebaseapp.com",
@@ -28,6 +27,7 @@ const firebaseConfig = {
   appId: "1:463468343690:web:c323acea2b92253fee1873",
   measurementId: "G-77B805BS4J",
 };
+const app = initializeApp(firebaseConfig);
 
 const Container = styled.div`
   display:flex;
@@ -42,11 +42,7 @@ padding: 15px;
 margin-top:1px;
 `
 
-const app = initializeApp(firebaseConfig);
-
-export default function Settings({
-  
-}) {
+export default function Settings() {
   const {theme, setTheme} = useTheme();
   const router = useRouter();
 
@@ -54,12 +50,7 @@ export default function Settings({
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (!user) {
-        console.log("signed out", user);
         router.push('/')
-
-      } else {
-        console.log("signed in");
-        
       }
     });
   }, []);
@@ -68,7 +59,6 @@ export default function Settings({
     localStorage.removeItem('token')
     router.push('/')
   };
-
 
   return (
     <Container>

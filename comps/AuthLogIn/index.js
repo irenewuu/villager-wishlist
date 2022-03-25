@@ -1,9 +1,7 @@
 import React, {useState}  from 'react'
 import styled from "styled-components";
-import Link from 'next/link';
 import {useRouter} from 'next/router';
 import ax from "axios";
-import { v4 as uuidv4 } from 'uuid';
 
 const Cont = styled.div`
   display:flex;
@@ -98,23 +96,17 @@ export default function AuthLogIn({
       let res = await ax.post('https://villager-wishlist.herokuapp.com/login', user)
       localStorage.setItem('token', res.data)
       localStorage.setItem('user', res.config.data)
-      // console.log("logged in")
-      // console.log(res.data, "token")
 
       // check the user
       if(localStorage.getItem('token')){
-        console.log('checked')
-        // allow some operstion for logen in user
+        // allow some operstion for login in user
         router.push(`/wishlist`);
-
       }
     }catch(e){
-      console.log(e)
-      // console.log("failed login")
+      console.log(e, " failed login")
     }
   }
   
-
   return ( <Cont>
     <RowGap>
       <TextInput onChange={handleChange} value={input.name} type="text" name="name" placeholder="Username" autoComplete='off'/>

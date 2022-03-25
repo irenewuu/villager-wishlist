@@ -17,12 +17,6 @@ const initialStates = {
     theme:"default",
     setTheme:()=>{},
 
-    userId: {},
-    setUserId: ()=>{},
-
-    userToken: null,
-    setUserToken: ()=>{},
-
 }
 
 const MyContext = createContext(initialStates);
@@ -31,8 +25,6 @@ export default function AppProvider({children}) {
 
     const [filterSettings, setFilterSettings] = useState([]);
     const [theme, setTheme] = useState(initialStates.theme);
-    const [userId, setUserId] = useState({});
-    const [userToken, setUserToken] = useState();
 
     const [personalityFilter, setPersonalityFilter] = useState([]);
     const [hobbyFilter, setHobbyFilter] = useState([]);
@@ -41,8 +33,6 @@ export default function AppProvider({children}) {
     return <MyContext.Provider value = {{
         theme, setTheme, 
         filterSettings, setFilterSettings,
-        userId, setUserId,
-        userToken, setUserToken,
         personalityFilter, setPersonalityFilter, 
         hobbyFilter, setHobbyFilter, 
         genderFilter, setGenderFilter
@@ -85,14 +75,4 @@ export function useGender() {
 export function useTheme() {
     const {theme, setTheme} = useContext(MyContext);
     return {theme, setTheme};
-}
-
-export function useUserId() {
-    const {userId, setUserId} = useContext(MyContext);
-    return {userId, setUserId}
-}
-
-export function useUserToken() {
-    const {userToken, setUserToken} = useContext(MyContext);
-    return {userToken, setUserToken}
 }

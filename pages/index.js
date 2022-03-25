@@ -15,16 +15,13 @@ align-items: center;
 width: 100%;
 height: 100%;
 `
-
 const Photo = styled.img`
 padding: 15px;
 margin-top: 20px;
 `
-
 const ButtonCont = styled.div`
 margin: 70px 0;
 `
-
 const BubbleCont = styled.div`
 margin-top: 30px;
 `
@@ -35,11 +32,8 @@ export default function Welcome() {
       <Photo src="/villager-wishlist.svg"></Photo>
       <Photo src="/mountains.svg"></Photo>
       <ButtonCont onClick={()=>router.push("logIn")}>
-        <Button  textHover="none"/>
+        <Button textHover="none"/>
       </ButtonCont>
-      
-    
-
   </Background>
   
 }

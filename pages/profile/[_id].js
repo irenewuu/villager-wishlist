@@ -13,10 +13,8 @@ import {innerCircle} from '../../utils/variables'
 const Cont = styled.div`
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
   text-align: center; 
-  // height: 100%;
   box-sizing: border-box;
   margin-bottom: 80px;
 `;
@@ -30,14 +28,13 @@ export default function Profile() {
   useEffect(()=>{
     if(_id) {
       const GetVillager = async()=> {
-          const res = await ax.get(`../api/ind_villager`, {
+        const res = await ax.get(`../api/ind_villager`, {
           params: {
             _id:_id
           }
         });
 
         if(res.data) {
-          console.log(res.data, "res data")
           setVillager(res.data)
         }
       }
@@ -45,10 +42,9 @@ export default function Profile() {
     }
   }, [_id])
 
-    if(villager === null || villager === undefined) {
-      return <div></div>
-    }
-
+  if(villager === null || villager === undefined) {
+    return <div></div>
+  }
 
   return (
     <Cont>

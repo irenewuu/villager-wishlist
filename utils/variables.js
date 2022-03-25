@@ -45,7 +45,7 @@ export const profile_themes = {
     }
 }
 
-export const bg={
+export const bg = {
     Jock: "#DDEAFD",
     Normal:"#DEF1EF",
     Peppy: "#FFF8D4",

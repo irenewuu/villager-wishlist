@@ -11,7 +11,6 @@ const Cont = styled.div`
   justify-content:center;
   row-gap: 56px;
 `
-
 const TextInput = styled.input`
   box-sizing: border-box;
   color: #8D8D8D;
@@ -29,7 +28,6 @@ const TextInput = styled.input`
     outline: none;
   }
 `;
-
 const RowGap = styled.div`
   display:flex;
   flex-direction: column;
@@ -37,24 +35,20 @@ const RowGap = styled.div`
   justify-content:center;
   row-gap: 24px;
 `
-
 const Submit = styled.input`
   display:flex;
   justify-content:center;
   align-items:center;
   font-family: Dongle;
   font-size: 33px;
-
   color:#FFFFFF;
   background-color: #8CC8A2;
   width: 275px;
   height: 50px;
-
   border: none;
   border-radius: 62px;
   padding-top: 5px;
   margin-bottom: 0px;
-
   cursor: pointer;
 
   &:hover {
@@ -62,7 +56,6 @@ const Submit = styled.input`
     background-color: #FEBDC3;
   };
 `;
-
 const Signin = styled.p`
   color: #8D8D8D;
 `
@@ -100,14 +93,11 @@ export default function AuthSignUp({
       let res = await ax.post('https://villager-wishlist.herokuapp.com/signup', newUser)      
       localStorage.setItem('token', res.data)
       localStorage.setItem('user', res.config.data)
-      console.log(res.data, "token")
-      console.log("signed up")
       router.push("/logIn")
     } catch(e) {
-      console.log(e)
+      console.log(e, " failed login")
     }
   }
-
 
   return ( <Cont>
     <RowGap>
@@ -121,7 +111,7 @@ export default function AuthSignUp({
       <Signin>Have an account? <Link href="/logIn">Log In</Link></Signin>
     </RowGap>
     
-</Cont>
+  </Cont>
 
   )
 }

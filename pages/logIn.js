@@ -2,14 +2,12 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import ax from "axios";
 import styled from "styled-components";
-import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 
 import AuthLogIn from "../comps/AuthLogIn";
 import Button from "../comps/Button";
 
 import { initializeApp } from "firebase/app";
-
 import {
   GoogleAuthProvider,
   getAuth,
@@ -28,7 +26,6 @@ const firebaseConfig = {
   measurementId: "G-77B805BS4J",
 };
 
-
 const app = initializeApp(firebaseConfig);
 
 export default function LogIn() {
@@ -39,24 +36,20 @@ export default function LogIn() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     const result = await signInWithPopup(auth, provider);
-    
-    console.log(result);
-    // signInWithRedirect(auth, provider);
+  
     const newUser = {
       name: result.user.displayName,
       email: result.user.email,
       password: result.user.email,
     };
-    console.log("newUser:", newUser);
+    // console.log("newUser:", newUser);
     
     try {
       let res = await ax.post("https://villager-wishlist.herokuapp.com/signup", newUser);
-      
-      console.log("token:", res.data);
       localStorage.setItem("token", res.data);
       router.push(`/wishlist`);
     } catch (e) {
-      console.log(e);
+      console.log(e, " error");
     }
   };
 
