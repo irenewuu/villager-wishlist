@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import ax from "axios";
 import styled from "styled-components";
 import Link from "next/link";
+import Image from "next/image";
 
 import AuthLogIn from "../comps/AuthLogIn";
 import Button from "../comps/Button";
@@ -53,9 +54,13 @@ export default function LogIn() {
     }
   };
 
+  const LoginImg = styled.img`
+    margin-bottom: 48px;
+  `;
+
   return (
     <div className="BackgroundCont">
-      <img src="/villager-wishlist.svg" className="LoginImg" />
+      <LoginImg src="/villager-wishlist.svg" alt="ACNH Villager Wishlist image" />
 
       <div id="MainCont">
         <AuthLogIn />
